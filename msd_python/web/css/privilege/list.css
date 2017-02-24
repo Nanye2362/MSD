@@ -1,0 +1,28 @@
+
+.mc_title{
+	float:left;
+}
+
+.mc_add{
+	float:right;
+	font-size:20px;
+	margin-top:5px;
+	cursor:pointer;
+	margin-left:10px;
+}
+
+.t_left{
+	float:left;
+}
+
+.t_right{
+	float:right;
+}
+
+.clear{
+	clear:both;
+}
+
+.table{
+	width:100%;
+}

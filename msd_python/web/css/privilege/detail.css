@@ -1,0 +1,44 @@
+.label_c{
+	display:inline-block;
+	width:100px;
+	vertical-align:top;
+}
+
+.input{
+	display:inline-block;
+	vertical-align:top;
+}
+
+.main_content>div{
+	padding:5px 0;
+}
+
+
+.textarea{
+	width:700px;
+	height:200px;
+}
+
+.span_left{
+	display:inline-block;
+	width:450px;
+}
+
+.input_div{
+	margin-bottom:5px;
+}
+
+.panel_table{
+	display:inline-block;
+	width:800px;
+}
+
+.table_c{
+	width:100%;
+	text-align:left;
+	border:1px solid #000;
+}
+
+.table_c td,.table_c th{
+	border:1px solid #000;
+}
