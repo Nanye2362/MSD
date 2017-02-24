@@ -74,15 +74,23 @@ class ConfigurationController extends Controller {
         } else {
             $obj->success = false;
         }
+        
+        //\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        return $this->render('/site/config.php', ['obj' => $obj]);
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
         
     }
     
-//    public function actionTest() { 
-//        return $this->render('/site/config.php', ['test' => 5]);
-//    }
+    public function actionTest() {
+//        $view = Yii::$app->getView(); //此处的view实例与视图中的view（默认的$this变量）为同一个。所以此处保存的参数在视图中也可以用
+//        
+//        $view->params['testView'] = 'testView'; //因为是同一个布局变量，所以在视图中也可以使用 
+        //$this->renderAjax('about',['test'=>7]);  
+        //$this->renderFile('app\views\site\about.php',['test'=>8]);  
+        return $this->render('/site/config.php', ['test' => 5]);
+    }
 
     public function actionSearch() {
         $curPage = Yii::$app->request->post('curPage');

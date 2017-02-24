@@ -2,37 +2,34 @@
 
 namespace app\controllers;
 
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\web\Session;
+
+use app\filter\UserFilter;
+
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
+    //不使用布局文件
+    public $layout = false;
+
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
+            'user' => [
+                'class' => UserFilter::className(),
+                'admin_actions' => ['config','mailconfig','IndicationsTypes'],
+                'user_actions'=>['index','page2','page3','index4']
             ],
         ];
     }
@@ -53,75 +50,66 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+    public function actionLogin(){
+        $mail = Yii::$app->request->get('mail');
+        $role=Yii::$app->request->get('isrole');
+        if(!empty($mail)){
+            $user=user::findOne(['email'=>$mail]);
+            if(empty($user)){
+                $user=new user();
+                $user->created_at=time();
+                $user->status=1;
+                $user->email = $mail;
+            }
+
+            $user->role=empty($role)?0:1;
+            $user->updated_at=time();
+            $user->save();
+
+            $session = Yii::$app->session;
+            $session['user_id'] = $user->id;
+            return $this->redirect(['site/index']);
+        }else{
+            echo '权限不够，以后跳转到teamspace.merck.com';
+            exit;
+        }
+    }
+
     public function actionIndex()
     {
-//		echo '默沙东python';
-//		exit;
-        return $this->render('..\site\config');
+        //return $this->redirect(['site/index']);
+
+        return $this->render('index');
     }
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
+    public function actionPage2()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('page2');
     }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
+    public function actionPage3()
     {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->render('page3');
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
+    public function actionIndex4()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->render('index4');
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
+
+    public function actionConfig()
     {
-        return $this->render('about');
+        return $this->render('config');
+    }
+
+    public function actionMailconfig()
+    {
+        return $this->render('mailconfig');
+    }
+
+    public function actionIndicationstypes()
+    {
+        return $this->render('IndicationsTypes');
     }
 }

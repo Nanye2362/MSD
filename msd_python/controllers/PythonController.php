@@ -8,12 +8,26 @@ use app\models\CdePublicremark;
 use app\models\ChinaDrugTrials;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
+use app\models\User;
+use app\filter\UserFilter;
 use Yii;
 
 class PythonController extends \yii\web\Controller
 {
     public function init(){
         $this->enableCsrfValidation = false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'user' => [
+                'class' => UserFilter::className()
+            ],
+        ];
     }
 
     //获取cde列表
@@ -23,11 +37,11 @@ class PythonController extends \yii\web\Controller
         $pageSize=Yii::$app->request->post('pageSize');
         $typeId=Yii::$app->request->post('typeId');
         $searchText=Yii::$app->request->post('searchText');
-        $uid=Yii::$app->request->post('uid');
-        $uid=empty($uid)?0:$uid;
+
+        $uid=User::$currUser->id;
+
         $obj=new \stdClass();
-        $curPage=1;
-        $pageSize=20;
+
         if(!empty($curPage)&&!empty($pageSize)){
             $obj= Cde::getList($curPage,$pageSize,$typeId,$searchText,$uid);
             $obj->success=true;
@@ -84,9 +98,7 @@ class PythonController extends \yii\web\Controller
         $cdeId = Yii::$app->request->post('cdeId');
         $remark = Yii::$app->request->post('remark');
         //后期修改 对接  临时用表单传递
-        $userid = Yii::$app->request->post('uid');
-
-        $userid=empty($userid)?0:$userid;
+        $userid =  User::$currUser->id;
 
         $obj = new \stdClass();
         if (!empty($cdeId)) {
@@ -115,8 +127,8 @@ class PythonController extends \yii\web\Controller
         $cdeId = Yii::$app->request->post('cdeId');
         $remark = Yii::$app->request->post('remark');
         //后期修改 对接  临时用表单传递
-        $userid = Yii::$app->request->post('uid');
-        $userid=empty($userid)?0:$userid;
+        $userid =User::$currUser->id;
+
 
         $obj = new \stdClass();
         if (!empty($cdeId)) {

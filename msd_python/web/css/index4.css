@@ -51,18 +51,3 @@
 
 /*虚线分割*/
 .ul_one{position: relative;}
-
-.xuxian{position: absolute;top: 0;left: 0;height: 100%;border-right: 1px dotted black;z-index: 999;}
-.xian_a{width: 38.8%;}
-.xian_b{width: 50%;}
-.xian_c{width: 55%;}
-.xian_d{width: 60%;}
-.xian_e{width: 70%;}
-
-/*分割日期*/
-.date{position: absolute;top: -1px;}
-.date_a{left: 39%;}
-.date_b{left: 50%;}
-.date_c{left: 60%;}
-.date_d{left: 70%;}
-.date_e{left: 80%;}
