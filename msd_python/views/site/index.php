@@ -92,7 +92,59 @@
                     }
                 })
                 //     		 	};
+                
+//                $('#addtofavorite').click(function(){
+//                    addtofavorite();
+//                });
+                
+                
+
             });
+
+
+            function getEmaillist(checkboxvalue) {
+//                $.fn.bsgrid.init('searchTable', {
+//                    url: host + '/emaillist/getemaillist',
+//                    pageSizeSelect: true,
+//                    pageSize: 20,
+//                    otherParames: {
+//                        'searchText': $("#input").val(),
+//                        'typeId': $('#select3').val(),
+//                        'checkboxvalue' : checkboxvalue
+//                    },
+//                    complete: function (options, a, b) {
+//                        console.log('heheheheh')
+//                    }
+//                });
+                $.ajax({
+                    type: "post",
+                    url: host + '/emaillist/getemaillist',
+                    data: {pageSizeSelect: true, pageSize: 20, checkboxvalue: checkboxvalue},
+                    success: function (data) {
+                        if(data.success == true){
+                            console.log('选择成功');
+                            $('#sendemail').click(function () {
+                                
+                            });
+                        }
+                    }
+                });
+                
+                
+            }
+
+            function getcheckboxvalue() {
+                var i = 0;
+                $('input[type=checkbox]').change(function () {
+                    if ($(this).is(':checked')) {
+                        $(this).each(function () {
+                            var checkboxvalue = $(this).eq(i).val();
+                            getEmaillist(checkboxvalue);
+                        });
+                    }
+
+                });
+            }
 
             function getList(showPage) {
 
@@ -161,10 +213,11 @@
 
                             //备注1修改
                             $(this).find('td').eq(8).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
-                            $(this).attr('lang', obj.data[i].id);
+                            //$(this).attr('lang', obj.data[i].id);
+                            $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             i++;
                         })
-                        console.log(obj);
+                        getcheckboxvalue();
                     }
 
                 });
@@ -203,7 +256,7 @@
     </head>
 
     <body>
-       <?php include "menu.php";?>
+        <?php include "menu.php"; ?>
         <div id="bar" style="float: left; margin-left: 3%;">
             <select id="select1">
 
@@ -222,7 +275,8 @@
             <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
             <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
             <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favourite</button>
+            <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
+            <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
         </div>
 
         <br />

@@ -112,4 +112,14 @@ class SiteController extends Controller
     {
         return $this->render('IndicationsTypes');
     }
+    
+    public function actionAddtofavorite()
+    {
+        return $this->render('Addtofavorite');
+    }
+    
+    public function actionSendemail()
+    {
+        return $this->render('Sendemail');
+    }
 }
