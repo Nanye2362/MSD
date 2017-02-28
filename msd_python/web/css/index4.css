@@ -17,6 +17,7 @@
 .nth_5{background:#FEF0EF;}
 .ul_1 li{width: 28px;height: 100%;border-radius:5px ;margin: 0px 5px;display: inline-block;}
 .ul_c{margin-top: 10px;}
+.ul_0{height: 30px;padding: 1px 0;}
 .ul_1{height: 30px;padding: 1px 0;}
 .ul_c li{width: 28px;height: 30px;line-height: 30px;margin: 0px 5px;display: inline-block;text-align:center;}
 /*选择某一部分变色*/
