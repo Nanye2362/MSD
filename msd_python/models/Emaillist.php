@@ -29,6 +29,7 @@ class Emaillist extends \yii\db\ActiveRecord
         return [
             [['user_id', 'cde_id'], 'required'],
             [['user_id', 'cde_id'], 'integer'],
+            [['user_id', 'cde_id'], 'unique', 'targetAttribute' => ['user_id', 'cde_id'], 'message' => 'The combination of User ID and Cde ID has already been taken.'],
         ];
     }
 
@@ -43,7 +44,7 @@ class Emaillist extends \yii\db\ActiveRecord
             'cde_id' => 'Cde ID',
         ];
     }
-
+    
     static function getList($curPage, $pageSize, $typeId, $serachText, $uid) {
         $start = ($curPage - 1) * $pageSize;
 

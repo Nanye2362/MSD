@@ -93,63 +93,13 @@
                 })
                 //     		 	};
             });
-
-
-            function getEmaillist(checkboxvalues) {
-                $.ajax({
-                    type: "post",
-                    url: host + '/emaillist/insert',
-                    data: {pageSize: 20, cde_ids: checkboxvalues},
-                    success: function (data) {
-                        if(data.success == true){
-                            alert('选择成功');
-                        }
-                    }
-                });                
-            }
-
-            function getMyfavoritelist(checkboxvalues){
-                $.ajax({
-                    type: "post",
-                    url: host + '/myfavorite/insert',
-                    data: {pageSize: 20, cde_ids: checkboxvalues},
-                    success: function (data) {
-                        if(data.success == true){
-                            alert('选择成功');
-                        }
-                    }
-                }); 
-            }
-
-            function getcheckboxvalue() {
-                $('#sendemail').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
-                    var checkboxvalues = new Array;
-                    for(var i = 0;i<checkedboxlength;i++){
-                        checkboxvalues[i] = checkedbox.eq(i).val();
-                    }
-                    console.log(checkboxvalues);
-                    getEmaillist(checkboxvalues);
-                });
-                $('#addtofavorite').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
-                    var checkboxvalues = new Array;
-                    for(var i = 0;i<checkedboxlength;i++){
-                        checkboxvalues[i] = checkedbox.eq(i).val();
-                    }
-                    console.log(checkboxvalues);
-                    getMyfavoritelist(checkboxvalues);
-                });
-            }
-
+            
             function getList(showPage) {
 
                 $('#searchTable_pt_outTab').remove();
                 gridObj = $.fn.bsgrid.init('searchTable', {
                     //url: 'data/json.json',
-                    url: host + '/python/getlist',
+                    url: host + '/myfavorite/getmyfavoritelist',
                     //autoLoad: false,
                     pageSizeSelect: true,
                     pageSize: 20,
@@ -215,7 +165,6 @@
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             i++;
                         })
-                        getcheckboxvalue();
                     }
 
                 });
@@ -244,12 +193,7 @@
                     }
                 })
 
-
-
             }
-            //function operate(record, rowIndex, colIndex, options) {
-            //return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
-            //}
         </script>
     </head>
 
@@ -270,11 +214,6 @@
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
-            <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
-            <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
         </div>
 
         <br />

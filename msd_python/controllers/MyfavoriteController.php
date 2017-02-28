@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Sendemailpage;
-use app\models\Emaillist;
+use app\models\Myfavoritelist;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,12 +14,11 @@ use app\models\User;
 use app\filter\UserFilter;
 
 /**
- * Description of SendemailController
+ * Description of FavoriteController
  *
  * @author ctsuser
  */
-class EmaillistController extends Controller {
-
+class MyfavoriteController extends Controller{
     public function init() {
         $this->enableCsrfValidation = false;
     }
@@ -42,7 +41,7 @@ class EmaillistController extends Controller {
         $obj = new \stdClass();
         foreach ($cde_ids as $cde_id){
             if (!empty($cde_id) && !empty($user_id)) {
-                $cde = new Emaillist();
+                $cde = new Myfavoritelist();
                 $cde->user_id = $user_id;
                 $cde->cde_id = $cde_id;
                 $cde->save();
@@ -56,7 +55,7 @@ class EmaillistController extends Controller {
         $response->data = $obj;
     }
 
-    public function actionGetemaillist() {
+    public function actionGetmyfavoritelist() {
         $curPage = Yii::$app->request->post('curPage');
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
@@ -66,7 +65,7 @@ class EmaillistController extends Controller {
 
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = Emaillist::getList($curPage, $pageSize, $typeId, $searchText, $uid);
+            $obj = Myfavoritelist::getList($curPage, $pageSize, $typeId, $searchText, $uid);
             $obj->success = true;
         } else {
             $obj->success = false;
@@ -88,5 +87,4 @@ class EmaillistController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }
