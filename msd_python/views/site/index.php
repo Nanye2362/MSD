@@ -95,11 +95,11 @@
             });
 
 
-            function getEmaillist(checkboxvalue) {
+            function getEmaillist(checkboxvalues) {
                 $.ajax({
                     type: "post",
                     url: host + '/emaillist/insert',
-                    data: {pageSize: 20, cde_id: checkboxvalue},
+                    data: {pageSize: 20, cde_ids: checkboxvalues},
                     success: function (data) {
                         if(data.success == true){
                             console.log('选择成功');
@@ -111,12 +111,15 @@
             }
 
             function getcheckboxvalue() {
-                var i = 0;
                 $('#sendemail').click(function () {
-                    $('input[type=checkbox]:checked').each(function () {
-                        var checkboxvalue = $(this).eq(i).val();
-                        getEmaillist(checkboxvalue);
-                    });
+                    var checkedbox = $('input[type=checkbox]:checked');
+                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkboxvalues = new Array;
+                    for(var i = 0;i<checkedboxlength;i++){
+                        checkboxvalues[i] = checkedbox.eq(i).val();
+                    }
+                    console.log(checkboxvalues);
+                    getEmaillist(checkboxvalues);
                 });
             }
 

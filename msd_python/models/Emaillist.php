@@ -43,7 +43,7 @@ class Emaillist extends \yii\db\ActiveRecord
             'cde_id' => 'Cde ID',
         ];
     }
-    
+
     static function getList($curPage, $pageSize, $typeId, $serachText, $uid) {
         $start = ($curPage - 1) * $pageSize;
 

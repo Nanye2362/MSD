@@ -39,22 +39,24 @@ class EmaillistController extends Controller {
     public function actionInsert() {
         $curPage = 1;
         $pageSize = Yii::$app->request->post('pageSize');
-        $cde_id = Yii::$app->request->post('cde_id');
+        $cde_ids = Yii::$app->request->post('cde_ids');
         $user_id = User::$currUser->id;
-
+        
         $obj = new \stdClass();
-        if (!empty($cde_id) && !empty($user_id)) {
-            $cde = new Emaillist();
-            $cde->user_id = $user_id;
-            $cde->cde_id = $cde_id;
-            $cde->save();
-            if ($cde->save()) {
-                $obj->success = true;
+        foreach ($cde_ids as $cde_id){
+            if (!empty($cde_id) && !empty($user_id)) {
+                $cde = new Emaillist();
+                $cde->user_id = $user_id;
+                $cde->cde_id = $cde_id;
+                $cde->save();
+                if ($cde->save()) {
+                    $obj->success = true;
+                } else {
+                    $obj->success = false;
+                }
             } else {
                 $obj->success = false;
             }
-        } else {
-            $obj->success = false;
         }
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
