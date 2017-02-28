@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Sendemailpage;
-//use app\models\Indicationstypes;
+use app\models\Emaillist;
 //use app\models\IndicationstypesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,8 +28,7 @@ class EmaillistController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'user' => [
                 'class' => UserFilter::className()
@@ -37,32 +36,55 @@ class EmaillistController extends Controller {
         ];
     }
 
-    public function actionGetemaillist() {
+    public function actionInsert() {
         $curPage = 1;
         $pageSize = Yii::$app->request->post('pageSize');
-//        $typeId = Yii::$app->request->post('typeId');
-//        $searchText = Yii::$app->request->post('searchText');
-        $uid = User::$currUser->id;
-        $checkboxvalue = Yii::$app->request->post('checkboxvalue');
-        
-//        var_dump($curPage);
-//        var_dump($pageSize);
-//        var_dump($uid);
-//        var_dump($checkboxvalue);
-//        die;
+        $cde_id = Yii::$app->request->post('cde_id');
+        $user_id = User::$currUser->id;
+
         $obj = new \stdClass();
-        if (!empty($curPage) && !empty($pageSize)) {
-            $obj = Sendemailpage::getList($curPage, $pageSize, $uid, $checkboxvalue);
-            $obj->success = true;
+        if (!empty($cde_id) && !empty($user_id)) {
+            $cde = new Emaillist();
+            $cde->user_id = $user_id;
+            $cde->cde_id = $cde_id;
+            $cde->save();
+            if ($cde->save()) {
+                $obj->success = true;
+            } else {
+                $obj->success = false;
+            }
         } else {
             $obj->success = false;
         }
-//        $obj = json_encode($obj);
-//        var_dump($obj);die;
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
     }
+
+    public function actionGetemaillist() {
+        $curPage = Yii::$app->request->post('curPage');
+        $pageSize = Yii::$app->request->post('pageSize');
+        $typeId = Yii::$app->request->post('typeId');
+        $searchText = Yii::$app->request->post('searchText');
+        
+        $uid = User::$currUser->id;
+
+        $obj = new \stdClass();
+        if (!empty($curPage) && !empty($pageSize)) {
+            $obj = Emaillist::getList($curPage, $pageSize, $typeId, $searchText, $uid);
+            $obj->success = true;
+        } else {
+            $obj->success = false;
+        }
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $obj;
+    }
+
+//    public function actionGetemailpage(){
+//        $pagedata = Yii::$app->request->post();
+//    }
 
     protected function findModel($id) {
         if (($model = Indicationstypes::findOne($id)) !== null) {

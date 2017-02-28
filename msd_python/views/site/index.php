@@ -92,40 +92,17 @@
                     }
                 })
                 //     		 	};
-                
-//                $('#addtofavorite').click(function(){
-//                    addtofavorite();
-//                });
-                
-                
-
             });
 
 
             function getEmaillist(checkboxvalue) {
-//                $.fn.bsgrid.init('searchTable', {
-//                    url: host + '/emaillist/getemaillist',
-//                    pageSizeSelect: true,
-//                    pageSize: 20,
-//                    otherParames: {
-//                        'searchText': $("#input").val(),
-//                        'typeId': $('#select3').val(),
-//                        'checkboxvalue' : checkboxvalue
-//                    },
-//                    complete: function (options, a, b) {
-//                        console.log('heheheheh')
-//                    }
-//                });
                 $.ajax({
                     type: "post",
-                    url: host + '/emaillist/getemaillist',
-                    data: {pageSizeSelect: true, pageSize: 20, checkboxvalue: checkboxvalue},
+                    url: host + '/emaillist/insert',
+                    data: {pageSize: 20, cde_id: checkboxvalue},
                     success: function (data) {
                         if(data.success == true){
                             console.log('选择成功');
-                            $('#sendemail').click(function () {
-                                
-                            });
                         }
                     }
                 });
@@ -135,14 +112,11 @@
 
             function getcheckboxvalue() {
                 var i = 0;
-                $('input[type=checkbox]').change(function () {
-                    if ($(this).is(':checked')) {
-                        $(this).each(function () {
-                            var checkboxvalue = $(this).eq(i).val();
-                            getEmaillist(checkboxvalue);
-                        });
-                    }
-
+                $('#sendemail').click(function () {
+                    $('input[type=checkbox]:checked').each(function () {
+                        var checkboxvalue = $(this).eq(i).val();
+                        getEmaillist(checkboxvalue);
+                    });
                 });
             }
 
