@@ -115,7 +115,7 @@ class SiteController extends Controller
     
     public function actionAddtofavorite()
     {
-        return $this->render('Addtofavorite');
+        return $this->render('Myfavorite');
     }
     
     public function actionSendemail()
