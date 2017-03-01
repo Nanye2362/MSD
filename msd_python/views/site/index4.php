@@ -34,12 +34,12 @@
                     <li>
                         <ul class="ul_0 nth_0"></ul>
                     </li>
-                    <div id="timelinepositon">
-                        <li id="timelinepositon_1"><ul class="ul_1 nth_1"></ul></li>
-                        <li id="timelinepositon_2"><ul class="ul_1 nth_2"></ul></li>
-                        <li id="timelinepositon_3"><ul class="ul_1 nth_3"></ul></li>
-                        <li id="timelinepositon_4"><ul class="ul_1 nth_4"></ul></li>
-                        <li id="timelinepositon_5"><ul class="ul_1 nth_5"></ul></li>                        
+                    <div id="timelineposition">
+                        <li id="timelineposition_1"><ul class="ul_1 nth_1"></ul></li>
+                        <li id="timelineposition_2"><ul class="ul_1 nth_2"></ul></li>
+                        <li id="timelineposition_3"><ul class="ul_1 nth_3"></ul></li>
+                        <li id="timelineposition_4"><ul class="ul_1 nth_4"></ul></li>
+                        <li id="timelineposition_5"><ul class="ul_1 nth_5"></ul></li>                        
                     </div>
                     <li>
                         <ul class="ul_c">
@@ -71,13 +71,11 @@
                         var totalWeek = 0;//总周数
                         var yuweek = 0;
                         console.log(data.data.timeline);
-                        console.log(data);
-                        
+
                         var li_num = new Array;
-                        
+
                         for (var i in data.data.timeline) {
                             li_num.push(i);
-                            console.log(i);
                             //填充空白展位
                             for (var j = 0; j < parseInt(totalWeek); j++) {
                                 $('.ul_1').eq(i).append("<li></li>");
@@ -132,38 +130,50 @@
 
                             var enddate = data.data.end_date[i];
                             if (i == 0) {
-                                $('.ul_one').append("<div class='fxuxian' style='position: absolute;top: 32px;left: 0;height: 160px;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                 $('.ul_one').append("<div class='fdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.fxuxian').css('width', divwidth);
+                                $('.xuxian1').css('width', divwidth);
                                 $('.fdate').css('left', divwidth - 19);
                             } else if (i == 1) {
-                                $('.ul_one').append("<div class='sxuxian' style='position: absolute;top: 32px;left: 0;height: 160px;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                 $('.ul_one').append("<div class='sdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.sxuxian').css('width', divwidth);
+                                $('.xuxian2').css('width', divwidth);
                                 $('.sdate').css('left', divwidth - 19);
                             } else if (i == 2) {
-                                $('.ul_one').append("<div class='txuxian' style='position: absolute;top: 32px;left: 0;height: 160px;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                $('.ul_one').append("<div class='xuxian3' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                 $('.ul_one').append("<div class='tdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.txuxian').css('width', divwidth);
+                                $('.xuxian3').css('width', divwidth);
                                 $('.tdate').css('left', divwidth - 19);
                             } else if (i == 3) {
-                                $('.ul_one').append("<div class='foxuxian' style='position: absolute;top: 32px;left: 0;height: 160px;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                 $('.ul_one').append("<div class='fodate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.foxuxian').css('width', divwidth);
+                                $('.xuxian4').css('width', divwidth);
                                 $('.fodate').css('left', divwidth - 19);
                             } else if (i == 4) {
-                                $('.ul_one').append("<div class='fixuxian' style='position: absolute;top: 32px;left: 0;height: 160px;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                $('.ul_one').append("<div class='xuxian5' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                 $('.ul_one').append("<div class='fidate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.fixuxian').css('width', divwidth);
+                                $('.xuxian5').css('width', divwidth);
                                 $('.fidate').css('left', divwidth - 19);
                             }
 
                         }
-
-                        console.log(li_num);//li_num=[0,1,2]
-                        var all_li = ['0','1','2','3','4'];
+                        console.log(li_num.length);
+                        var all_li = ['0', '1', '2', '3', '4'];
                         var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
-                        console.log(diff);
+                        for (var dv = 0; dv < diff.length; dv++) {
+                            var num = parseInt(diff[dv])+1;
+                            var id1 = '#cont_a_nth_' + num;
+                            var id2 = '#timelineposition_' + num;
+                            $(id1).remove();
+                            $(id2).remove();
+                        }
+                        
+                        for(var k in li_num){
+                            var xuxianclass = '.xuxian' + (parseInt(li_num[k])+1);
+                            console.log(xuxianclass);
+                            var height = 32 * li_num.length;
+                            $(xuxianclass).css('height',height);
+                        }
                         
                         totalWeek = parseInt(totalWeek + 0.99);
 
