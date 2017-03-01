@@ -101,24 +101,24 @@
                     url: host + '/emaillist/insert',
                     data: {pageSize: 20, cde_ids: checkboxvalues},
                     success: function (data) {
-                        if(data.success == true){
+                        if (data.success == true) {
                             alert('选择成功');
                         }
                     }
-                });                
+                });
             }
 
-            function getMyfavoritelist(checkboxvalues){
+            function getMyfavoritelist(checkboxvalues) {
                 $.ajax({
                     type: "post",
                     url: host + '/myfavorite/insert',
                     data: {pageSize: 20, cde_ids: checkboxvalues},
                     success: function (data) {
-                        if(data.success == true){
+                        if (data.success == true) {
                             alert('选择成功');
                         }
                     }
-                }); 
+                });
             }
 
             function getcheckboxvalue() {
@@ -126,7 +126,7 @@
                     var checkedbox = $('input[type=checkbox]:checked');
                     var checkedboxlength = $('input[type=checkbox]:checked').length;
                     var checkboxvalues = new Array;
-                    for(var i = 0;i<checkedboxlength;i++){
+                    for (var i = 0; i < checkedboxlength; i++) {
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     console.log(checkboxvalues);
@@ -136,7 +136,7 @@
                     var checkedbox = $('input[type=checkbox]:checked');
                     var checkedboxlength = $('input[type=checkbox]:checked').length;
                     var checkboxvalues = new Array;
-                    for(var i = 0;i<checkedboxlength;i++){
+                    for (var i = 0; i < checkedboxlength; i++) {
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     console.log(checkboxvalues);
@@ -206,11 +206,14 @@
                                 $(this).children("div").hide()
                             });
 
+                            //临床适应症修改
+                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='' contenteditable='true'>" + '' + "</div>");
+
                             //备注修改
-                            $(this).find('td').eq(8).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             //$(this).attr('lang', obj.data[i].id);
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             i++;
@@ -281,17 +284,19 @@
         <br />
         <table id="searchTable" align="center">
             <tr id="trhead">
-                <th rowspan="2" w_check="true" width="3%;" title="全选"></th>
-                <th rowspan="2" w_index="rank" width="7%;" class='rank'>序号</th>
-                <th rowspan="2" w_index="code" w_align="left" width="10%;">受理号</th>
-                <th rowspan="2" w_index="name" w_align="left" width="10%;">药品名称</th>
-                <th rowspan="2" w_index="company" width="14%;">企业名称</th>
-                <th rowspan="2" w_index="join_date" width="14%;">进入中心时间</th>
-                <th rowspan="2" w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
-                <th  rowspan="2" w_index="ephmra_atc_code" width="5%;">适应症大类</th>
-                <th style="border-right:none;" w_index="remark" width="8%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
-                <th style="border-left:none;" w_index="remark1" width="8%;"><div style="text-align:left !important;">注</div><div>公开</div></th>
-                <th rowspan="2" w_index="showremark" width="8%;">所有用户备注</th>
+                <th  w_check="true" width="3%;" title="全选"></th>
+                <th  w_index="rank" width="7%;" class='rank'>序号</th>
+                <th  w_index="code" w_align="left" width="8%;">受理号</th>
+                <th  w_index="name" w_align="left" width="11%;">药品名称</th>
+                <th  w_index="company" width="14%;">企业名称</th>
+                <th  w_index="join_date" width="8%;">进入中心时间</th>
+                <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
+                <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
+                <th  w_index="sfda_status" width="5%;">临床实验</th>
+                <th  w_index="" width="7%;">临床适应症</th>
+                <th style="border-right:none;" w_index="remark" width="6%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
+                <th style="border-left:none;" w_index="remark1" width="6%;"><div style="text-align:left !important;">注</div><div>公开</div></th>
+                <th  w_index="showremark" width="8%;">所有用户备注</th>
             </tr>
         </table>
     </body>
