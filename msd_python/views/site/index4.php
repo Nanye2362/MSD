@@ -23,11 +23,11 @@
             <div class="cont_a hk">
                 <ul><li class="nth_0"></li></ul>
                 <ul id="tagposition">
-                    <li id="cont_a_nth_1" class="nth_1">The field of ‘Certificate</li>
-                    <li id="cont_a_nth_2" class="nth_2">Thield of ‘Certificate</li>
-                    <li id="cont_a_nth_3" class="nth_3">The field o</li>
-                    <li id="cont_a_nth_4" class="nth_4">Thf ‘Certificate</li>
-                    <li id="cont_a_nth_5" class="nth_5">The fieldertificate</li>
+                    <li id="cont_a_nth_1" class="nth_1">进入CDE中心</li>
+                    <li id="cont_a_nth_2" class="nth_2">CDE开始审评</li>
+                    <li id="cont_a_nth_3" class="nth_3">CDE审评完成</li>
+                    <li id="cont_a_nth_4" class="nth_4">CFDA审批</li>
+                    <li id="cont_a_nth_5" class="nth_5">临床试验批证</li>
                 </ul>
             </div><div class="cont_b hk">
                 <ul class="ul_one">
@@ -127,61 +127,66 @@
                             } else {
                                 var divwidth = parseInt(totalWeek) * 38 + 5 + (totalWeek - parseInt(totalWeek)) * 28;
                             }
-
-                            var enddate = data.data.end_date[i];
-                            if (i == 0) {
-                                $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                $('.ul_one').append("<div class='fdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.xuxian1').css('width', divwidth);
-                                $('.fdate').css('left', divwidth - 19);
-                            } else if (i == 1) {
-                                $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                $('.ul_one').append("<div class='sdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.xuxian2').css('width', divwidth);
-                                $('.sdate').css('left', divwidth - 19);
-                            } else if (i == 2) {
-                                $('.ul_one').append("<div class='xuxian3' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                $('.ul_one').append("<div class='tdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.xuxian3').css('width', divwidth);
-                                $('.tdate').css('left', divwidth - 19);
-                            } else if (i == 3) {
-                                $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                $('.ul_one').append("<div class='fodate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.xuxian4').css('width', divwidth);
-                                $('.fodate').css('left', divwidth - 19);
-                            } else if (i == 4) {
-                                $('.ul_one').append("<div class='xuxian5' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                $('.ul_one').append("<div class='fidate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
-                                $('.xuxian5').css('width', divwidth);
-                                $('.fidate').css('left', divwidth - 19);
-                            }
+                            
+                                var enddate = data.data.end_date[i];
+                                if (i == 0) {
+                                    $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                    $('.ul_one').append("<div class='fdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.xuxian1').css('width', divwidth);
+                                    $('.fdate').css('left', divwidth - 19);
+                                } else if (i == 1) {
+                                    $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                    $('.ul_one').append("<div class='sdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.xuxian2').css('width', divwidth);
+                                    $('.sdate').css('left', divwidth - 19);
+                                } else if (i == 2) {
+                                    $('.ul_one').append("<div class='xuxian3' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                    $('.ul_one').append("<div class='tdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.xuxian3').css('width', divwidth);
+                                    $('.tdate').css('left', divwidth - 19);
+                                } else if (i == 3) {
+                                    $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                    $('.ul_one').append("<div class='fodate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.xuxian4').css('width', divwidth);
+                                    $('.fodate').css('left', divwidth - 19);
+                                } else if (i == 4) {
+                                    $('.ul_one').append("<div class='xuxian5' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
+                                    $('.ul_one').append("<div class='fidate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.xuxian5').css('width', divwidth);
+                                    $('.fidate').css('left', divwidth - 19);
+                                }
+//                            for (var l = 0; l < $('.span_start').length; l++) {
+//                                $('.span_start').parent('li').eq(l).css('margin-left', 15 + 10 * l);
+//                            }
 
                         }
-                        console.log(li_num.length);
+                        console.log(divwidth);
                         var all_li = ['0', '1', '2', '3', '4'];
                         var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
                         for (var dv = 0; dv < diff.length; dv++) {
-                            var num = parseInt(diff[dv])+1;
+                            var num = parseInt(diff[dv]) + 1;
                             var id1 = '#cont_a_nth_' + num;
                             var id2 = '#timelineposition_' + num;
                             $(id1).remove();
                             $(id2).remove();
                         }
-                        
-                        for(var k in li_num){
-                            var xuxianclass = '.xuxian' + (parseInt(li_num[k])+1);
+
+                        for (var k in li_num) {
+                            var xuxianclass = '.xuxian' + (parseInt(li_num[k]) + 1);
                             console.log(xuxianclass);
                             var height = 32 * li_num.length;
-                            $(xuxianclass).css('height',height);
+                            $(xuxianclass).css('height', height);
                         }
-                        
+
                         totalWeek = parseInt(totalWeek + 0.99);
 
                         for (var i = 1; i <= totalWeek; i++) {
                             $('.ul_c').append("<li><span>" + i + "</span>周</li>");
                         }
 
-                        $('.ul_1,.ul_c').width(totalWeek * 38);
+                        $('.ul_1,.ul_c').width(totalWeek * 38 + 50);
+
+
 
                     })
                 }

@@ -207,10 +207,10 @@
                             });
 
                             //备注修改
-                            $(this).find('td').eq(7).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(8).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(8).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             //$(this).attr('lang', obj.data[i].id);
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             i++;
@@ -226,7 +226,7 @@
                 })
 
                 //公开备注
-                $(document).on('focus', 'remark1', function () {
+                $(document).on('focus', '.remark1', function () {
                     p_remarkText = $(this).text();
                 })
 
@@ -288,10 +288,10 @@
                 <th w_index="company" width="14%;">企业名称</th>
                 <th w_index="join_date" width="14%;">进入中心时间</th>
                 <th w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
+                <th w_index="ephmra_atc_code" width="5%;">适应症大类</th>
                 <th w_index="remark" width="8%;">个人备注</th>
                 <th w_index="remark1" width="8%;">公开备注</th>
                 <th w_index="showremark" width="8%;">查看公开备注</th>
-                <th w_index="ephmra_atc_code" width="5%;">适应症大类</th>
             </tr>
         </table>
     </body>

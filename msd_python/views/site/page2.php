@@ -73,8 +73,14 @@
 
 			</tr>
 		</table>
+                <br><br>
+                <div class="note" style="margin: auto;text-align: center;">
+                    <img src="../images/green.jpg">本专业正在审评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="../images/yellow.jpg">本专业排队待审评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="../images/gray.jpg">本专业已完成审评
+                </div>
 		
-		
+            
 		<script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/setting.js" type="text/javascript" charset="utf-8"></script>
 		
