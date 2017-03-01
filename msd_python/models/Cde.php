@@ -114,7 +114,7 @@ class Cde extends \yii\db\ActiveRecord {
             $week = ceil($days / 7 * 100) / 100; //转换周
 
             $return['timeline'][$timeline['status'] - 1] = $week;
-            $return['end_date'][$timeline['status'] - 1] = date('y/n/j', strtotime($timeline['end_date']));
+            $return['end_date'][$timeline['status'] - 1] = date("Y/m/d", strtotime($timeline['end_date']));
         }
 
         return $return;

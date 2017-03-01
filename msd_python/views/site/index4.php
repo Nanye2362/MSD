@@ -133,27 +133,27 @@
                                     $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                     $('.ul_one').append("<div class='fdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian1').css('width', divwidth);
-                                    $('.fdate').css('left', divwidth - 19);
+                                    $('.fdate').css('left', divwidth - 27);
                                 } else if (i == 1) {
                                     $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                     $('.ul_one').append("<div class='sdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian2').css('width', divwidth);
-                                    $('.sdate').css('left', divwidth - 19);
+                                    $('.sdate').css('left', divwidth - 27);
                                 } else if (i == 2) {
                                     $('.ul_one').append("<div class='xuxian3' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                     $('.ul_one').append("<div class='tdate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian3').css('width', divwidth);
-                                    $('.tdate').css('left', divwidth - 19);
+                                    $('.tdate').css('left', divwidth - 27);
                                 } else if (i == 3) {
                                     $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                     $('.ul_one').append("<div class='fodate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian4').css('width', divwidth);
-                                    $('.fodate').css('left', divwidth - 19);
+                                    $('.fodate').css('left', divwidth - 27);
                                 } else if (i == 4) {
                                     $('.ul_one').append("<div class='xuxian5' style='position: absolute;top: 32px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
                                     $('.ul_one').append("<div class='fidate' style='position: absolute;top: -1px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian5').css('width', divwidth);
-                                    $('.fidate').css('left', divwidth - 19);
+                                    $('.fidate').css('left', divwidth - 27);
                                 }
 //                            for (var l = 0; l < $('.span_start').length; l++) {
 //                                $('.span_start').parent('li').eq(l).css('margin-left', 15 + 10 * l);
