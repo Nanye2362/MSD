@@ -229,7 +229,7 @@
                 <th w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th w_index="remark" width="8%;">个人备注</th>
                 <th w_index="remark1" width="8%;">公开备注</th>
-                <th w_index="showremark" width="8%;">查看公开备注</th>
+                <th w_index="showremark" width="8%;">所有用户备注</th>
                 <th w_index="ephmra_atc_code" width="5%;">适应症大类</th>
             </tr>
         </table>

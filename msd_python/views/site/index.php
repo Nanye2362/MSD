@@ -280,18 +280,18 @@
         <br />
         <br />
         <table id="searchTable" align="center">
-            <tr>
-                <th w_check="true" width="3%;" title="全选"></th>
-                <th w_index="rank" width="7%;" class='rank'>序号</th>
-                <th w_index="code" w_align="left" width="10%;">受理号</th>
-                <th w_index="name" w_align="left" width="10%;">药品名称</th>
-                <th w_index="company" width="14%;">企业名称</th>
-                <th w_index="join_date" width="14%;">进入中心时间</th>
-                <th w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
-                <th w_index="ephmra_atc_code" width="5%;">适应症大类</th>
-                <th w_index="remark" width="8%;">个人备注</th>
-                <th w_index="remark1" width="8%;">公开备注</th>
-                <th w_index="showremark" width="8%;">查看公开备注</th>
+            <tr id="trhead">
+                <th rowspan="2" w_check="true" width="3%;" title="全选"></th>
+                <th rowspan="2" w_index="rank" width="7%;" class='rank'>序号</th>
+                <th rowspan="2" w_index="code" w_align="left" width="10%;">受理号</th>
+                <th rowspan="2" w_index="name" w_align="left" width="10%;">药品名称</th>
+                <th rowspan="2" w_index="company" width="14%;">企业名称</th>
+                <th rowspan="2" w_index="join_date" width="14%;">进入中心时间</th>
+                <th rowspan="2" w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
+                <th  rowspan="2" w_index="ephmra_atc_code" width="5%;">适应症大类</th>
+                <th style="border-right:none;" w_index="remark" width="8%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
+                <th style="border-left:none;" w_index="remark1" width="8%;"><div style="text-align:left !important;">注</div><div>公开</div></th>
+                <th rowspan="2" w_index="showremark" width="8%;">所有用户备注</th>
             </tr>
         </table>
     </body>
