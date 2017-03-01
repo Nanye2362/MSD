@@ -144,6 +144,32 @@ class PythonController extends \yii\web\Controller {
         $response->data = $obj;
     }
 
+    public function actionUpdateclinicalindication() {
+        $cdeId = Yii::$app->request->post('cdeId');
+        $clinical_indication = Yii::$app->request->post('clinical_indication');
+        //后期修改 对接  临时用表单传递
+        $userid = User::$currUser->id;
+
+        $obj = new \stdClass();
+        if (!empty($cdeId)) {
+            $cde = Cde::find()->where("id=:cdeid", [":cdeid" => $cdeId])->one();
+            if (empty($cde)) {
+                $cde = new Cde();
+            }
+
+            $cde->clinical_indication = $clinical_indication;
+            $cde->id = $cdeId;
+            $cde->create_date = date('Y-m-d H:i:s');
+            $cde->save(false);
+            $obj->success = true;
+        } else {
+            $obj->success = false;
+        }
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $obj;
+    }
+
     public function actionGetchinadrug() {
         $cdeId = Yii::$app->request->post('cdeId');
         $obj = new \stdClass();

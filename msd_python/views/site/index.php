@@ -207,7 +207,7 @@
                             });
 
                             //临床适应症修改
-                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='' contenteditable='true'>" + '' + "</div>");
+                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
 
                             //备注修改
                             $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
@@ -216,6 +216,7 @@
                             $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             //$(this).attr('lang', obj.data[i].id);
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
+                            $(this).attr('lang', obj.data[i].id);
                             i++;
                         })
                         getcheckboxvalue();
@@ -228,26 +229,33 @@
                     remarkText = $(this).text();
                 })
 
-                //公开备注
-                $(document).on('focus', '.remark1', function () {
-                    p_remarkText = $(this).text();
-                })
-
-
                 $(document).on('blur', '.remark', function () {
                     if ($(this).text() != remarkText) {
                         $.post(host + 'python/updateremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
                     }
                 })
 
-                //公开备注 
+                //公开备注
+                $(document).on('focus', '.remark1', function () {
+                    p_remarkText = $(this).text();
+                })
+
                 $(document).on('blur', '.remark1', function () {
                     if ($(this).text() != p_remarkText) {
                         $.post(host + 'python/updatepublicremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
                     }
                 })
 
+                //临床适应症编辑
+                $(document).on('focus', '.clinical_indication', function () {
+                    c_remarkText = $(this).text();
+                })
 
+                $(document).on('blur', '.clinical_indication', function () {
+                    if ($(this).text() != c_remarkText) {
+                        $.post(host + 'python/updateclinicalindication', {'cdeId': $(this).parents('tr').attr('lang'), "clinical_indication": $(this).text()})
+                    }
+                })
 
             }
             //function operate(record, rowIndex, colIndex, options) {
@@ -293,7 +301,7 @@
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
                 <th  w_index="sfda_status" width="5%;">临床实验</th>
-                <th  w_index="" width="7%;">临床适应症</th>
+                <th  w_index="clinical_indication" width="7%;">临床适应症</th>
                 <th style="border-right:none;" w_index="remark" width="6%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
                 <th style="border-left:none;" w_index="remark1" width="6%;"><div style="text-align:left !important;">注</div><div>公开</div></th>
                 <th  w_index="showremark" width="8%;">所有用户备注</th>

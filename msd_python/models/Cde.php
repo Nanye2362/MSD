@@ -23,9 +23,12 @@ use Yii;
  * @property integer $row_status
  * @property string $custom_remark
  * @property integer $sfda_status
- * @property string $rank_status
+ * @property integer $rank_status
  * @property string $rank_status_date
  * @property string $row_status_date
+ * @property string $is_out
+ * @property integer $indication_id
+ * @property string $clinical_indication
  */
 class Cde extends \yii\db\ActiveRecord {
 
@@ -42,12 +45,12 @@ class Cde extends \yii\db\ActiveRecord {
     public function rules() {
         return [
                 [['tid', 'code', 'name', 'review_status', 'remark', 'custom_remark'], 'required'],
-                [['tid', 'rank', 'pharmacology_status', 'clinical_status', 'pharmacy_status', 'row_status', 'sfda_status'], 'integer'],
+                [['tid', 'rank', 'pharmacology_status', 'clinical_status', 'pharmacy_status', 'row_status', 'sfda_status', 'rank_status', 'indication_id'], 'integer'],
                 [['join_date', 'create_date', 'rank_status_date', 'row_status_date'], 'safe'],
                 [['code'], 'string', 'max' => 50],
-                [['name', 'remark', 'company', 'custom_remark'], 'string', 'max' => 500],
+                [['name', 'remark', 'company', 'custom_remark', 'clinical_indication'], 'string', 'max' => 500],
                 [['review_status'], 'string', 'max' => 100],
-                [['rank_status'], 'string', 'max' => 45],
+                [['is_out'], 'string', 'max' => 45],
         ];
     }
 
@@ -75,6 +78,9 @@ class Cde extends \yii\db\ActiveRecord {
             'rank_status' => 'Rank Status',
             'rank_status_date' => 'Rank Status Date',
             'row_status_date' => 'Row Status Date',
+            'is_out' => 'Is Out',
+            'indication_id' => 'Indication ID',
+            'clinical_indication' => 'Clinical Indication',
         ];
     }
 
@@ -129,7 +135,7 @@ class Cde extends \yii\db\ActiveRecord {
 
         $num = $cdeObj->count();
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
 
 
         foreach ($cde as &$one) {
@@ -148,6 +154,9 @@ class Cde extends \yii\db\ActiveRecord {
             $one['showremark'] = $showRemark;
             if (empty($one['ephmra_atc_code'])) {
                 $one['ephmra_atc_code'] = '';
+            }
+            if (empty($one['clinical_indication'])) {
+                $one['clinical_indication'] = '';
             }
             if ($one['sfda_status'] == 8) {
                 $one['sfda_status'] = "<a href='site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
