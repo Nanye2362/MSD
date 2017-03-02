@@ -207,7 +207,7 @@
                             });
 
                             //临床适应症修改,并添加管理员权限
-                            if(obj.role == 1){
+                            if (obj.role == 1) {
                                 $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
 
@@ -216,7 +216,6 @@
 
                             //备注1修改
                             $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
-                            //$(this).attr('lang', obj.data[i].id);
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
                             i++;
@@ -243,8 +242,29 @@
                 })
 
                 $(document).on('blur', '.remark1', function () {
+                    cde_id = $(this).parent().parent('tr').attr('lang')
                     if ($(this).text() != p_remarkText) {
-                        $.post(host + 'python/updatepublicremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
+                        $.post(
+                                host + 'python/updatepublicremark',
+                                {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()},
+                                function (data) {
+                                    if (data.success == true) {
+                                        console.log('修改成功');
+                                        //实时更新所有用户备注
+                                        $.ajax({
+                                            type: "post",
+                                            url: host + '/python/refreshallusersremark',
+                                            data: {cde_id: cde_id},
+                                            success: function (data) {
+                                                if (data.success == true) {
+                                                    $('#refresh_remark' + data.uid).html(data.uid + ':' + data.public_remark);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                        );
+
                     }
                 })
 
@@ -255,7 +275,7 @@
 
                 $(document).on('blur', '.clinical_indication', function () {
                     if ($(this).text() != c_remarkText) {
-                        $.post(host + 'python/updateclinicalindication', {'cdeId': $(this).parents('tr').attr('lang'), "clinical_indication": $(this).text()})
+                        $.post(host + 'python/updateclinicalindication', {'cdeId': $(this).parents('tr').attr('lang'), "clinical_indication": $(this).text()});
                     }
                 })
 

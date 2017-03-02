@@ -185,4 +185,22 @@ class PythonController extends \yii\web\Controller {
         $response->data = $obj;
     }
 
+    public function actionRefreshallusersremark(){
+        $cde_id = Yii::$app->request->post('cde_id');
+        $uid = User::$currUser->id;
+        
+        $obj = new \stdClass();
+        if(!empty($cde_id) && !empty($uid)){
+            $public_remark = CdePublicremark::find()->where("cde_id=:cdeid and uid=:uid", [":cdeid" => $cde_id, ":uid" => $uid])->one();
+            $obj->uid = $uid;
+            $obj->public_remark = $public_remark->public_remark;
+            $obj->success = true;
+        }else{
+            $obj->success = false;
+        }
+        
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $obj;
+    }
 }

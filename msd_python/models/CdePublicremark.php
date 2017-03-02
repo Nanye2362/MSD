@@ -12,7 +12,7 @@ use Yii;
  * @property integer $cde_id
  * @property string $remark
  * @property string $create_date
- * @property string $public_ramark
+ * @property string $public_remark
  */
 class CdePublicremark extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class CdePublicremark extends \yii\db\ActiveRecord
         return [
             [['uid', 'cde_id'], 'integer'],
             [['create_date'], 'safe'],
-            [['remark', 'public_ramark'], 'string', 'max' => 500],
+            [['remark', 'public_remark'], 'string', 'max' => 500],
         ];
     }
 
