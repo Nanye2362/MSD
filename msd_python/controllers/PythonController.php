@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use app\models\User;
 use app\filter\UserFilter;
 use Yii;
+use scotthuangzl\export2excel\Export2ExcelBehavior;
 
 class PythonController extends \yii\web\Controller {
 
