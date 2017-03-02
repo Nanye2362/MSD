@@ -242,34 +242,25 @@
                 })
 
                 $(document).on('blur', '.remark1', function () {
-                    cde_id = $(this).parent().parent('tr').attr('lang')
-                    if ($(this).text() != p_remarkText) {
+                    cde_id = $(this).parent().parent('tr').attr('lang');
+                    new_remarkText = $(this).text();
+                    if (new_remarkText != p_remarkText) {
                         $.post(
                                 host + 'python/updatepublicremark',
                                 {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()},
                                 function (data) {
                                     if (data.success == true) {
-                                        console.log('修改成功');
                                         //实时更新所有用户备注
-                                        $.ajax({
-                                            type: "post",
-                                            url: host + '/python/refreshallusersremark',
-                                            data: {cde_id: cde_id},
-                                            success: function (data) {
-                                                if (data.success == true) {
-                                                    var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
-                                                    if (refresh_remark.length == 0) {
-                                                        $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + data.public_remark + "</p>");                                                        
-                                                    } else {
-                                                        refresh_remark.html(data.uid + ':' + data.public_remark);
-                                                    }
-                                                }
-                                            }
-                                        });
+                                        var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
+                                        if (refresh_remark.length == 0) {
+                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");                                                        
+                                        } else {
+                                            refresh_remark.html(data.uid + ':' + new_remarkText);
+                                        }
+                                        console.log('修改成功');
                                     }
                                 }
                         );
-
                     }
                 })
 
