@@ -27,6 +27,9 @@ class PythonController extends \yii\web\Controller {
             'user' => [
                 'class' => UserFilter::className()
             ],
+            'export2excel' => [
+                'class' => Export2ExcelBehavior::className()
+            ],
         ];
     }
 
@@ -39,7 +42,7 @@ class PythonController extends \yii\web\Controller {
 
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
-        
+
         $obj = new \stdClass();
 
         if (!empty($curPage) && !empty($pageSize)) {
@@ -185,5 +188,40 @@ class PythonController extends \yii\web\Controller {
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
+    }
+
+    public function actionExport(){
+        $test = Yii::$app->request->post('test');
+        var_dump($test);die;
+        $excel_data = Export2ExcelBehavior::excelDataFormat(Cde::find()->asArray()->all());
+        
+        var_dump($excel_data);die;
+        $excel_title = $excel_data['excel_title'];
+        $excel_ceils = $excel_data['excel_ceils'];
+        $excel_content = array(
+            array(
+                'sheet_name' => 'EOPStatus',
+                'sheet_title' => $excel_title,
+                'ceils' => $excel_ceils,
+                'freezePane' => 'B2',
+                'headerColor' => Export2ExcelBehavior::getCssClass("header"),
+                'headerColumnCssClass' => array(
+                    'id' => Export2ExcelBehavior::getCssClass('blue'),
+                    'Status_Description' => Export2ExcelBehavior::getCssClass('grey'),
+                ), //define each column's cssClass for header line only.  You can set as blank.
+                'oddCssClass' => Export2ExcelBehavior::getCssClass("odd"),
+                'evenCssClass' => Export2ExcelBehavior::getCssClass("even"),
+            ),
+            array(
+                'sheet_name' => 'Important Note',
+                'sheet_title' => array("Important Note For Region Template"),
+                'ceils' => array(
+                    array("1.Column Platform,Part,Region must need update.")
+                , array("2.Column Regional_Status only as Regional_Green,Regional_Yellow,Regional_Red,Regional_Ready.")
+                , array("3.Column RTS_Date, Master_Desc, Functional_Desc, Commodity, Part_Status are only for your reference, will not be uploaded into NPI tracking system."))
+            ),
+        );
+        $excel_file = "testYii2Save2Excel";
+        $this->export2excel($excel_content, $excel_file);
     }
 }

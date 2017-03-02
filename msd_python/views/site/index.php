@@ -92,6 +92,9 @@
                     }
                 })
                 //     		 	};
+                $('#export').click(function(){
+                    $.post(host + 'python/export', {test: 'test'});
+                });
             });
 
 
@@ -300,7 +303,7 @@
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
             <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
+            <button id="export" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
             <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
             <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
             <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
