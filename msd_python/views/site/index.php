@@ -257,7 +257,9 @@
                                             data: {cde_id: cde_id},
                                             success: function (data) {
                                                 if (data.success == true) {
-                                                    $('#refresh_remark' + data.uid).html(data.uid + ':' + data.public_remark);
+                                                    console.log(cde_id);
+                                                    console.log(data.uid);
+                                                    $('#refresh_remark_' + data.uid + '_'+ cde_id).html(data.uid + ':' + data.public_remark);
                                                 }
                                             }
                                         });
