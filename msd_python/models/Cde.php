@@ -130,7 +130,7 @@ class Cde extends \yii\db\ActiveRecord {
         }
 
         if (!empty($serachText)) {
-            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText", [':serachText' => '%' . $serachText . '%']);
+            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText or clinical_indication like :serachText", [':serachText' => '%' . $serachText . '%']);
         }
 
         $num = $cdeObj->count();
