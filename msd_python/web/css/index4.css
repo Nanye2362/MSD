@@ -3,8 +3,9 @@
 .head{width: 95%;margin: 0 auto;}
 /*内容*/
 #cont{width: 100%;margin: 30px 0;position: relative;}
+#tagposition {font-size: 25px;}
 .cont_a{width: 20%;}
-.cont_a ul li{width: 100%;text-align: right;height: 30px;line-height: 30px;padding: 1px 0;}
+.cont_a ul li{width: 100%;text-align: right;height: 65px;line-height: 65px;padding: 1px 0;}
 .cont_b{width: 80%;position: absolute;top: 0px;left: 20%;overflow: auto;padding-bottom: 50px;}
 
 
@@ -15,11 +16,11 @@
 .nth_3{background:#F7EDF5;}
 .nth_4{background:#E9F1E6;}
 .nth_5{background:#FEF0EF;}
-.ul_1 li{width: 28px;height: 100%;border-radius:5px ;margin: 0px 5px;display: inline-block;}
-.ul_c{margin-top: 10px;}
-.ul_0{height: 30px;padding: 1px 0;}
-.ul_1{height: 30px;padding: 1px 0;}
-.ul_c li{width: 28px;height: 30px;line-height: 30px;margin: 0px 5px;display: inline-block;text-align:center;}
+.ul_1 li{width: 65px;height: 100%;border-radius:5px ;margin: 0px 5px;display: inline-block;}
+.ul_c{margin-top: 10px;font-size: 25px;}
+.ul_0{height: 65px;padding: 1px 0;}
+.ul_1{height: 65px;padding: 1px 0;}
+.ul_c li{width: 65px;height: 65px;line-height: 30px;margin: 0px 5px;display: inline-block;text-align:center;}
 /*选择某一部分变色*/
 .nth_1 .show{background: #02C5E1;}
 .nth_2 .show{background:#FFD800;}
