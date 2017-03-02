@@ -37,11 +37,12 @@ class PythonController extends \yii\web\Controller {
         $searchText = Yii::$app->request->post('searchText');
 
         $uid = User::$currUser->id;
-
+        $role = User::$currUser->role;
+        
         $obj = new \stdClass();
 
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid);
+            $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role);
             $obj->success = true;
         } else {
             $obj->success = false;

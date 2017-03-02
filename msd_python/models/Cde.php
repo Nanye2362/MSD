@@ -120,11 +120,11 @@ class Cde extends \yii\db\ActiveRecord {
         return $return;
     }
 
-    static function getList($curPage, $pageSize, $typeId, $serachText, $uid) {
+    static function getList($curPage, $pageSize, $typeId, $serachText, $uid, $role) {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
-
+                
         if (!empty($typeId)) {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
         }
@@ -164,15 +164,16 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['sfda_status'] = '';
             }
 
-
+            
             unset($one['publicremark']);
         }
 
         $obj = new \stdClass();
         $obj->totalRows = $num;
         $obj->curPage = $curPage;
+        $obj->role = $role;
         $obj->data = $cde;
-
+        
         return $obj;
     }
 

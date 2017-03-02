@@ -206,8 +206,10 @@
                                 $(this).children("div").hide()
                             });
 
-                            //临床适应症修改
-                            $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                            //临床适应症修改,并添加管理员权限
+                            if(obj.role == 1){
+                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                            }
 
                             //备注修改
                             $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
