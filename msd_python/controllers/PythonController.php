@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 use app\models\User;
 use app\filter\UserFilter;
 use Yii;
-use scotthuangzl\export2excel\Export2ExcelBehavior;
+use moonland\phpexcel\Excel;
 
 class PythonController extends \yii\web\Controller {
 
@@ -26,9 +26,6 @@ class PythonController extends \yii\web\Controller {
         return [
             'user' => [
                 'class' => UserFilter::className()
-            ],
-            'export2excel' => [
-                'class' => Export2ExcelBehavior::className()
             ],
         ];
     }
@@ -190,38 +187,39 @@ class PythonController extends \yii\web\Controller {
         $response->data = $obj;
     }
 
-    public function actionExport(){
-        $test = Yii::$app->request->post('test');
-        var_dump($test);die;
-        $excel_data = Export2ExcelBehavior::excelDataFormat(Cde::find()->asArray()->all());
+    public function actionExport() {
+        $cde_ids = Yii::$app->request->get('cde_id'); 
         
-        var_dump($excel_data);die;
-        $excel_title = $excel_data['excel_title'];
-        $excel_ceils = $excel_data['excel_ceils'];
-        $excel_content = array(
-            array(
-                'sheet_name' => 'EOPStatus',
-                'sheet_title' => $excel_title,
-                'ceils' => $excel_ceils,
-                'freezePane' => 'B2',
-                'headerColor' => Export2ExcelBehavior::getCssClass("header"),
-                'headerColumnCssClass' => array(
-                    'id' => Export2ExcelBehavior::getCssClass('blue'),
-                    'Status_Description' => Export2ExcelBehavior::getCssClass('grey'),
-                ), //define each column's cssClass for header line only.  You can set as blank.
-                'oddCssClass' => Export2ExcelBehavior::getCssClass("odd"),
-                'evenCssClass' => Export2ExcelBehavior::getCssClass("even"),
-            ),
-            array(
-                'sheet_name' => 'Important Note',
-                'sheet_title' => array("Important Note For Region Template"),
-                'ceils' => array(
-                    array("1.Column Platform,Part,Region must need update.")
-                , array("2.Column Regional_Status only as Regional_Green,Regional_Yellow,Regional_Red,Regional_Ready.")
-                , array("3.Column RTS_Date, Master_Desc, Functional_Desc, Commodity, Part_Status are only for your reference, will not be uploaded into NPI tracking system."))
-            ),
-        );
-        $excel_file = "testYii2Save2Excel";
-        $this->export2excel($excel_content, $excel_file);
+        $curPage = Yii::$app->request->post('curPage');
+        $pageSize = Yii::$app->request->post('pageSize');
+        $typeId = Yii::$app->request->post('typeId');
+        $searchText = Yii::$app->request->post('searchText');
+        $uid = User::$currUser->id;
+        $role = User::$currUser->role;
+        
+        
+        $data = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids);
+        $excel_data = $data->data;
+
+        Excel::export([
+            'models' => $excel_data,
+            'columns' => ['rank', 'code', 'name', 'company', 'join_date', 'rl', 'ephmra_atc_code',
+                'sfda_status', 'clinical_indication', 'remark', 'remark1', 'showremark'],
+            'headers' => [
+                'rank' => '序号',
+                'code' => '受理号',
+                'name' => '药品名称',
+                'company' => '企业名称',
+                'join_date' => '进入中心时间',
+                'rl' => '序号排名变化时间节点记录',
+                'ephmra_atc_code' => '适应症大类',
+                'sfda_status' => '临床实验',
+                'clinical_indication' => '临床适应症',
+                'remark' => '个人备注',
+                'remark1' => '公开备注',
+                'showremark' => '所有用户备注'
+            ]
+        ]);
     }
+
 }

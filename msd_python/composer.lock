@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d57f4a301a418ff74359d12ad2a1d02",
+    "content-hash": "fb4b3dcaff301fff46ec78e9603e0fc5",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -755,6 +755,51 @@
             "time": "2016-04-29T12:21:54+00:00"
         },
         {
+            "name": "moonlandsoft/yii2-phpexcel",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moonlandsoft/yii2-phpexcel.git",
+                "reference": "9408d09abc7ff4828302dafd5ffb709314f14589"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/moonlandsoft/yii2-phpexcel/9408d09abc7ff4828302dafd5ffb709314f14589.zip",
+                "reference": "9408d09abc7ff4828302dafd5ffb709314f14589",
+                "shasum": ""
+            },
+            "require": {
+                "phpoffice/phpexcel": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "moonland\\phpexcel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Moh Khoirul Anam",
+                    "email": "moh.khoirul.anaam@gmail.com"
+                }
+            ],
+            "description": "Exporting PHP to Excel or Importing Excel to PHP",
+            "keywords": [
+                "excel",
+                "export",
+                "extension",
+                "import",
+                "xls",
+                "yii2"
+            ],
+            "time": "2015-09-06T07:50:33+00:00"
+        },
+        {
             "name": "phpoffice/phpexcel",
             "version": "1.8.1",
             "source": {
@@ -848,52 +893,6 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2016-04-07T12:29:16+00:00"
-        },
-        {
-            "name": "scotthuangzl/yii2-export2excel",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ScottHuangZL/yii2-export2excel.git",
-                "reference": "a213ace0c006eb146c57f0559e882d216b2e75b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/ScottHuangZL/yii2-export2excel/a213ace0c006eb146c57f0559e882d216b2e75b6.zip",
-                "reference": "a213ace0c006eb146c57f0559e882d216b2e75b6",
-                "shasum": ""
-            },
-            "require": {
-                "phpoffice/phpexcel": "*",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "scotthuangzl\\export2excel\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Scott Huang",
-                    "email": "zhiliang.huang@gmail.com"
-                }
-            ],
-            "description": "A behavior to export yii2 query to excel and auto download",
-            "keywords": [
-                "Behavior",
-                "download",
-                "export2excel",
-                "extension",
-                "hzl",
-                "scott huang",
-                "yii2"
-            ],
-            "time": "2015-07-15T06:18:01+00:00"
         },
         {
             "name": "yiisoft/yii2-codeception",
@@ -1091,9 +1090,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "scotthuangzl/yii2-export2excel": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

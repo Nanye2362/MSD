@@ -120,13 +120,19 @@ class Cde extends \yii\db\ActiveRecord {
         return $return;
     }
 
-    static function getList($curPage, $pageSize, $typeId, $serachText, $uid, $role) {
+    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $cde_ids = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
+        
+        
                 
         if (!empty($typeId)) {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
+        }
+
+        if (!empty($cde_ids)) {            
+            $cdeObj->andWhere('FIND_IN_SET(cde.id , :cde_id)', [':cde_id' => $cde_ids]);
         }
 
         if (!empty($serachText)) {
@@ -150,8 +156,16 @@ class Cde extends \yii\db\ActiveRecord {
                     $one['remark1'] = $premark['public_remark'];
                     $one['custom_remark'] = $premark['remark'];
                 }
+                
+                if (!empty($cde_ids)) {
+                    $rv = $one['rankList'][0];
+                    $one['rl'] = 'No.'.$rv['rank'].' '.$rv['datetime'];
+                    $one['showremark'] = strip_tags($showRemark);
+                } else {
+                    $one['showremark'] = $showRemark;
+                }
             }
-            $one['showremark'] = $showRemark;
+            
             if (empty($one['ephmra_atc_code'])) {
                 $one['ephmra_atc_code'] = '';
             }
@@ -159,7 +173,7 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['clinical_indication'] = '';
             }
             if ($one['sfda_status'] == 8) {
-                $one['sfda_status'] = "<a href='site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
+                $one['sfda_status'] = "<a href='/site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
             } else {
                 $one['sfda_status'] = '';
             }

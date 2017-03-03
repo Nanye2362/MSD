@@ -92,8 +92,17 @@
                     }
                 })
                 //     		 	};
-                $('#export').click(function(){
-                    $.post(host + 'python/export', {test: 'test'});
+
+                //导出excel
+                $('#export').click(function () {
+                    var checkedbox = $('input[type=checkbox]:checked');
+                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkboxvalues = new Array;
+                    for (var i = 0; i < checkedboxlength; i++) {
+                        checkboxvalues[i] = checkedbox.eq(i).val();
+                    }
+                    var cde_id = checkboxvalues;
+                    window.open(host + 'python/export?cde_id=' + cde_id);
                 });
             });
 
@@ -256,7 +265,7 @@
                                         //实时更新所有用户备注
                                         var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
                                         if (refresh_remark.length == 0) {
-                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");                                                        
+                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
                                         } else {
                                             refresh_remark.html(data.uid + ':' + new_remarkText);
                                         }
