@@ -104,9 +104,12 @@ class Cde extends \yii\db\ActiveRecord {
     static function getTimelineByCdeId($cdeId) {
         $cdeObj = Cde::find()->select("*")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_timeline', 'cde_timeline.cde_id=cde.id')->orderBy("cde_timeline.start_date asc")->asArray()->all();
         $return = array();
+		
 
         foreach ($cdeObj as $timeline) {
             $return['code'] = $timeline['code'];
+	    $return['name'] = $timeline['name'];
+	    $return['company'] = $timeline['company'];
             if ($timeline['end_date'] == '0000-00-00') {
                 $timeline['end_date'] = date('Y-m-d');
             }
