@@ -4,12 +4,16 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
-        <link rel="stylesheet" href="../css/grid.paging.min.css" />
-        <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" />
+        <link rel="stylesheet" href="../css/grid.paging.min.css" media="all"/>
+        <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" media="all" />
         <script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/bsgrid.all.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/grid.zh-CN.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/setting.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/jquery-ui-1.10.4.custom.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/jquery.PrintArea.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+
         <script type="text/javascript" src="../js/grid.paging.min.js"></script>
         <script type="text/javascript">
             var gridObj;
@@ -17,7 +21,52 @@
             var remarkText;
             var p_remarkText;
 
+            function formatTable(obj) {
+                obj.find('td .bsgrid_editgrid_check').each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).parents('tr').remove();
+                    }
+
+                })
+
+                obj.find('tr').each(function () {
+                    $(this).find('td .panel_div').remove();
+                    $(this).find('td,th').eq(0).remove();
+                })
+
+
+            }
+
             $(function () {
+                $('#Print').click(function () {
+                    var obj = $("#printableArea").clone();
+                    formatTable(obj)
+
+                    obj.printArea({mode: "iframe", keepAttr: ["id", "class", "style"], extraHead: '<meta charset="utf-8" />,<meta http-equiv="X-UA-Compatible" content="IE=edge"/>'});
+                })
+
+
+                var clipboard = new Clipboard('#copy', {
+                    text: function () {
+                        var obj = $("#printableArea").clone();
+                        formatTable(obj)
+
+                        var text = "";
+                        obj.find("tr").each(function () {
+                            if ($(this).find('th').length > 0) {
+                                return true;
+                            }
+                            $(this).find("td").each(function () {
+                                text += $(this).text() + "\t";
+                            })
+                            text += "\r\n";
+                        })
+                        return text;
+                    }
+                });
+
+
+
                 $.post(host + 'python/gettype', function (data) {
                     typeObj = data;
                     var firstO = '';
@@ -134,7 +183,7 @@
             }
 
             function getcheckboxvalue() {
-                $('#sendemail').click(function () {
+                $('#sendemail').unbind('click').click(function () {
                     var checkedbox = $('input[type=checkbox]:checked');
                     var checkedboxlength = $('input[type=checkbox]:checked').length;
                     var checkboxvalues = new Array;
@@ -144,7 +193,7 @@
                     console.log(checkboxvalues);
                     getEmaillist(checkboxvalues);
                 });
-                $('#addtofavorite').click(function () {
+                $('#addtofavorite').unbind('click').click(function () {
                     var checkedbox = $('input[type=checkbox]:checked');
                     var checkedboxlength = $('input[type=checkbox]:checked').length;
                     var checkboxvalues = new Array;
@@ -197,25 +246,25 @@
                             }
 
                             //时间借点记录填充
-                            $(this).find('td').eq(6).html($(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime)
+                            $(this).find('td').eq(6).html("<p style='position:relative'>" + $(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime + "</p>")
 
                             //在序号排名变化时间节点记录页新增div
-                            $(this).find('td').eq(6).css('position', 'relative');
+                            // $(this).find('td').eq(6).css('position', 'relative');
 
                             //循环排名变化表
                             var len = obj.data[i].rankList.length;
-                            var ranklist = $("<div style='z-index: 99;position:absolute;left:-1px;width: 100%;background:#fff;border:1px solid #000;min-height: 100px; display: none;'></div>");
+                            var ranklist = $("<div class='panel_div' style='z-index: 99;position:absolute;left:-1px;width: 100%;background:#fff;border:1px solid #000;min-height: 100px; display: none;'></div>");
                             for (var o = 1; o < len; o++) {
                                 ranklist.append("<p>" + 'No.' + obj.data[i].rankList[o].rank + " " + obj.data[i].rankList[o].datetime + "</p>");
                             }
 
-                            $(this).find('td').eq(6).append(ranklist);
+                            $(this).find('td').eq(6).find("p").append(ranklist);
                             $(this).find('td').eq(6).mouseenter(function () {
-                                $(this).children("div").css('top', $(this).height() + 6 + "px");
-                                $(this).children("div").show()
+                                $(this).find(".panel_div").css('top', $(this).height() - 8 + "px");
+                                $(this).find(".panel_div").show()
                             });
                             $(this).find('td').eq(6).mouseleave(function () {
-                                $(this).children("div").hide()
+                                $(this).find(".panel_div").hide()
                             });
 
                             //临床适应症修改,并添加管理员权限
@@ -233,6 +282,7 @@
                             i++;
                         })
                         getcheckboxvalue();
+                        $('#searchTable').wrap('<div id="printableArea"></div>');
                     }
 
                 });
@@ -311,15 +361,16 @@
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
+            <button  id="copy" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
             <button id="export" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
-            <button style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
+            <button id="Print" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
             <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
             <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
         </div>
 
         <br />
         <br />
+
         <table id="searchTable" align="center">
             <tr id="trhead">
                 <th  w_check="true" width="3%;" title="全选"></th>
@@ -337,6 +388,7 @@
                 <th  w_index="showremark" width="8%;">所有用户备注</th>
             </tr>
         </table>
+
     </body>
 
 </html>
