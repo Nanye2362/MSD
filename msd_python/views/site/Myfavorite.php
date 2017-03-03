@@ -92,8 +92,23 @@
                     }
                 })
                 //     		 	};
+
+                $('#delete').click(function () {
+                    var checkedbox = $('input[type=checkbox]:checked');
+                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkboxvalues = new Array;
+                    for (var i = 0; i < checkedboxlength; i++) {
+                        checkboxvalues[i] = checkedbox.eq(i).val();
+                    }
+
+                    for (var k = 0; k < checkboxvalues.length; k++) {
+                        $('tr[lang=' + checkboxvalues[k] + ']').remove();
+                    }
+
+                });
+
             });
-            
+
             function getList(showPage) {
 
                 $('#searchTable_pt_outTab').remove();
@@ -160,14 +175,15 @@
                             if (obj.role == 1) {
                                 $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
-                            
+
                             //备注修改
                             $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
                             $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
-                            
+
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
+                            $(this).attr('lang', obj.data[i].id);
                             i++;
                         })
                     }
@@ -219,6 +235,7 @@
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
+            <button id="delete" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Delete</button>
         </div>
 
         <br />
