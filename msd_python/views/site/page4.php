@@ -167,56 +167,6 @@
                 });
             });
 
-
-            function getEmaillist(checkboxvalues) {
-                $.ajax({
-                    type: "post",
-                    url: host + '/emaillist/insert',
-                    data: {pageSize: 20, cde_ids: checkboxvalues},
-                    success: function (data) {
-                        if (data.success == true) {
-                            alert('选择成功');
-                        }
-                    }
-                });
-            }
-
-            function getMyfavoritelist(checkboxvalues) {
-                $.ajax({
-                    type: "post",
-                    url: host + '/myfavorite/insert',
-                    data: {pageSize: 20, cde_ids: checkboxvalues},
-                    success: function (data) {
-                        if (data.success == true) {
-                            alert('选择成功');
-                        }
-                    }
-                });
-            }
-
-            function getcheckboxvalue() {
-                $('#sendemail').unbind('click').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
-                    var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedboxlength; i++) {
-                        checkboxvalues[i] = checkedbox.eq(i).val();
-                    }
-                    console.log(checkboxvalues);
-                    getEmaillist(checkboxvalues);
-                });
-                $('#addtofavorite').unbind('click').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
-                    var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedboxlength; i++) {
-                        checkboxvalues[i] = checkedbox.eq(i).val();
-                    }
-                    console.log(checkboxvalues);
-                    getMyfavoritelist(checkboxvalues);
-                });
-            }
-
             function getListbyephmra(showPage) {
 
                 $('#searchTable_pt_outTab').remove();
@@ -280,80 +230,17 @@
                                 $(this).find(".panel_div").hide()
                             });
 
-                            //临床适应症修改,并添加管理员权限
-                            if (obj.role == 1) {
-                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
-                            }
-
-                            //备注修改
-                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
-
-                            //备注1修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
                             i++;
                         })
-                        getcheckboxvalue();
+                        
                         $('#searchTable').wrap('<div id="printableArea"></div>');
                     }
 
                 });
 
-                //个人备注
-                $(document).on('focus', '.remark', function () {
-                    remarkText = $(this).text();
-                })
-
-                $(document).on('blur', '.remark', function () {
-                    if ($(this).text() != remarkText) {
-                        $.post(host + 'python/updateremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
-                    }
-                })
-
-                //公开备注
-                $(document).on('focus', '.remark1', function () {
-                    p_remarkText = $(this).text();
-                })
-
-                $(document).on('blur', '.remark1', function () {
-                    cde_id = $(this).parent().parent('tr').attr('lang');
-                    new_remarkText = $(this).text();
-                    if (new_remarkText != p_remarkText) {
-                        $.post(
-                                host + 'python/updatepublicremark',
-                                {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()},
-                                function (data) {
-                                    if (data.success == true) {
-                                        //实时更新所有用户备注
-                                        var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
-                                        if (refresh_remark.length == 0) {
-                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
-                                        } else {
-                                            refresh_remark.html(data.uid + ':' + new_remarkText);
-                                        }
-                                        console.log('修改成功');
-                                    }
-                                }
-                        );
-                    }
-                })
-
-                //临床适应症编辑
-                $(document).on('focus', '.clinical_indication', function () {
-                    c_remarkText = $(this).text();
-                })
-
-                $(document).on('blur', '.clinical_indication', function () {
-                    if ($(this).text() != c_remarkText) {
-                        $.post(host + 'python/updateclinicalindication', {'cdeId': $(this).parents('tr').attr('lang'), "clinical_indication": $(this).text()});
-                    }
-                })
-
             }
-            //function operate(record, rowIndex, colIndex, options) {
-            //return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
-            //}
         </script>
     </head>
 
@@ -377,8 +264,6 @@
             <button  id="copy" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
             <button id="export" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
             <button id="Print" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
-            <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
-            <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
         </div>
 
         <br />
