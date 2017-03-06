@@ -269,14 +269,14 @@
 
                             //临床适应症修改,并添加管理员权限
                             if (obj.role == 1) {
-                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
 
                             //备注修改
-                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
                             i++;
@@ -315,7 +315,7 @@
                                         //实时更新所有用户备注
                                         var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
                                         if (refresh_remark.length == 0) {
-                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
+                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
                                         } else {
                                             refresh_remark.html(data.uid + ':' + new_remarkText);
                                         }

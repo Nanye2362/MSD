@@ -153,7 +153,7 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
                     $one['remark1'] = $premark['public_remark'];
@@ -230,7 +230,7 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
                     $one['remark1'] = $premark['public_remark'];

@@ -173,14 +173,14 @@
 
                             //临床适应症修改,并添加管理员权限
                             if (obj.role == 1) {
-                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
 
                             //备注修改
-                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
 
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
@@ -195,22 +195,37 @@
                     remarkText = $(this).text();
                 })
 
-                //公开备注
-                $(document).on('focus', 'remark1', function () {
-                    p_remarkText = $(this).text();
-                })
-
-
                 $(document).on('blur', '.remark', function () {
                     if ($(this).text() != remarkText) {
                         $.post(host + 'python/updateremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
                     }
                 })
+                
+                //公开备注
+                $(document).on('focus', 'remark1', function () {
+                    p_remarkText = $(this).text();
+                })
 
-                //公开备注 
                 $(document).on('blur', '.remark1', function () {
-                    if ($(this).text() != p_remarkText) {
-                        $.post(host + 'python/updatepublicremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
+                    cde_id = $(this).parent().parent('tr').attr('lang');
+                    new_remarkText = $(this).text();
+                    if (new_remarkText != p_remarkText) {
+                        $.post(
+                                host + 'python/updatepublicremark',
+                                {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()},
+                                function (data) {
+                                    if (data.success == true) {
+                                        //实时更新所有用户备注
+                                        var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
+                                        if (refresh_remark.length == 0) {
+                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
+                                        } else {
+                                            refresh_remark.html(data.uid + ':' + new_remarkText);
+                                        }
+                                        console.log('修改成功');
+                                    }
+                                }
+                        );
                     }
                 })
 

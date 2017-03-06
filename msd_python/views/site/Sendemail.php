@@ -171,14 +171,14 @@
 
                             //临床适应症修改,并添加管理员权限
                             if (obj.role == 1) {
-                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
                             
                             //备注修改
-                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-all;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             //$(this).attr('lang', obj.data[i].id);
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
