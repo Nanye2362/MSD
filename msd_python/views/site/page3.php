@@ -84,8 +84,9 @@
 							$(this).find('td').eq(2).html(obj.data[i].first_date);
 							$(this).find('td').eq(3).html(obj.data[i].status);
 							$(this).find('td').eq(4).html(obj.data[i].drug_name);
-							$(this).find('td').eq(5).html(obj.data[i].indications);
-							$(this).find('td').eq(6).html(obj.data[i].popular_topic);
+							$(this).find('td').eq(5).html(obj.data[i].company);
+							$(this).find('td').eq(6).html(obj.data[i].indications);
+							$(this).find('td').eq(7).html(obj.data[i].popular_topic);
 	                		//$(this).find('td').eq(1).html($(this).find('td').eq(1).html()+"<a href='page2.html?code="+obj.data[i].code+"'><span lang='div1'></span></a>")
 	                		i++;
 	                	})
@@ -110,13 +111,14 @@
 	<table id="searchTable" align="center" >
         <tr>
         	<!--<th w_check="true" width="3%;" title="全选"></th>-->       	
-            <th w_index="" width="8%;" class='rank'>序号</th>
-            <th w_index="code" w_align="left" width="11%;">登记号</th>
-            <th w_index="name" w_align="left" width="14%;">首次公示信息日期</th>
-            <th w_index="company" width="18%;">试验状态</th>
-            <th w_index="join_date" width="18%;">药品名称</th>
-            <th w_index="MARK" width="17%;">适应症</th>
-            <th w_index="remark" width="11%;">试验通俗题目</th>
+            <th width="4%;" class='rank'>序号</th>
+            <th w_align="left" width="8%;">登记号</th>
+            <th w_align="left" width="7%;">首次公示信息日期</th>
+            <th width="10%;">试验状态</th>
+            <th width="12%;">药品名称</th>
+            <th width="18%;">企业名称</th>
+            <th width="12%;">适应症</th>
+            <th width="27%;">试验通俗题目</th>
         </tr>
    </table>
 	</body>
