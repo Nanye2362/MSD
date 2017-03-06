@@ -382,7 +382,7 @@
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
                 <th  w_index="sfda_status" width="5%;">状态</th>
-                <th  w_index="" width="5%;">临床试验链接</th>                
+                <th  w_index="clinical_test_link" width="5%;">临床实验链接</th>                
                 <th  w_index="clinical_indication" width="7%;">临床适应症</th>
                 <th style="border-right:none;" w_index="remark" width="6%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
                 <th style="border-left:none;" w_index="remark1" width="6%;"><div style="text-align:left !important;">注</div><div>公开</div></th>

@@ -148,6 +148,9 @@ class Cde extends \yii\db\ActiveRecord {
 
 
         foreach ($cde as &$one) {
+            $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
+            $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
+
             $showRemark = '';
             $one['remark1'] = '';
             $one['custom_remark'] = '';
@@ -176,7 +179,7 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['clinical_indication'] = '';
             }
             if ($one['sfda_status'] == 8) {
-                $one['sfda_status'] = "<a href='/site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
+                $one['sfda_status'] = "制证完毕－已发批件";
             } else {
                 $one['sfda_status'] = '';
             }
@@ -253,7 +256,7 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['clinical_indication'] = '';
             }
             if ($one['sfda_status'] == 8) {
-                $one['sfda_status'] = "<a href='/site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
+                $one['sfda_status'] = "制证完毕－已发批件";
             } else {
                 $one['sfda_status'] = '';
             }
