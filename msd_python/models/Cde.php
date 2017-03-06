@@ -104,12 +104,12 @@ class Cde extends \yii\db\ActiveRecord {
     static function getTimelineByCdeId($cdeId) {
         $cdeObj = Cde::find()->select("*")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_timeline', 'cde_timeline.cde_id=cde.id')->orderBy("cde_timeline.start_date asc")->asArray()->all();
         $return = array();
-		
+
 
         foreach ($cdeObj as $timeline) {
             $return['code'] = $timeline['code'];
-	    $return['name'] = $timeline['name'];
-	    $return['company'] = $timeline['company'];
+            $return['name'] = $timeline['name'];
+            $return['company'] = $timeline['company'];
             if ($timeline['end_date'] == '0000-00-00') {
                 $timeline['end_date'] = date('Y-m-d');
             }
@@ -127,14 +127,14 @@ class Cde extends \yii\db\ActiveRecord {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
-        
-        
-                
+
+
+
         if (!empty($typeId)) {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
         }
 
-        if (!empty($cde_ids)) {            
+        if (!empty($cde_ids)) {
             $cdeObj->andWhere('FIND_IN_SET(cde.id , :cde_id)', [':cde_id' => $cde_ids]);
         }
 
@@ -153,22 +153,22 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .=  "<p id='refresh_remark_". $premark['uid'] ."_".$one['id']."' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>". $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
                     $one['remark1'] = $premark['public_remark'];
                     $one['custom_remark'] = $premark['remark'];
                 }
-                
+
                 if (!empty($cde_ids)) {
                     $rv = $one['rankList'][0];
-                    $one['rl'] = 'No.'.$rv['rank'].' '.$rv['datetime'];
+                    $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
                     $one['showremark'] = strip_tags($showRemark);
                 } else {
                     $one['showremark'] = $showRemark;
                 }
             }
-            
+
             if (empty($one['ephmra_atc_code'])) {
                 $one['ephmra_atc_code'] = '';
             }
@@ -181,7 +181,13 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['sfda_status'] = '';
             }
 
-            
+            $ephmra_atc_codes = explode(',', $one['ephmra_atc_code']);
+            foreach ($ephmra_atc_codes as $k => $v) {
+                $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
+                $ephmra_atc_code = implode('<br>', $ephmra_atc_codes);
+            }
+            $one['ephmra_atc_code'] = $ephmra_atc_code;
+
             unset($one['publicremark']);
         }
 
@@ -190,7 +196,77 @@ class Cde extends \yii\db\ActiveRecord {
         $obj->curPage = $curPage;
         $obj->role = $role;
         $obj->data = $cde;
-        
+
+        return $obj;
+    }
+
+    static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $ephmra_atc_code = '') {
+        $start = ($curPage - 1) * $pageSize;
+
+        $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
+
+
+
+        if (!empty($typeId)) {
+            $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
+        }
+
+        if (!empty($ephmra_atc_code)) {
+            $cdeObj->andWhere('indications_types.ephmra_atc_code like :ephmra_atc_code', [':ephmra_atc_code' => '%' . $ephmra_atc_code . '%']);
+        }
+
+        if (!empty($serachText)) {
+            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText or clinical_indication like :serachText", [':serachText' => '%' . $serachText . '%']);
+        }
+
+        $num = $cdeObj->count();
+
+        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
+
+
+        foreach ($cde as &$one) {
+            $showRemark = '';
+            $one['remark1'] = '';
+            $one['custom_remark'] = '';
+            foreach ($one['publicremark'] as $premark) {
+                if (!empty($premark['public_remark'])) {
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-all;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                }
+                if ($uid == $premark['uid']) {
+                    $one['remark1'] = $premark['public_remark'];
+                    $one['custom_remark'] = $premark['remark'];
+                }
+
+                if (!empty($cde_ids)) {
+                    $rv = $one['rankList'][0];
+                    $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
+                    $one['showremark'] = strip_tags($showRemark);
+                } else {
+                    $one['showremark'] = $showRemark;
+                }
+            }
+
+            if (empty($one['ephmra_atc_code'])) {
+                $one['ephmra_atc_code'] = '';
+            }
+            if (empty($one['clinical_indication'])) {
+                $one['clinical_indication'] = '';
+            }
+            if ($one['sfda_status'] == 8) {
+                $one['sfda_status'] = "<a href='/site/page3?code=" . $one['id'] . "'>制证完毕－已发批件<img style='width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;' src='/images/Diploma.png'></a>";
+            } else {
+                $one['sfda_status'] = '';
+            }
+
+            unset($one['publicremark']);
+        }
+
+        $obj = new \stdClass();
+        $obj->totalRows = $num;
+        $obj->curPage = $curPage;
+        $obj->role = $role;
+        $obj->data = $cde;
+
         return $obj;
     }
 

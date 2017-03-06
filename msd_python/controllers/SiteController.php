@@ -92,6 +92,11 @@ class SiteController extends Controller
         return $this->render('page3');
     }
 
+    public function actionPage4()
+    {
+        return $this->render('page4');
+    }
+    
     public function actionIndex4()
     {
         return $this->render('index4');

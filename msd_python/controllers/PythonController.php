@@ -54,6 +54,30 @@ class PythonController extends \yii\web\Controller {
         $response->data = $obj;
     }
 
+    public function actionGetlistbyephmra() {
+        $curPage = Yii::$app->request->post('curPage');
+        $pageSize = Yii::$app->request->post('pageSize');
+        $typeId = Yii::$app->request->post('typeId');
+        $searchText = Yii::$app->request->post('searchText');
+        $ephmra_atc_code = Yii::$app->request->post('ephmra_atc_code');
+        
+        $uid = User::$currUser->id;
+        $role = User::$currUser->role;
+
+        $obj = new \stdClass();
+
+        if (!empty($curPage) && !empty($pageSize)) {
+            $obj = Cde::getListbyephmra($curPage, $pageSize, $typeId, $searchText, $uid, $role, $ephmra_atc_code);
+            $obj->success = true;
+        } else {
+            $obj->success = false;
+        }
+//        var_dump($obj);die;
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $obj;
+    }
+    
     public function actionGettype() {
         $obj = CdeType::getList();
         $response = Yii::$app->response;
