@@ -118,7 +118,7 @@ class SiteController extends Controller
         return $this->render('IndicationsTypes');
     }
     
-    public function actionAddtofavorite()
+    public function actionMyfavorite()
     {
         return $this->render('Myfavorite');
     }
