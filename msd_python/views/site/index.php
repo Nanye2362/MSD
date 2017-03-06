@@ -269,14 +269,14 @@
 
                             //临床适应症修改,并添加管理员权限
                             if (obj.role == 1) {
-                                $(this).find('td').eq(9).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                                $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
 
                             //备注修改
-                            $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(12).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
                             i++;
@@ -315,7 +315,7 @@
                                         //实时更新所有用户备注
                                         var refresh_remark = $('#refresh_remark_' + data.uid + '_' + cde_id);
                                         if (refresh_remark.length == 0) {
-                                            $('tr[lang=' + cde_id + ']').find('td').eq(12).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
+                                            $('tr[lang=' + cde_id + ']').find('td').eq(13).html("<p id='refresh_remark_" + data.uid + '_' + cde_id + "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" + data.uid + ':' + new_remarkText + "</p>");
                                         } else {
                                             refresh_remark.html(data.uid + ':' + new_remarkText);
                                         }
@@ -376,12 +376,13 @@
                 <th  w_check="true" width="3%;" title="全选"></th>
                 <th  w_index="rank" width="7%;" class='rank'>序号</th>
                 <th  w_index="code" w_align="left" width="8%;">受理号</th>
-                <th  w_index="name" w_align="left" width="11%;">药品名称</th>
-                <th  w_index="company" width="14%;">企业名称</th>
+                <th  w_index="name" w_align="left" width="8%;">药品名称</th>
+                <th  w_index="company" width="12%;">企业名称</th>
                 <th  w_index="join_date" width="8%;">进入中心时间</th>
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
-                <th  w_index="sfda_status" width="5%;">临床实验</th>
+                <th  w_index="sfda_status" width="5%;">状态</th>
+                <th  w_index="" width="5%;">临床试验链接</th>                
                 <th  w_index="clinical_indication" width="7%;">临床适应症</th>
                 <th style="border-right:none;" w_index="remark" width="6%;"><div style="text-align:right !important;">备</div><div>个人</div></th>
                 <th style="border-left:none;" w_index="remark1" width="6%;"><div style="text-align:left !important;">注</div><div>公开</div></th>
