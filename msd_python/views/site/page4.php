@@ -278,6 +278,8 @@
                 <th  w_index="company" width="14%;">企业名称</th>
                 <th  w_index="join_date" width="8%;">进入中心时间</th>
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
+                <th  w_index="sfda_status" width="5%;">状态</th>
+                <th  w_index="clinical_test_link" width="5%;">临床实验链接</th>
                 <th  w_index="" width="13%;">完成时间</th>
                 <th  w_index="" width="13%;">共计天数</th>
             </tr>

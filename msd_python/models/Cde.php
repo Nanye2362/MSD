@@ -228,6 +228,9 @@ class Cde extends \yii\db\ActiveRecord {
 
 
         foreach ($cde as &$one) {
+            $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
+            $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
+            
             $showRemark = '';
             $one['remark1'] = '';
             $one['custom_remark'] = '';
