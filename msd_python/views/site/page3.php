@@ -27,7 +27,7 @@
 				
 				$(document).on('click','.drop',function(){
 						// 创建Form  
-						var form = $('<form></form>');  
+						var form = $('<form></form>').hide();  
 						// 设置属性  
 						form.attr('action', "http://www.chinadrugtrials.org.cn/eap/clinicaltrials.searchlistdetail");  
 						form.attr('method', 'post');  
@@ -54,10 +54,11 @@
 						my_input.attr('value', 1);  
 						// 附加到Form  
 						form.append(my_input);  
-						
+						$('body').append(form);
 						
 						// 提交表单  
-						form.submit();  
+						form.submit();
+                                                form.remove();
 						return false;
 				})
 	        });
