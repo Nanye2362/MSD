@@ -32,18 +32,21 @@ class PythonController extends \yii\web\Controller {
 
     //获取cde列表
     public function actionGetlist() {
+        $cde_ids = Yii::$app->request->post('cde_id');
         $curPage = Yii::$app->request->post('curPage');
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-
+        $sortName = Yii::$app->request->post('sortName');
+        $sortOrder = Yii::$app->request->post('sortOrder');
+        
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
 
         $obj = new \stdClass();
 
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role);
+            $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids, $sortName, $sortOrder);
             $obj->success = true;
         } else {
             $obj->success = false;
@@ -60,6 +63,8 @@ class PythonController extends \yii\web\Controller {
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
         $ephmra_atc_code = Yii::$app->request->post('ephmra_atc_code');
+        $sortName = Yii::$app->request->post('sortName');
+        $sortOrder = Yii::$app->request->post('sortOrder');
         
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
@@ -67,7 +72,7 @@ class PythonController extends \yii\web\Controller {
         $obj = new \stdClass();
 
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = Cde::getListbyephmra($curPage, $pageSize, $typeId, $searchText, $uid, $role, $ephmra_atc_code);
+            $obj = Cde::getListbyephmra($curPage, $pageSize, $typeId, $searchText, $uid, $role, $ephmra_atc_code, $sortName, $sortOrder);
             $obj->success = true;
         } else {
             $obj->success = false;

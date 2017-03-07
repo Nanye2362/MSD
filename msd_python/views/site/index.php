@@ -206,7 +206,7 @@
             }
 
             function getList(showPage) {
-
+                $('.sort').remove();
                 $('#searchTable_pt_outTab').remove();
                 gridObj = $.fn.bsgrid.init('searchTable', {
                     //url: 'data/json.json',
@@ -374,11 +374,11 @@
         <table id="searchTable" align="center">
             <tr id="trhead">
                 <th  w_check="true" width="3%;" title="全选"></th>
-                <th  w_index="rank" width="7%;" class='rank'>序号</th>
-                <th  w_index="code" w_align="left" width="8%;">受理号</th>
+                <th  w_index="rank" w_sort="rank" width="7%;" class='rank'>序号</th>
+                <th  w_index="code" w_sort="code" w_align="left" width="8%;">受理号</th>
                 <th  w_index="name" w_align="left" width="8%;">药品名称</th>
                 <th  w_index="company" width="12%;">企业名称</th>
-                <th  w_index="join_date" width="8%;">进入中心时间</th>
+                <th  w_index="join_date" w_sort="join_date" width="8%;">进入中心时间</th>
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
                 <th  w_index="sfda_status" width="5%;">状态</th>

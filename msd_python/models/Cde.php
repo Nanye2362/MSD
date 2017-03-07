@@ -123,7 +123,7 @@ class Cde extends \yii\db\ActiveRecord {
         return $return;
     }
 
-    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $cde_ids = '') {
+    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -144,8 +144,13 @@ class Cde extends \yii\db\ActiveRecord {
 
         $num = $cdeObj->count();
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
+        if (!empty($sortName) && !empty($sortOrder)) {
+            $cdeObj->orderBy($sortName . ' ' . $sortOrder);
+        } else {
+            $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
+        }
 
+        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
             $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
@@ -203,7 +208,7 @@ class Cde extends \yii\db\ActiveRecord {
         return $obj;
     }
 
-    static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $ephmra_atc_code = '') {
+    static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $ephmra_atc_code = '', $sortName = '', $sortOrder = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -224,13 +229,18 @@ class Cde extends \yii\db\ActiveRecord {
 
         $num = $cdeObj->count();
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
+        if (!empty($sortName) && !empty($sortOrder)) {
+            $cdeObj->orderBy($sortName . ' ' . $sortOrder);
+        } else {
+            $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
+        }
 
+        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
             $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
             $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
-            
+
             $showRemark = '';
             $one['remark1'] = '';
             $one['custom_remark'] = '';
