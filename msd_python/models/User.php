@@ -14,36 +14,32 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class User extends \yii\db\ActiveRecord
-{
+class User extends \yii\db\ActiveRecord {
 
     public static $currUser;
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'user';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['email', 'created_at', 'updated_at'], 'required'],
-            [['role', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['email'], 'string', 'max' => 255],
+                [['email', 'created_at', 'updated_at'], 'required'],
+                [['role', 'status', 'created_at', 'updated_at'], 'integer'],
+                [['email'], 'string', 'max' => 255],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'email' => 'Email',
@@ -53,4 +49,11 @@ class User extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    public static function getUserfavorite($mail) {
+        $user_favorite = User::find()->select('count(cde_favorite.id) as user_favorite')->innerJoin('cde_favorite', 'user.id = cde_favorite.user_id')->andWhere('user.email = :email', [':email' => $mail])->asArray()->one();
+
+        return (int) $user_favorite['user_favorite'];
+    }
+
 }
