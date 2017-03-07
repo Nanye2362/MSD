@@ -238,6 +238,14 @@ class Cde extends \yii\db\ActiveRecord {
         $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
+            $end_date = Cde::find()->select('cde_timeline.end_date')->innerJoin('cde_timeline','cde.id = cde_timeline.cde_id')->andWhere('cde.code = :cde_code and cde_timeline.status = 5', [':cde_code' => $one['code']])->asArray()->one();;
+            $one['end_date'] = $end_date['end_date'];
+            if(!empty($one['end_date'])){
+                $one['total_days'] = (strtotime($one['end_date']) - strtotime($one['join_date']))/86400;
+            }else{
+                $one['total_days'] = '';
+            }
+            
             $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
             $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
 
