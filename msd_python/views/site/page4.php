@@ -246,6 +246,7 @@
 
     <body>
         <?php include "menu.php"; ?>
+        <p style="margin: 10px;font-size: 20px;text-align: center;">适应症分类</p>
         <div id="bar" style="float: left; margin-left: 3%;">
             <select id="select1">
 

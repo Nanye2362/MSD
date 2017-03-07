@@ -346,6 +346,7 @@
 
     <body>
         <?php include "menu.php"; ?>
+        <p style="margin: 10px;font-size: 20px;text-align: center;">首页</p>
         <div id="bar" style="float: left; margin-left: 3%;">
             <select id="select1">
 
@@ -357,7 +358,7 @@
 
             </select>
         </div>
-
+        
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>

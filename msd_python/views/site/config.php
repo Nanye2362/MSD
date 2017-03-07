@@ -17,7 +17,7 @@
             $(function () {
                 $.fn.bsgrid.init('searchTable', {
                     //url: 'data/json.json',
-                    url: host+'configuration/getlist',
+                    url: host + 'configuration/getlist',
                     //autoLoad: false,
                     pageSizeSelect: true,
                     pageSize: 20,
@@ -51,7 +51,7 @@
                         $.post(host + 'configuration/update', {'id': $(this).parents('tr').attr('lang'), "value": $(this).text()})
                     }
                 })
-                
+
                 $("#search").click(function () {
                     search();
                 });
@@ -63,10 +63,10 @@
                 })
 
             });
-            
-            function search(){
+
+            function search() {
                 $('#searchTable_pt_outTab').remove();
-                gridObj = $.fn.bsgrid.init('searchTable',{
+                gridObj = $.fn.bsgrid.init('searchTable', {
                     url: host + 'configuration/search',
                     //autoLoad: false,
                     pageSizeSelect: true,
@@ -98,8 +98,8 @@
     </head>
 
     <body>
-    <?php include "menu.php";?>
-    <div>配置中心</div>
+        <?php include "menu.php"; ?>
+        <p style="margin: 10px;font-size: 20px;text-align: center;">爬虫配置</p>
         <div style="float: left; margin-right: 3%;">
             搜索:
             <input id="input" type="text" placeholder="">

@@ -94,7 +94,7 @@
 
     <body>
     <?php include "menu.php";?>
-        <div>适应症类型</div>
+        <p style="margin: 10px;font-size: 20px;text-align: center;">适应症类配置</p>
         <div style="float: left; margin-right: 3%;">
             搜索:
             <input id="input" type="text" placeholder="">
