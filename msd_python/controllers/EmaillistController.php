@@ -108,9 +108,29 @@ class EmaillistController extends Controller {
         $response->data = $obj;
     }
 
-//    public function actionGetemailpage(){
-//        $pagedata = Yii::$app->request->post();
-//    }
+    public function actionDelete(){
+        $cde_ids = Yii::$app->request->post();
+        $user_id = User::$currUser->id;
+        
+        $obj = new \stdClass();
+        if(!empty($cde_ids)){
+            foreach($cde_ids as $v){
+                foreach($v as $cde_id){
+                    $emaillist = new Emaillist();
+                    $delete_status = $emaillist->deleteAll('user_id = :user_id and cde_id = :cde_id', [':user_id' => $user_id, ':cde_id' => $cde_id]);
+                    if($delete_status == 1){
+                        $obj->success = true;
+                    }else{
+                        $obj->success = false;
+                    }
+                }
+            }
+        }
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $obj;
+        
+    }
 
     protected function findModel($id) {
         if (($model = Indicationstypes::findOne($id)) !== null) {
