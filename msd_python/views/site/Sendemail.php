@@ -106,6 +106,7 @@
                             for (var k = 0; k < checkboxvalues.length; k++) {
                                 $('tr[lang=' + checkboxvalues[k] + ']').remove();
                             }
+                            getList();
                         }
                     });
                 });
