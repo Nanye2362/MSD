@@ -11,40 +11,37 @@ use Yii;
  * @property integer $user_id
  * @property integer $cde_id
  */
-class Emaillist extends \yii\db\ActiveRecord
-{
+class Emaillist extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'user_mail';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['user_id', 'cde_id'], 'required'],
-            [['user_id', 'cde_id'], 'integer'],
-            [['user_id', 'cde_id'], 'unique', 'targetAttribute' => ['user_id', 'cde_id'], 'message' => 'The combination of User ID and Cde ID has already been taken.'],
+                [['user_id', 'cde_id'], 'required'],
+                [['user_id', 'cde_id'], 'integer'],
+                [['user_id', 'cde_id'], 'unique', 'targetAttribute' => ['user_id', 'cde_id'], 'message' => 'The combination of User ID and Cde ID has already been taken.'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
             'cde_id' => 'Cde ID',
         ];
     }
-    
+
     static function getList($curPage, $pageSize, $typeId, $serachText, $uid) {
         $start = ($curPage - 1) * $pageSize;
 
@@ -59,9 +56,9 @@ class Emaillist extends \yii\db\ActiveRecord
         }
 
         //查找user_mail中的cde_id
-        $cdeObj ->innerJoin('user_mail', 'user_mail.cde_id=cde.id');
+        $cdeObj->innerJoin('user_mail', 'user_mail.cde_id=cde.id');
         $cdeObj->andWhere('user_mail.user_id=:uid', [':uid' => $uid]);
-        
+
         $num = $cdeObj->count();
 
         $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,indications_types.ephmra_atc_code')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
@@ -96,7 +93,7 @@ class Emaillist extends \yii\db\ActiveRecord
 
         return $obj;
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      *  获取cde关联的cdeType数据
@@ -112,4 +109,14 @@ class Emaillist extends \yii\db\ActiveRecord
     public function getPublicremark() {
         return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->orderBy('create_date desc');
     }
+
+    public static function getAlldrugid($names) {
+        if(!empty($names)){
+            foreach ($names as $k => $name){
+                $cde_ids[$k] = Cde::find()->select('cde.id')->andWhere('cde.name = :name', [':name' => ' '.$name.' '])->asArray()->all();
+            }
+            return $cde_ids;
+        }
+    }
+
 }

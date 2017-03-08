@@ -12,6 +12,7 @@ use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use app\models\User;
 use app\filter\UserFilter;
+use app\models\Cde;
 
 /**
  * Description of SendemailController
@@ -36,21 +37,51 @@ class EmaillistController extends Controller {
     }
 
     public function actionInsert() {
-        $cde_ids = Yii::$app->request->post('cde_ids');
+        $cde_ids1 = Yii::$app->request->post('cde_ids');
+        $names = Yii::$app->request->post('names');
         $user_id = User::$currUser->id;
         
         $obj = new \stdClass();
-        foreach ($cde_ids as $cde_id){
-            if (!empty($cde_id) && !empty($user_id)) {
-                $cde = new Emaillist();
-                $cde->user_id = $user_id;
-                $cde->cde_id = $cde_id;
-                $cde->save();
-                $obj->success = true;
-            } else {
-                $obj->success = false;
+        
+        if(!empty($names)){
+            $alldrugids = Emaillist::getAlldrugid($names);
+            foreach ($alldrugids as $alldrugid){
+                foreach($alldrugid as $v){
+                    $cde_ids2[] = $v['id'];
+                }
+            }
+            if(!empty($cde_ids2)){
+                foreach ($cde_ids2 as $cde_id2) {
+                    if(!empty($cde_id2) && !empty($user_id)){
+                        $Emaillist = new Emaillist();
+                        $Emaillist->user_id = $user_id;
+                        $Emaillist->cde_id = $cde_id2;
+                        $Emaillist->checkbox = 2;
+                        $Emaillist->save();
+                        $obj->success = true;
+                    }else{
+                        $obj->success = false;
+                    }
+                }
+            }
+            
+        }
+        
+        if(!empty($cde_ids1)){
+            foreach ($cde_ids1 as $cde_id){
+                if (!empty($cde_id) && !empty($user_id)) {
+                    $emaillist = new Emaillist();
+                    $emaillist->user_id = $user_id;
+                    $emaillist->cde_id = $cde_id;
+                    $emaillist->checkbox = 1;
+                    $emaillist->save();
+                    $obj->success = true;
+                } else {
+                    $obj->success = false;
+                }
             }
         }
+        
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;

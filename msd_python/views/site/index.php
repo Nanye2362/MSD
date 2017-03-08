@@ -144,10 +144,9 @@
 
                 //导出excel
                 $('#export').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkedbox = $('.bsgrid_editgrid_check:checked');
                     var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedboxlength; i++) {
+                    for (var i = 0; i < checkedbox.length; i++) {
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     var cde_id = checkboxvalues;
@@ -156,11 +155,11 @@
             });
 
 
-            function getEmaillist(checkboxvalues) {
+            function getEmaillist(checkboxvalues, drugname_checkboxvalues) {
                 $.ajax({
                     type: "post",
                     url: host + '/emaillist/insert',
-                    data: {pageSize: 20, cde_ids: checkboxvalues},
+                    data: {pageSize: 20, cde_ids: checkboxvalues, names: drugname_checkboxvalues},
                     success: function (data) {
                         if (data.success == true) {
                             alert('选择成功');
@@ -184,25 +183,41 @@
 
             function getcheckboxvalue() {
                 $('#sendemail').unbind('click').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkedbox = $('.bsgrid_editgrid_check:checked');
                     var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedboxlength; i++) {
+                    for (var i = 0; i < checkedbox.length; i++) {
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     console.log(checkboxvalues);
-                    getEmaillist(checkboxvalues);
+
+                    var drugname_checkbox = $('#drugnameID:checked');
+                    var drugname_checkboxvalues = new Array;
+                    for (var i = 0; i < drugname_checkbox.length; i++) {
+                        drugname_checkboxvalues[i] = drugname_checkbox.eq(i).val();
+                    }
+                    console.log(drugname_checkboxvalues);
+
+                    getEmaillist(checkboxvalues, drugname_checkboxvalues);
+
                 });
                 $('#addtofavorite').unbind('click').click(function () {
-                    var checkedbox = $('input[type=checkbox]:checked');
-                    var checkedboxlength = $('input[type=checkbox]:checked').length;
+                    var checkedbox = $('.bsgrid_editgrid_check:checked');
                     var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedboxlength; i++) {
+                    for (var i = 0; i < checkedbox.length; i++) {
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     console.log(checkboxvalues);
                     getMyfavoritelist(checkboxvalues);
                 });
+            }
+
+            function getDrugname() {
+                var drugname_checkbox = $('#drugnameID:checked');
+                var drugname_checkboxvalues = new Array;
+                for (var i = 0; i < drugname_checkbox.length; i++) {
+                    drugname_checkboxvalues[i] = drugname_checkbox.eq(i).val();
+                }
+                console.log(drugname_checkboxvalues);
             }
 
             function getList(showPage) {
@@ -236,6 +251,9 @@
                             //受理号添加链接
                             $(this).find('td').eq(2).html("<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page2?code=" + obj.data[i].id + "'>" + obj.data[i].code + "</a>")
 
+                            //药品名checkbox
+                            $(this).find('td').eq(3).html("<input id='drugnameID' type='checkbox' value=" + obj.data[i].name + ">");
+
                             //判断行颜色
                             if (obj.data[i].row_status == 1) {
                                 $(this).find('td').css("background-color", "#FFD2D2")
@@ -246,7 +264,7 @@
                             }
 
                             //时间借点记录填充
-                            $(this).find('td').eq(6).html("<p style='position:relative'>" + $(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime + "</p>")
+                            $(this).find('td').eq(7).html("<p style='position:relative'>" + $(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime + "</p>")
 
                             //在序号排名变化时间节点记录页新增div
                             // $(this).find('td').eq(6).css('position', 'relative');
@@ -258,25 +276,25 @@
                                 ranklist.append("<p>" + 'No.' + obj.data[i].rankList[o].rank + " " + obj.data[i].rankList[o].datetime + "</p>");
                             }
 
-                            $(this).find('td').eq(6).find("p").append(ranklist);
-                            $(this).find('td').eq(6).mouseenter(function () {
+                            $(this).find('td').eq(7).find("p").append(ranklist);
+                            $(this).find('td').eq(7).mouseenter(function () {
                                 $(this).find(".panel_div").css('top', $(this).height() - 8 + "px");
                                 $(this).find(".panel_div").show()
                             });
-                            $(this).find('td').eq(6).mouseleave(function () {
+                            $(this).find('td').eq(7).mouseleave(function () {
                                 $(this).find(".panel_div").hide()
                             });
 
                             //临床适应症修改,并添加管理员权限
                             if (obj.role == 1) {
-                                $(this).find('td').eq(10).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
+                                $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='clinical_indication' contenteditable='true'>" + obj.data[i].clinical_indication + "</div>");
                             }
 
                             //备注修改
-                            $(this).find('td').eq(11).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
+                            $(this).find('td').eq(12).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark' contenteditable='true'>" + obj.data[i].custom_remark + "</div>");
 
                             //备注1修改
-                            $(this).find('td').eq(12).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
+                            $(this).find('td').eq(13).html("<div style='width:100%;min-height:23px;word-break: break-word;word-wrap: break-word;' class='remark1' contenteditable='true'>" + obj.data[i].remark1 + "</div>");
                             $(this).find('td').eq(0).find('input').eq(0).val(obj.data[i].id);
                             $(this).attr('lang', obj.data[i].id);
                             i++;
@@ -358,7 +376,7 @@
 
             </select>
         </div>
-        
+
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
             <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
@@ -377,10 +395,11 @@
                 <th  w_check="true" width="3%;" title="全选"></th>
                 <th  w_index="rank" w_sort="rank" width="7%;" class='rank'>序号</th>
                 <th  w_index="code" w_sort="code" w_align="left" width="8%;">受理号</th>
+                <th  w_index="" w_align="left" width="3%;">药名邮件通知</th>
                 <th  w_index="name" w_align="left" width="8%;">药品名称</th>
                 <th  w_index="company" width="12%;">企业名称</th>
                 <th  w_index="join_date" w_sort="join_date" width="8%;">进入中心时间</th>
-                <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
+                <th  w_index="MARK" width="11%;">序号排名变化时间节点记录</th>
                 <th  w_index="ephmra_atc_code" width="7%;">适应症大类</th>
                 <th  w_index="sfda_status" width="5%;">状态</th>
                 <th  w_index="clinical_test_link" width="5%;">临床实验链接</th>                
