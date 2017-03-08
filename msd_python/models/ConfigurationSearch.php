@@ -67,7 +67,7 @@ class ConfigurationSearch extends Configuration {
 //        return $dataProvider;
 //    }
 
-    static function search($curPage, $pageSize, $uid, $searchText) {
+    static function search($curPage, $pageSize, $searchText) {
         $start = ($curPage - 1) * $pageSize;
 
         $configObj = Configuration::find();

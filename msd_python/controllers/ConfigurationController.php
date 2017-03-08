@@ -9,8 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\Cors;
-use app\models\User;
-use app\filter\UserFilter;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -66,7 +64,6 @@ class ConfigurationController extends Controller {
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = User::$currUser->id;
 
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
@@ -87,11 +84,10 @@ class ConfigurationController extends Controller {
         $pageSize = Yii::$app->request->post('pageSize');
 //        $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = User::$currUser->id;
         
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = ConfigurationSearch::search($curPage, $pageSize, $uid, $searchText);
+            $obj = ConfigurationSearch::search($curPage, $pageSize, $searchText);
             $obj->success = true;
         } else {
             $obj->success = false;
