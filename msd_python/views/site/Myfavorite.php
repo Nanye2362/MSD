@@ -101,10 +101,14 @@
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
 
-                    for (var k = 0; k < checkboxvalues.length; k++) {
-                        $('tr[lang=' + checkboxvalues[k] + ']').remove();
-                    }
-
+                    $.post(host + 'myfavorite/delete', {cde_id: checkboxvalues}, function(data){
+                        if(data.success == true){
+                            alert('删除成功');
+                            for (var k = 0; k < checkboxvalues.length; k++) {
+                                $('tr[lang=' + checkboxvalues[k] + ']').remove();
+                            }
+                        }
+                    });
                 });
 
             });
