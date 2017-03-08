@@ -395,7 +395,7 @@
                 <th  w_check="true" width="3%;" title="全选"></th>
                 <th  w_index="rank" w_sort="rank" width="7%;" class='rank'>序号</th>
                 <th  w_index="code" w_sort="code" w_align="left" width="8%;">受理号</th>
-                <th  w_index="" w_align="left" width="3%;">药名邮件通知</th>
+                <th  w_index="" w_align="center" width="3%;">药名邮件通知</th>
                 <th  w_index="name" w_align="left" width="8%;">药品名称</th>
                 <th  w_index="company" width="12%;">企业名称</th>
                 <th  w_index="join_date" w_sort="join_date" width="8%;">进入中心时间</th>
