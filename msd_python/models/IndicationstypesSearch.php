@@ -30,7 +30,7 @@ class IndicationstypesSearch extends Indicationstypes {
         return Model::scenarios();
     }    
 
-    static function search($curPage, $pageSize, $uid, $searchText) {
+    static function search($curPage, $pageSize, $searchText) {
         $start = ($curPage - 1) * $pageSize;
 
         $IndicationstypesObj = Indicationstypes::find();

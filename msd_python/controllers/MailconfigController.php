@@ -63,9 +63,7 @@ class MailconfigController extends Controller{
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = Yii::$app->request->post('uid');
-        $uid = empty($uid) ? 0 : $uid;
-
+        
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
             $obj = Mailconfig::getList($curPage, $pageSize);
@@ -84,12 +82,10 @@ class MailconfigController extends Controller{
         $pageSize = Yii::$app->request->post('pageSize');
 //        $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = Yii::$app->request->post('uid');
-        $uid = empty($uid) ? 0 : $uid;
         
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
-            $obj = MailconfigSearch::search($curPage, $pageSize, $uid, $searchText);
+            $obj = MailconfigSearch::search($curPage, $pageSize, $searchText);
             $obj->success = true;
         } else {
             $obj->success = false;

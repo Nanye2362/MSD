@@ -32,7 +32,7 @@ class MailconfigSearch extends Mailconfig{
     }
 
 
-    static function search($curPage, $pageSize, $uid, $searchText) {
+    static function search($curPage, $pageSize, $searchText) {
         $start = ($curPage - 1) * $pageSize;
 
         $MailconfigObj = Mailconfig::find();
