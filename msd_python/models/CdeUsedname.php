@@ -8,8 +8,10 @@ use Yii;
  * This is the model class for table "cde_usedname".
  *
  * @property string $id
- * @property integer $cde_name
- * @property integer $cde_usedname
+ * @property string $cde_name
+ * @property string $cde_usedname
+ * @property string $cde_usedname2
+ * @property string $cde_usedname3
  */
 class CdeUsedname extends \yii\db\ActiveRecord {
 
@@ -25,8 +27,8 @@ class CdeUsedname extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['cde_name', 'cde_usedname'], 'required'],
-                [['cde_name', 'cde_usedname'], 'integer'],
+                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3'], 'required'],
+                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3'], 'string', 'max' => 50],
         ];
     }
 
@@ -38,6 +40,8 @@ class CdeUsedname extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'cde_name' => 'Cde Name',
             'cde_usedname' => 'Cde Usedname',
+            'cde_usedname2' => 'Cde Usedname2',
+            'cde_usedname3' => 'Cde Usedname3',
         ];
     }
 

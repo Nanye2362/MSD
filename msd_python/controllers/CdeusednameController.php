@@ -62,12 +62,24 @@ class CdeusednameController extends Controller {
         $id = Yii::$app->request->post('id');
         $cde_name = Yii::$app->request->post('cde_name');
         $cde_usedname = Yii::$app->request->post('cde_usedname');
+        $cde_usedname2 = Yii::$app->request->post('cde_usedname2');
+        $cde_usedname3 = Yii::$app->request->post('cde_usedname3');
 
         $obj = new \stdClass();
         if (!empty($id)) {
             $cde = CdeUsedname::find()->where("id=:id", [":id" => $id])->one();
-            $cde->cde_name = $cde_name;
-            $cde->cde_usedname = $cde_usedname;
+            if(!empty($cde_name)){
+                $cde->cde_name = $cde_name;
+            }
+            if(!empty($cde_usedname)){
+                $cde->cde_usedname = $cde_usedname;
+            }
+            if(!empty($cde_usedname2)){
+                $cde->cde_usedname2 = $cde_usedname2;
+            }
+            if(!empty($cde_usedname3)){
+                $cde->cde_usedname3 = $cde_usedname3;
+            }
             $cde->save(false);
             $obj->success = true;
         } else {

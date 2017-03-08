@@ -23,6 +23,7 @@
                     complete: function (options, a, b) {
                         var obj = eval("(" + a.responseText + ")");
                         var i = 0;
+                        console.log(obj);
                         $('#searchTable tbody tr').each(function () {
                             if (i >= obj.data.length) {
                                 return false;
@@ -31,6 +32,8 @@
 
                             $(this).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'>" + obj.data[i].cde_name + "</div>");
                             $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
+                            $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                            $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
 
                             i++;
                         })
@@ -46,7 +49,10 @@
 
                 $(document).on('blur', '.cde_name', function () {
                     if ($(this).text() != config_value) {
-                        $.post(host + 'cdeusedname/update', {'id': $(this).parents('tr').attr('lang'), 'cde_name': $(this).text(), 'cde_usedname': $('.cde_usedname').text()})
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_name': $(this).text()
+                        })
                     }
                 });
 
@@ -56,10 +62,39 @@
 
                 $(document).on('blur', '.cde_usedname', function () {
                     if ($(this).text() != config_value) {
-                        $.post(host + 'cdeusedname/update', {'id': $(this).parents('tr').attr('lang'), 'cde_name': $('.cde_name').text(), 'cde_usedname': $(this).text()})
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'), 
+                            'cde_usedname': $(this).text()
+                        })
                     }
                 });
 
+                $(document).on('focus', '.cde_usedname2', function () {
+                    config_value = $(this).text();
+                })
+
+                $(document).on('blur', '.cde_usedname2', function () {
+                    if ($(this).text() != config_value) {
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'), 
+                            'cde_usedname2': $(this).text()
+                        })
+                    }
+                });
+                
+                $(document).on('focus', '.cde_usedname3', function () {
+                    config_value = $(this).text();
+                })
+
+                $(document).on('blur', '.cde_usedname3', function () {
+                    if ($(this).text() != config_value) {
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'), 
+                            'cde_usedname3': $(this).text()
+                        })
+                    }
+                });
+                
                 $("#search").click(function () {
                     console.log('ahduwia');
                     search();
@@ -92,6 +127,8 @@
 
                                 $(this).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'>" + obj.data[i].cde_name + "</div>");
                                 $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
+                                $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                                $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
 
                                 i++;
                             })
@@ -112,8 +149,10 @@
         </div>
         <table id="searchTable" align="center">
             <tr>
-                <th w_index="" w_align="center" width="50%;" class='rank'>药品名称</th>
-                <th w_index="" w_align="center" width="50%;">药品别名</th>
+                <th w_index="cde_name" w_align="center" width="25%;" class='rank'>药品名称</th>
+                <th w_index="cde_usedname" w_align="center" width="25%;">药品别名</th>
+                <th w_index="cde_usedname2" w_align="center" width="25%;">药品别名2</th>
+                <th w_index="cde_usedname3" w_align="center" width="25%;">药品别名3</th>
             </tr>
         </table>
     </body>

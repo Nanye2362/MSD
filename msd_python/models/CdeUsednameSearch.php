@@ -20,7 +20,7 @@ class CdeUsednameSearch extends CdeUsedname {
     public function rules() {
         return [
                 [['id'], 'integer'],
-                [['cde_name', 'cde_usedname'], 'safe'],
+                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3'], 'safe'],
         ];
     }
 
@@ -38,7 +38,7 @@ class CdeUsednameSearch extends CdeUsedname {
         $configObj = CdeUsedname::find();
 
         if (!empty($searchText)) {
-            $configObj->andWhere("cde_name like :searchText or cde_usedname like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $configObj->andWhere("cde_name like :searchText or cde_usedname like :searchText or cde_usedname2 like :searchText or cde_usedname3 like :searchText", [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $configObj->count();
