@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\Cors;
+use app\models\User;
+use app\filter\UserFilter;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -64,8 +66,7 @@ class ConfigurationController extends Controller {
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = Yii::$app->request->post('uid');
-        $uid = empty($uid) ? 0 : $uid;
+        $uid = User::$currUser->id;
 
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
@@ -75,30 +76,18 @@ class ConfigurationController extends Controller {
             $obj->success = false;
         }
         
-        //\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//        return $this->render('/site/config.php', ['obj' => $obj]);
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
         
     }
     
-    public function actionTest() {
-//        $view = Yii::$app->getView(); //此处的view实例与视图中的view（默认的$this变量）为同一个。所以此处保存的参数在视图中也可以用
-//        
-//        $view->params['testView'] = 'testView'; //因为是同一个布局变量，所以在视图中也可以使用 
-        //$this->renderAjax('about',['test'=>7]);  
-        //$this->renderFile('app\views\site\about.php',['test'=>8]);  
-        return $this->render('/site/config.php', ['test' => 5]);
-    }
-
     public function actionSearch() {
         $curPage = Yii::$app->request->post('curPage');
         $pageSize = Yii::$app->request->post('pageSize');
 //        $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
-        $uid = Yii::$app->request->post('uid');
-        $uid = empty($uid) ? 0 : $uid;
+        $uid = User::$currUser->id;
         
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
