@@ -107,6 +107,10 @@ class SiteController extends Controller {
     public function actionMailconfig() {
         return $this->render('mailconfig');
     }
+    
+    public function actionUsednameconfig() {
+        return $this->render('usedname');
+    }
 
     public function actionIndicationstypes() {
         return $this->render('IndicationsTypes');
