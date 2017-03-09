@@ -229,23 +229,29 @@ class Cde extends \yii\db\ActiveRecord {
 
         $num = $cdeObj->count();
 
-        if (!empty($sortName) && !empty($sortOrder)) {
+        if (!empty($sortName) && ($sortName != 'end_date' && $sortName != 'total_days')) {
             $cdeObj->orderBy($sortName . ' ' . $sortOrder);
-        } else {
+        } elseif (empty($sortName)) {
             $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
         }
 
         $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
-            $end_date = Cde::find()->select('cde_timeline.end_date')->innerJoin('cde_timeline','cde.id = cde_timeline.cde_id')->andWhere('cde.code = :cde_code and cde.sfda_status = 8 and cde_timeline.status = 5', [':cde_code' => $one['code']])->asArray()->one();;
-            $one['end_date'] = $end_date['end_date'];
-            if(!empty($one['end_date'])){
-                $one['total_days'] = (strtotime($one['end_date']) - strtotime($one['join_date']))/86400;
-            }else{
-                $one['total_days'] = '';
+            $datas = Cde::find();
+            if(!empty($sortName) && ($sortName == 'end_date' || $sortName == 'total_days')){
+                $datas->orderBy($sortName . ' ' . $sortOrder);
             }
             
+            $end_date = $datas->select('cde.join_date, cde_timeline.end_date, datediff(cde_timeline.`end_date`,cde.`join_date`) as total_days ')->innerJoin('cde_timeline', 'cde.id = cde_timeline.cde_id')->andWhere('cde.code = :cde_code and cde.sfda_status = 8 and cde_timeline.status = 5', [':cde_code' => $one['code']])->asArray()->one();
+            
+            $one['end_date'] = $end_date['end_date'];
+            if (!empty($one['end_date'])) {
+                $one['total_days'] = $end_date['total_days'];
+            } else {
+                $one['total_days'] = '';
+            }
+
             $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
             $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
 

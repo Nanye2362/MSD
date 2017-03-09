@@ -281,8 +281,8 @@
                 <th  w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th  w_index="sfda_status" width="5%;">状态</th>
                 <th  w_index="clinical_test_link" width="5%;">临床实验链接</th>
-                <th  w_index="end_date" width="13%;">完成时间</th>
-                <th  w_index="total_days" width="13%;">共计天数</th>
+                <th  w_index="end_date" w_sort="end_date" width="13%;">完成时间</th>
+                <th  w_index="total_days" w_sort="total_days" width="13%;">共计天数</th>
             </tr>
         </table>
 
