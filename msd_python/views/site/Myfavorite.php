@@ -104,9 +104,6 @@
                     $.post(host + 'myfavorite/delete', {cde_id: checkboxvalues}, function(data){
                         if(data.success == true){
                             alert('删除成功');
-                            for (var k = 0; k < checkboxvalues.length; k++) {
-                                $('tr[lang=' + checkboxvalues[k] + ']').remove();
-                            }
                             getList();
                         }
                     });
@@ -268,7 +265,7 @@
                 <th w_index="code" w_align="left" width="10%;">受理号</th>
                 <th w_index="name" w_align="left" width="10%;">药品名称</th>
                 <th w_index="company" width="14%;">企业名称</th>
-                <th w_index="join_date" width="14%;">进入中心时间</th>
+                <th w_index="join_date" width="8%;">进入中心时间</th>
                 <th w_index="MARK" width="13%;">序号排名变化时间节点记录</th>
                 <th w_index="ephmra_atc_code" width="5%;">适应症大类</th>
                 <th  w_index="sfda_status" width="5%;">临床实验</th>
