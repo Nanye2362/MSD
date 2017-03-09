@@ -51,7 +51,8 @@
                     if ($(this).text() != config_value) {
                         $.post(host + 'cdeusedname/update', {
                             'id': $(this).parents('tr').attr('lang'),
-                            'cde_name': $(this).text()
+                            'cde_name': 1,
+                            'cde_name_value': $(this).text()
                         })
                     }
                 });
@@ -63,8 +64,9 @@
                 $(document).on('blur', '.cde_usedname', function () {
                     if ($(this).text() != config_value) {
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'), 
-                            'cde_usedname': $(this).text()
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_usedname': 1,
+                            'cde_usedname_value': $(this).text()
                         })
                     }
                 });
@@ -76,12 +78,13 @@
                 $(document).on('blur', '.cde_usedname2', function () {
                     if ($(this).text() != config_value) {
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'), 
-                            'cde_usedname2': $(this).text()
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_usedname2': 1,
+                            'cde_usedname2_value': $(this).text()
                         })
                     }
                 });
-                
+
                 $(document).on('focus', '.cde_usedname3', function () {
                     config_value = $(this).text();
                 })
@@ -89,12 +92,13 @@
                 $(document).on('blur', '.cde_usedname3', function () {
                     if ($(this).text() != config_value) {
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'), 
-                            'cde_usedname3': $(this).text()
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_usedname3': 1,
+                            'cde_usedname3_value': $(this).text()
                         })
                     }
                 });
-                
+
                 $("#search").click(function () {
                     search();
                 });
