@@ -136,7 +136,7 @@
                                     $('.fdate').css('left', divwidth - 29);
                                 } else if (i == 1) {
                                     $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='sdate' style='font-size: 12px;position: absolute;top: 20px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='sdate' style='font-size: 12px;position: absolute;top: 0px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian2').css('width', divwidth);
                                     $('.sdate').css('left', divwidth - 29);
                                 } else if (i == 2) {
@@ -146,7 +146,7 @@
                                     $('.tdate').css('left', divwidth - 29);
                                 } else if (i == 3) {
                                     $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='fodate' style='font-size: 12px;position: absolute;top: 20px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='fodate' style='font-size: 12px;position: absolute;top: 0px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian4').css('width', divwidth);
                                     $('.fodate').css('left', divwidth - 29);
                                 } else if (i == 4) {
