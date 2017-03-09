@@ -150,7 +150,7 @@
         <table id="searchTable" align="center">
             <tr>
                 <th w_index="cde_name" w_align="center" width="25%;" class='rank'>药品名称</th>
-                <th w_index="cde_usedname" w_align="center" width="25%;">药品别名</th>
+                <th w_index="cde_usedname" w_align="center" width="25%;">药品别名1</th>
                 <th w_index="cde_usedname2" w_align="center" width="25%;">药品别名2</th>
                 <th w_index="cde_usedname3" w_align="center" width="25%;">药品别名3</th>
             </tr>
