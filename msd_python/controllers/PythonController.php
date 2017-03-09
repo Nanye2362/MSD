@@ -231,6 +231,7 @@ class PythonController extends \yii\web\Controller {
 
     public function actionExport() {
         $cde_ids = Yii::$app->request->get('cde_id'); 
+        $export = Yii::$app->request->get('export'); 
         
         $curPage = Yii::$app->request->post('curPage');
         $pageSize = Yii::$app->request->post('pageSize');
@@ -240,7 +241,7 @@ class PythonController extends \yii\web\Controller {
         $role = User::$currUser->role;
         
         
-        $data = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids);
+        $data = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids, '', '', $export);
         $excel_data = $data->data;
 
         Excel::export([

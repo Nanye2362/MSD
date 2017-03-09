@@ -150,7 +150,7 @@
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
                     var cde_id = checkboxvalues;
-                    window.open(host + 'python/export?cde_id=' + cde_id);
+                    window.open(host + 'python/export?export=1&cde_id=' + cde_id);
                 });
             });
 

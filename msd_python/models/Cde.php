@@ -123,7 +123,7 @@ class Cde extends \yii\db\ActiveRecord {
         return $return;
     }
 
-    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '') {
+    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '', $export = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -194,8 +194,10 @@ class Cde extends \yii\db\ActiveRecord {
                 $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
                 $ephmra_atc_code = implode('<br>', $ephmra_atc_codes);
             }
-            $one['ephmra_atc_code'] = $ephmra_atc_code;
-
+            if($export != '1'){
+                $one['ephmra_atc_code'] = $ephmra_atc_code;
+            }
+            
             unset($one['publicremark']);
         }
 
@@ -239,12 +241,12 @@ class Cde extends \yii\db\ActiveRecord {
 
         foreach ($cde as &$one) {
             $datas = Cde::find();
-            if(!empty($sortName) && ($sortName == 'end_date' || $sortName == 'total_days')){
+            if (!empty($sortName) && ($sortName == 'end_date' || $sortName == 'total_days')) {
                 $datas->orderBy($sortName . ' ' . $sortOrder);
             }
-            
+
             $end_date = $datas->select('cde.join_date, cde_timeline.end_date, datediff(cde_timeline.`end_date`,cde.`join_date`) as total_days ')->innerJoin('cde_timeline', 'cde.id = cde_timeline.cde_id')->andWhere('cde.code = :cde_code and cde.sfda_status = 8 and cde_timeline.status = 5', [':cde_code' => $one['code']])->asArray()->one();
-            
+
             $one['end_date'] = $end_date['end_date'];
             if (!empty($one['end_date'])) {
                 $one['total_days'] = $end_date['total_days'];
