@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Sendemailpage;
 use app\models\Emaillist;
+use app\models\CdeUsedname;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -95,6 +96,12 @@ class EmaillistController extends Controller {
         
         $uid = User::$currUser->id;
 
+        $cde_name = CdeUsedname::getCdename($searchText);
+        
+        if(!empty($cde_name)){
+            $searchText = $cde_name;
+        }
+        
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
             $obj = Emaillist::getList($curPage, $pageSize, $typeId, $searchText, $uid);

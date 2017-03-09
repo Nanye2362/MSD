@@ -6,6 +6,7 @@ use app\models\Cde;
 use app\models\CdeType;
 use app\models\CdePublicremark;
 use app\models\ChinaDrugTrials;
+use app\models\CdeUsedname;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use app\models\User;
@@ -45,6 +46,12 @@ class PythonController extends \yii\web\Controller {
 
         $obj = new \stdClass();
 
+        $cde_name = CdeUsedname::getCdename($searchText);
+        
+        if(!empty($cde_name)){
+            $searchText = $cde_name;
+        }
+        
         if (!empty($curPage) && !empty($pageSize)) {
             $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids, $sortName, $sortOrder);
             $obj->success = true;
@@ -68,6 +75,12 @@ class PythonController extends \yii\web\Controller {
         
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
+        
+        $cde_name = CdeUsedname::getCdename($searchText);
+        
+        if(!empty($cde_name)){
+            $searchText = $cde_name;
+        }
 
         $obj = new \stdClass();
 

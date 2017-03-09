@@ -123,7 +123,7 @@ class Cde extends \yii\db\ActiveRecord {
         return $return;
     }
 
-    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '') {
+    static function getList($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -138,8 +138,8 @@ class Cde extends \yii\db\ActiveRecord {
             $cdeObj->andWhere('FIND_IN_SET(cde.id , :cde_id)', [':cde_id' => $cde_ids]);
         }
 
-        if (!empty($serachText)) {
-            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText or clinical_indication like :serachText", [':serachText' => '%' . $serachText . '%']);
+        if (!empty($searchText)) {
+            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $cdeObj->count();
@@ -208,7 +208,7 @@ class Cde extends \yii\db\ActiveRecord {
         return $obj;
     }
 
-    static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $serachText = '', $uid, $role, $ephmra_atc_code = '', $sortName = '', $sortOrder = '') {
+    static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $ephmra_atc_code = '', $sortName = '', $sortOrder = '') {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -223,8 +223,8 @@ class Cde extends \yii\db\ActiveRecord {
             $cdeObj->andWhere('indications_types.ephmra_atc_code like :ephmra_atc_code', [':ephmra_atc_code' => '%' . $ephmra_atc_code . '%']);
         }
 
-        if (!empty($serachText)) {
-            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText or clinical_indication like :serachText", [':serachText' => '%' . $serachText . '%']);
+        if (!empty($searchText)) {
+            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $cdeObj->count();

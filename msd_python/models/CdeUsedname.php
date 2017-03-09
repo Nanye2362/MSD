@@ -62,4 +62,13 @@ class CdeUsedname extends \yii\db\ActiveRecord {
         return $obj;
     }
 
+    static function getCdename($searchText = '') {
+        if(!empty($searchText)){
+            $cde_name = CdeUsedname::find()->andWhere('cde_usedname like :searchText or cde_usedname2 like :searchText or cde_usedname3 like :searchText', [':searchText' => '%' . $searchText . '%'])->asArray()->one();
+            return $cde_name['cde_name'];
+        }else{
+            return '';
+        }
+    }
+
 }

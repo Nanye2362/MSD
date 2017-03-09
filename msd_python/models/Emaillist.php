@@ -42,7 +42,7 @@ class Emaillist extends \yii\db\ActiveRecord {
         ];
     }
 
-    static function getList($curPage, $pageSize, $typeId, $serachText, $uid) {
+    static function getList($curPage, $pageSize, $typeId, $searchText, $uid) {
         $start = ($curPage - 1) * $pageSize;
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
@@ -51,8 +51,8 @@ class Emaillist extends \yii\db\ActiveRecord {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
         }
 
-        if (!empty($serachText)) {
-            $cdeObj->andWhere("code like :serachText or name like :serachText or company like :serachText", [':serachText' => '%' . $serachText . '%']);
+        if (!empty($searchText)) {
+            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText", [':searchText' => '%' . $searchText . '%']);
         }
 
         //查找user_mail中的cde_id

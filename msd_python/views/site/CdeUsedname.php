@@ -96,7 +96,6 @@
                 });
                 
                 $("#search").click(function () {
-                    console.log('ahduwia');
                     search();
                 });
 
