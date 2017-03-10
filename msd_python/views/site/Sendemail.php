@@ -150,8 +150,9 @@
                             }
 
                             //时间借点记录填充
-                            $(this).find('td').eq(6).html($(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime)
-
+                            if(obj.data[i].rankList[0].datetime != ''){
+                                $(this).find('td').eq(6).html($(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime)
+                            }
                             //在序号排名变化时间节点记录页新增div
                             $(this).find('td').eq(6).css('position', 'relative');
 
