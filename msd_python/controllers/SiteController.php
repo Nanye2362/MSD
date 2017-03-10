@@ -109,7 +109,7 @@ class SiteController extends Controller {
     }
     
     public function actionUsednameconfig() {
-        return $this->render('cdeusedname');
+        return $this->render('CdeUsedname');
     }
 
     public function actionIndicationstypes() {
