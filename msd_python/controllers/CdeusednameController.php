@@ -64,10 +64,15 @@ class CdeusednameController extends Controller {
         $cde_usedname = Yii::$app->request->post('cde_usedname');
         $cde_usedname2 = Yii::$app->request->post('cde_usedname2');
         $cde_usedname3 = Yii::$app->request->post('cde_usedname3');
+        $cde_usedname4 = Yii::$app->request->post('cde_usedname4');
+        $cde_usedname5 = Yii::$app->request->post('cde_usedname5');
+        
         $cde_name_value = Yii::$app->request->post('cde_name_value');
         $cde_usedname_value = Yii::$app->request->post('cde_usedname_value');
         $cde_usedname2_value = Yii::$app->request->post('cde_usedname2_value');
         $cde_usedname3_value = Yii::$app->request->post('cde_usedname3_value');
+        $cde_usedname4_value = Yii::$app->request->post('cde_usedname4_value');
+        $cde_usedname5_value = Yii::$app->request->post('cde_usedname5_value');
 
         $obj = new \stdClass();
         if (!empty($id)) {
@@ -83,6 +88,12 @@ class CdeusednameController extends Controller {
             }
             if(!empty($cde_usedname3)){
                 $cde->cde_usedname3 = $cde_usedname3_value;
+            }
+            if(!empty($cde_usedname4)){
+                $cde->cde_usedname4 = $cde_usedname4_value;
+            }
+            if(!empty($cde_usedname5)){
+                $cde->cde_usedname5 = $cde_usedname5_value;
             }
             $cde->save(false);
             $obj->success = true;

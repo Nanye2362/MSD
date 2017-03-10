@@ -26,6 +26,14 @@
                         console.log(obj);
                         $('#searchTable tbody tr').each(function () {
                             if (i >= obj.data.length) {
+                                for (i; i < 21; i++) {
+//                                    $(this).eq(i).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'></div>");
+//                                    $(this).eq(i).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'></div>");
+//                                    $(this).eq(i).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'></div>");
+//                                    $(this).eq(i).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'></div>");
+//                                    $(this).eq(i).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'></div>");
+//                                    $(this).eq(i).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'></div>");
+                                }
                                 return false;
                             }
                             $(this).attr('lang', obj.data[i].id);
@@ -34,7 +42,12 @@
                             $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
                             $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
                             $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                            $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                            $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
 
+                            if ($('.cde_usedname').val() == '') {
+
+                            }
                             i++;
                         })
                     }
@@ -99,6 +112,34 @@
                     }
                 });
 
+                $(document).on('focus', '.cde_usedname4', function () {
+                    config_value = $(this).text();
+                })
+
+                $(document).on('blur', '.cde_usedname4', function () {
+                    if ($(this).text() != config_value) {
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_usedname4': 1,
+                            'cde_usedname4_value': $(this).text()
+                        })
+                    }
+                });
+
+                $(document).on('focus', '.cde_usedname5', function () {
+                    config_value = $(this).text();
+                })
+
+                $(document).on('blur', '.cde_usedname5', function () {
+                    if ($(this).text() != config_value) {
+                        $.post(host + 'cdeusedname/update', {
+                            'id': $(this).parents('tr').attr('lang'),
+                            'cde_usedname5': 1,
+                            'cde_usedname5_value': $(this).text()
+                        })
+                    }
+                });
+
                 $("#search").click(function () {
                     search();
                 });
@@ -132,6 +173,8 @@
                                 $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
                                 $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
                                 $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                                $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                                $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
 
                                 i++;
                             })
@@ -152,10 +195,12 @@
         </div>
         <table id="searchTable" align="center">
             <tr>
-                <th w_index="cde_name" w_align="center" width="25%;" class='rank'>药品名称</th>
-                <th w_index="cde_usedname" w_align="center" width="25%;">药品别名1</th>
-                <th w_index="cde_usedname2" w_align="center" width="25%;">药品别名2</th>
-                <th w_index="cde_usedname3" w_align="center" width="25%;">药品别名3</th>
+                <th w_index="cde_name" w_align="center" width="16%;" class='rank'>药品名称</th>
+                <th w_index="cde_usedname" w_align="center" width="16%;">药品别名1</th>
+                <th w_index="cde_usedname2" w_align="center" width="16%;">药品别名2</th>
+                <th w_index="cde_usedname3" w_align="center" width="16%;">药品别名3</th>
+                <th w_index="cde_usedname4" w_align="center" width="16%;">药品别名4</th>
+                <th w_index="cde_usedname4" w_align="center" width="16%;">药品别名5</th>
             </tr>
         </table>
     </body>
