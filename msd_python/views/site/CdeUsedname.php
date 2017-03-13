@@ -26,14 +26,6 @@
                         console.log(obj);
                         $('#searchTable tbody tr').each(function () {
                             if (i >= obj.data.length) {
-                                for (i; i < 21; i++) {
-//                                    $(this).eq(i).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'></div>");
-//                                    $(this).eq(i).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'></div>");
-//                                    $(this).eq(i).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'></div>");
-//                                    $(this).eq(i).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'></div>");
-//                                    $(this).eq(i).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'></div>");
-//                                    $(this).eq(i).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'></div>");
-                                }
                                 return false;
                             }
                             $(this).attr('lang', obj.data[i].id);
@@ -45,9 +37,6 @@
                             $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
                             $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
 
-                            if ($('.cde_usedname').val() == '') {
-
-                            }
                             i++;
                         })
                     }
