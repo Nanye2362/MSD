@@ -254,7 +254,7 @@
         
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
-            <button class="btn btn-primary btn-sm" id="search">Search</button>
+            <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
             <button class="btn btn-primary btn-sm" id="delete">Delete</button>
         </div>
 

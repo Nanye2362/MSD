@@ -223,10 +223,10 @@
     <body>
         <?php include "menu.php"; ?>
         <p style="margin: 10px;font-size: 20px;text-align: center;">别名配置</p>
-        <div style="float: left; margin-right: 3%;">
+        <div style="float: right; margin-right: 3%;">
             搜索:
             <input id="input" type="text" placeholder="">
-            <button id="search" class="btn btn-primary btn-sm">Search</button>
+            <button id="search" class="btn btn-primary btn-sm">Search</button>&nbsp;&nbsp;&nbsp;
             <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加</button>
         </div>
         <table id="searchTable" align="center">
