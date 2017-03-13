@@ -74,12 +74,25 @@
                     if ($(this).text() != config_value) {
                         var langval = $(this).parents('tr').attr('lang');
                         var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        $.post(host + 'cdeusedname/update', {
-                            'id': langval,
-                            'cde_name_value': cde_name_value,
-                            'cde_usedname': 1,
-                            'cde_usedname_value': $(this).text()
-                        })
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
+                        if (($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname5_value)) {
+                            alert('药品别名有重复！');
+                            $(this).empty();
+                        } else {
+                            $.post(host + 'cdeusedname/update', {
+                                'id': langval,
+                                'cde_name_value': cde_name_value,
+                                'cde_usedname': 1,
+                                'cde_usedname_value': $(this).text()
+                            });
+                        }
                     }
                 });
 
@@ -91,12 +104,25 @@
                     if ($(this).text() != config_value) {
                         var langval = $(this).parents('tr').attr('lang');
                         var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        $.post(host + 'cdeusedname/update', {
-                            'id': langval,
-                            'cde_name_value': cde_name_value,
-                            'cde_usedname2': 1,
-                            'cde_usedname2_value': $(this).text()
-                        })
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
+                        if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname5_value)) {
+                            alert('药品别名有重复！');
+                            $(this).empty();
+                        } else {
+                            $.post(host + 'cdeusedname/update', {
+                                'id': langval,
+                                'cde_name_value': cde_name_value,
+                                'cde_usedname2': 1,
+                                'cde_usedname2_value': $(this).text()
+                            });
+                        }
                     }
                 });
 
@@ -108,12 +134,25 @@
                     if ($(this).text() != config_value) {
                         var langval = $(this).parents('tr').attr('lang');
                         var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        $.post(host + 'cdeusedname/update', {
-                            'id': langval,
-                            'cde_name_value': cde_name_value,
-                            'cde_usedname3': 1,
-                            'cde_usedname3_value': $(this).text()
-                        })
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
+                        if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname5_value)) {
+                            alert('药品别名有重复！');
+                            $(this).empty();
+                        } else {
+                            $.post(host + 'cdeusedname/update', {
+                                'id': langval,
+                                'cde_name_value': cde_name_value,
+                                'cde_usedname3': 1,
+                                'cde_usedname3_value': $(this).text()
+                            });
+                        }
                     }
                 });
 
@@ -125,12 +164,24 @@
                     if ($(this).text() != config_value) {
                         var langval = $(this).parents('tr').attr('lang');
                         var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        $.post(host + 'cdeusedname/update', {
-                            'id': langval,
-                            'cde_name_value': cde_name_value,
-                            'cde_usedname4': 1,
-                            'cde_usedname4_value': $(this).text()
-                        })
+                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
+                        if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname5_value)) {
+                            alert('药品别名有重复！');
+                            $(this).empty();
+                        } else {
+                            $.post(host + 'cdeusedname/update', {
+                                'id': langval,
+                                'cde_name_value': cde_name_value,
+                                'cde_usedname4': 1,
+                                'cde_usedname4_value': $(this).text()
+                            });
+                        }
                     }
                 });
 
@@ -142,12 +193,24 @@
                     if ($(this).text() != config_value) {
                         var langval = $(this).parents('tr').attr('lang');
                         var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        $.post(host + 'cdeusedname/update', {
-                            'id': langval,
-                            'cde_name_value': cde_name_value,
-                            'cde_usedname5': 1,
-                            'cde_usedname5_value': $(this).text()
-                        })
+                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                        if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
+                                ($(this).text() != '' && $(this).text() == cde_usedname4_value)) {
+                            alert('药品别名有重复！');
+                            $(this).empty();
+                        } else {
+                            $.post(host + 'cdeusedname/update', {
+                                'id': langval,
+                                'cde_name_value': cde_name_value,
+                                'cde_usedname5': 1,
+                                'cde_usedname5_value': $(this).text()
+                            });
+                        }
                     }
                 });
 
@@ -193,8 +256,7 @@
                     });
                 }
 
-                //重复提示
-                
+
 
             });
 
