@@ -59,7 +59,7 @@
                             'cde_name': 1,
                             'cde_name_value': $(this).text()
                         }, function (data) {
-                            if(data.delete == true){
+                            if (data.delete == true) {
                                 location.reload();
                             }
                         })
@@ -72,8 +72,11 @@
 
                 $(document).on('blur', '.cde_usedname', function () {
                     if ($(this).text() != config_value) {
+                        var langval = $(this).parents('tr').attr('lang');
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'),
+                            'id': langval,
+                            'cde_name_value': cde_name_value,
                             'cde_usedname': 1,
                             'cde_usedname_value': $(this).text()
                         })
@@ -86,8 +89,11 @@
 
                 $(document).on('blur', '.cde_usedname2', function () {
                     if ($(this).text() != config_value) {
+                        var langval = $(this).parents('tr').attr('lang');
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'),
+                            'id': langval,
+                            'cde_name_value': cde_name_value,
                             'cde_usedname2': 1,
                             'cde_usedname2_value': $(this).text()
                         })
@@ -100,8 +106,11 @@
 
                 $(document).on('blur', '.cde_usedname3', function () {
                     if ($(this).text() != config_value) {
+                        var langval = $(this).parents('tr').attr('lang');
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'),
+                            'id': langval,
+                            'cde_name_value': cde_name_value,
                             'cde_usedname3': 1,
                             'cde_usedname3_value': $(this).text()
                         })
@@ -114,8 +123,11 @@
 
                 $(document).on('blur', '.cde_usedname4', function () {
                     if ($(this).text() != config_value) {
+                        var langval = $(this).parents('tr').attr('lang');
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'),
+                            'id': langval,
+                            'cde_name_value': cde_name_value,
                             'cde_usedname4': 1,
                             'cde_usedname4_value': $(this).text()
                         })
@@ -128,8 +140,11 @@
 
                 $(document).on('blur', '.cde_usedname5', function () {
                     if ($(this).text() != config_value) {
+                        var langval = $(this).parents('tr').attr('lang');
+                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
                         $.post(host + 'cdeusedname/update', {
-                            'id': $(this).parents('tr').attr('lang'),
+                            'id': langval,
+                            'cde_name_value': cde_name_value,
                             'cde_usedname5': 1,
                             'cde_usedname5_value': $(this).text()
                         })
@@ -177,6 +192,9 @@
                         }
                     });
                 }
+
+                //重复提示
+                
 
             });
 
