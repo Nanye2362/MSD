@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <title></title>
         <link rel="stylesheet" href="../css/grid.paging.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" />
         <script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/bsgrid.all.min.js" type="text/javascript" charset="utf-8"></script>
@@ -253,8 +254,8 @@
         
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
-            <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
-            <button id="delete" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Delete</button>
+            <button class="btn btn-primary btn-sm" id="search">Search</button>
+            <button class="btn btn-primary btn-sm" id="delete">Delete</button>
         </div>
 
         <br />

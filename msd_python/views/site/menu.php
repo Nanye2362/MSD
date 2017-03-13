@@ -15,7 +15,7 @@
     <style type="text/css">
 		#nav{
 			height:50px;
-			background-color:#459df5;
+			background-color:#428bca;
 		}
 		
 		#nav li{

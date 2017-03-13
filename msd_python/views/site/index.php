@@ -3,8 +3,9 @@
 
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>首页</title>
         <link rel="stylesheet" href="../css/grid.paging.min.css" media="all"/>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" media="all" />
         <script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/bsgrid.all.min.js" type="text/javascript" charset="utf-8"></script>
@@ -381,12 +382,12 @@
 
         <div id="bar" style="float: right; margin-right: 3%;">
             <input id="input" type="text" placeholder="">
-            <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
-            <button  id="copy" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Copy</button>
-            <button id="export" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Export</button>
-            <button id="Print" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Print</button>
-            <button id="addtofavorite" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Add to favorite</button>
-            <button id="sendemail" style="background-color:cadetblue;FONT-SIZE:1.3rem;COLOR: white;">Send Email</button>
+            <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary btn-sm" id="copy">Copy</button>
+            <button class="btn btn-primary btn-sm" id="export">Export</button>
+            <button class="btn btn-primary btn-sm" id="Print">Print</button>
+            <button class="btn btn-primary btn-sm" id="addtofavorite">Add to favorite</button>
+            <button class="btn btn-primary btn-sm" id="sendemail">Send Email</button>
         </div>
 
         <br />

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>注册进度时间轴</title>
         <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
         <link rel="stylesheet" type="text/css" href="../css/index4.css"/>
     </head>

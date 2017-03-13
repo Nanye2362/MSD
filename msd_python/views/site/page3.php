@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>相关临床实验</title>
         <link rel="stylesheet" href="../css/grid.paging.min.css"/>
         <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css"/>
         <script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>

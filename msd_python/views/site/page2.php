@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>注册进度</title>
         <style type="text/css">
             table {
                 width: 98%;

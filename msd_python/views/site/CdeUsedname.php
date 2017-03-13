@@ -5,15 +5,15 @@
         <meta charset="utf-8" />
         <title>别名配置</title>
         <link rel="stylesheet" href="../css/grid.paging.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" />
         <script src="../js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/bsgrid.all.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/grid.zh-CN.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="../js/grid.paging.min.js"></script>
         <script src="../js/setting.js" type="text/javascript" charset="utf-8"></script>
-        <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
         <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
-        <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             var config_value;
             $(function () {
