@@ -58,6 +58,10 @@
                             'id': $(this).parents('tr').attr('lang'),
                             'cde_name': 1,
                             'cde_name_value': $(this).text()
+                        }, function (data) {
+                            if(data.delete == true){
+                                location.reload();
+                            }
                         })
                     }
                 });
@@ -174,11 +178,6 @@
                     });
                 }
 
-                $('#addUserModal').on('hide.bs.modal', function () {
-                    // 关闭时清空edit状态为add
-                    $("#act").val("add");
-//                    location.reload();
-                });
             });
 
             // 添加
@@ -203,7 +202,7 @@
                             alert(msg + "成功！");
                             location.reload();
                         } else {
-                            $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                            $("#tip").html("<span style='color:red'>添加失败</span>");
                             alert('添加失败');
                         }
                     },
@@ -249,7 +248,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    用户信息
+                                    添加新药品名
                                 </h4>
                             </div>
                             <div class="modal-body">

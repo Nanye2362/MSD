@@ -75,31 +75,44 @@ class CdeusednameController extends Controller {
         $cde_usedname5_value = Yii::$app->request->post('cde_usedname5_value');
 
         $obj = new \stdClass();
-        if (!empty($id)) {
-            $cde = CdeUsedname::find()->where("id=:id", [":id" => $id])->one();
-            if (!empty($cde_name)) {
-                $cde->cde_name = $cde_name_value;
+
+        if (!empty(trim($cde_name_value))) {
+            if (!empty($id)) {
+                $cde = CdeUsedname::find()->where("id=:id", [":id" => $id])->one();
+                if (!empty($cde_name)) {
+                    $cde->cde_name = $cde_name_value;
+                }
+                if (!empty($cde_usedname)) {
+                    $cde->cde_usedname = $cde_usedname_value;
+                }
+                if (!empty($cde_usedname2)) {
+                    $cde->cde_usedname2 = $cde_usedname2_value;
+                }
+                if (!empty($cde_usedname3)) {
+                    $cde->cde_usedname3 = $cde_usedname3_value;
+                }
+                if (!empty($cde_usedname4)) {
+                    $cde->cde_usedname4 = $cde_usedname4_value;
+                }
+                if (!empty($cde_usedname5)) {
+                    $cde->cde_usedname5 = $cde_usedname5_value;
+                }
+                $cde->save(false);
+                $obj->success = true;
+            } else {
+                $obj->success = false;
             }
-            if (!empty($cde_usedname)) {
-                $cde->cde_usedname = $cde_usedname_value;
-            }
-            if (!empty($cde_usedname2)) {
-                $cde->cde_usedname2 = $cde_usedname2_value;
-            }
-            if (!empty($cde_usedname3)) {
-                $cde->cde_usedname3 = $cde_usedname3_value;
-            }
-            if (!empty($cde_usedname4)) {
-                $cde->cde_usedname4 = $cde_usedname4_value;
-            }
-            if (!empty($cde_usedname5)) {
-                $cde->cde_usedname5 = $cde_usedname5_value;
-            }
-            $cde->save(false);
-            $obj->success = true;
         } else {
-            $obj->success = false;
+            if (!empty($id)) {
+                $cde = new CdeUsedname();
+                $cde->deleteAll('id = :id', [':id' => $id]);
+                $obj->success = true;
+                $obj->delete = true;
+            } else {
+                $obj->success = false;
+            }
         }
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
@@ -112,7 +125,7 @@ class CdeusednameController extends Controller {
         parse_str($form_data, $param_arr);
 
         $obj = new \stdClass();
-        if (!empty($form_data)) {
+        if (!empty(trim($param_arr['cde_name']))) {
             $cde = new CdeUsedname();
             $cde->cde_name = $param_arr['cde_name'];
             $cde->cde_usedname = $param_arr['cde_usedname'];
@@ -125,11 +138,10 @@ class CdeusednameController extends Controller {
         } else {
             $obj->success = false;
         }
-        
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
-        
     }
 
     public function actionSearch() {
