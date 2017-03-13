@@ -11,6 +11,9 @@
         <script src="../js/grid.zh-CN.min.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="../js/grid.paging.min.js"></script>
         <script src="../js/setting.js" type="text/javascript" charset="utf-8"></script>
+        <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+        <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             var config_value;
             $(function () {
@@ -170,7 +173,50 @@
                         }
                     });
                 }
+
+                $('#addUserModal').on('hide.bs.modal', function () {
+                    // 关闭时清空edit状态为add
+                    $("#act").val("add");
+//                    location.reload();
+                });
             });
+
+            // 添加
+            function check_form() {
+                var form_data = $('#form_data').serialize();
+                console.log(form_data);
+
+                $.ajax({
+                    url: host + 'cdeusedname/addone',
+                    data: {"form_data": form_data},
+                    type: "post",
+                    beforeSend: function ()
+                    {
+                        $("#tip").html("<span style='color:blue'>正在处理...</span>");
+                        return true;
+                    },
+                    success: function (data) {
+                        if (data.success == true) {
+                            console.log(data);
+                            var msg = "添加";
+                            $("#tip").html("<span style='color:blueviolet'>恭喜，" + msg + "成功！</span>");
+                            alert(msg + "成功！");
+                            location.reload();
+                        } else {
+                            $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                            alert('添加失败');
+                        }
+                    },
+                    error: function () {
+                        alert('请求出错');
+                    },
+                    complete: function () {
+                        $('#acting_tips').hide();
+                    }
+                });
+
+                return false;
+            }
         </script>
     </head>
 
@@ -180,7 +226,8 @@
         <div style="float: left; margin-right: 3%;">
             搜索:
             <input id="input" type="text" placeholder="">
-            <button id="search" style="background-color:skyblue;FONT-SIZE:1.3rem;COLOR: white; ">Search</button>
+            <button id="search" class="btn btn-primary btn-sm">Search</button>
+            <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加</button>
         </div>
         <table id="searchTable" align="center">
             <tr>
@@ -192,6 +239,77 @@
                 <th w_index="cde_usedname4" w_align="center" width="16%;">药品别名5</th>
             </tr>
         </table>
+        <div class="container">
+            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onsubmit="return check_form()" style="margin: 20px;">
+                <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    用户信息
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="cde_name" class="col-sm-3 control-label">药品名称</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="user_id" name="cde_name" value=""
+                                                   placeholder="请输入药品名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cde_usedname" class="col-sm-3 control-label">药品别名1</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="cde_usedname" value="" id="user_name"
+                                                   placeholder="请输入药品别名1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cde_usedname2" class="col-sm-3 control-label">药品别名2</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="cde_usedname2" value="" id="address"
+                                                   placeholder="请输入药品别名2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cde_usedname3" class="col-sm-3 control-label">药品别名3</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"  name="cde_usedname3" value="" id="remark"
+                                                   placeholder="请输入药品别名3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cde_usedname4" class="col-sm-3 control-label">药品别名4</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"  name="cde_usedname4" value="" id="remark"
+                                                   placeholder="请输入药品别名4">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cde_usedname5" class="col-sm-3 control-label">药品别名5</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"  name="cde_usedname5" value="" id="remark"
+                                                   placeholder="请输入药品别名5">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    确定添加
+                                </button><span id="tip"> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 
 </html>

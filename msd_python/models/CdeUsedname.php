@@ -12,6 +12,8 @@ use Yii;
  * @property string $cde_usedname
  * @property string $cde_usedname2
  * @property string $cde_usedname3
+ * @property string $cde_usedname4
+ * @property string $cde_usedname5
  */
 class CdeUsedname extends \yii\db\ActiveRecord {
 
@@ -27,8 +29,9 @@ class CdeUsedname extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3'], 'required'],
-                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3'], 'string', 'max' => 50],
+                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3', 'cde_usedname4', 'cde_usedname5'], 'required'],
+                [['cde_name', 'cde_usedname', 'cde_usedname2', 'cde_usedname3', 'cde_usedname4', 'cde_usedname5'], 'string', 'max' => 50],
+                [['cde_name'], 'unique'],
         ];
     }
 
@@ -42,6 +45,8 @@ class CdeUsedname extends \yii\db\ActiveRecord {
             'cde_usedname' => 'Cde Usedname',
             'cde_usedname2' => 'Cde Usedname2',
             'cde_usedname3' => 'Cde Usedname3',
+            'cde_usedname4' => 'Cde Usedname4',
+            'cde_usedname5' => 'Cde Usedname5',
         ];
     }
 
@@ -63,10 +68,10 @@ class CdeUsedname extends \yii\db\ActiveRecord {
     }
 
     static function getCdename($searchText = '') {
-        if(!empty($searchText)){
+        if (!empty($searchText)) {
             $cde_name = CdeUsedname::find()->andWhere('cde_usedname like :searchText or cde_usedname2 like :searchText or cde_usedname3 like :searchText', [':searchText' => '%' . $searchText . '%'])->asArray()->one();
             return $cde_name['cde_name'];
-        }else{
+        } else {
             return '';
         }
     }
