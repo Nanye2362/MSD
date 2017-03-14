@@ -35,18 +35,52 @@
 
                             $(this).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'>" + obj.data[i].cde_name + "</div>");
                             $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
-                            $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
-                            $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
-                            $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
-                            $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+
+                            if (obj.data[i].cde_usedname2 == '') {
+                                if (obj.data[i].cde_usedname == '') {
+                                    $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='false'>" + obj.data[i].cde_usedname2 + "</div>");
+                                } else {
+                                    $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                                }
+                            } else {
+                                $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                            }
+
+                            if (obj.data[i].cde_usedname3 == '') {
+                                if (obj.data[i].cde_usedname2 == '') {
+                                    $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='false'>" + obj.data[i].cde_usedname3 + "</div>");
+                                } else {
+                                    $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                                }
+                            } else {
+                                $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                            }
+
+                            if (obj.data[i].cde_usedname4 == '') {
+                                if (obj.data[i].cde_usedname3 == '') {
+                                    $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='false'>" + obj.data[i].cde_usedname4 + "</div>");
+                                } else {
+                                    $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                                }
+                            } else {
+                                $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                            }
+
+                            if (obj.data[i].cde_usedname5 == '') {
+                                if (obj.data[i].cde_usedname4 == '') {
+                                    $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='false'>" + obj.data[i].cde_usedname5 + "</div>");
+                                } else {
+                                    $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+                                }
+                            } else {
+                                $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+                            }
 
                             i++;
                         })
                     }
 
                 });
-
-
 
                 $(document).on('focus', '.cde_name', function () {
                     config_value = $(this).text();
@@ -71,14 +105,13 @@
                 })
 
                 $(document).on('blur', '.cde_usedname', function () {
+                    var langval = $(this).parents('tr').attr('lang');
+                    var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                    var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                    var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                    var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                    var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                     if ($(this).text() != config_value) {
-                        var langval = $(this).parents('tr').attr('lang');
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
-                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
-                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
-                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                         if (($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
@@ -94,21 +127,24 @@
                             });
                         }
                     }
+                    if ($(this).text() != '') {
+                        console.log(langval);
+                        $('tr[lang=' + langval + ']').find('td').eq(2).children('.cde_usedname2').attr('contenteditable', true);
+                    }
                 });
 
                 $(document).on('focus', '.cde_usedname2', function () {
                     config_value = $(this).text();
-                })
+                });
 
                 $(document).on('blur', '.cde_usedname2', function () {
+                    var langval = $(this).parents('tr').attr('lang');
+                    var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                    var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                    var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                    var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                    var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                     if ($(this).text() != config_value) {
-                        var langval = $(this).parents('tr').attr('lang');
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
-                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
-                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
-                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                         if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
@@ -124,6 +160,10 @@
                             });
                         }
                     }
+                    if ($(this).text() != '') {
+                        console.log(langval);
+                        $('tr[lang=' + langval + ']').find('td').eq(3).children('.cde_usedname3').attr('contenteditable', true);
+                    }
                 });
 
                 $(document).on('focus', '.cde_usedname3', function () {
@@ -131,14 +171,13 @@
                 })
 
                 $(document).on('blur', '.cde_usedname3', function () {
+                    var langval = $(this).parents('tr').attr('lang');
+                    var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                    var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                    var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                    var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
+                    var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                     if ($(this).text() != config_value) {
-                        var langval = $(this).parents('tr').attr('lang');
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
-                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
-                        var cde_usedname4_value = $('tr[lang=' + langval + ']').find('td').eq(4).text();
-                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                         if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname4_value) ||
@@ -154,6 +193,10 @@
                             });
                         }
                     }
+                    if ($(this).text() != '') {
+                        console.log(langval);
+                        $('tr[lang=' + langval + ']').find('td').eq(4).children('.cde_usedname4').attr('contenteditable', true);
+                    }
                 });
 
                 $(document).on('focus', '.cde_usedname4', function () {
@@ -161,13 +204,13 @@
                 })
 
                 $(document).on('blur', '.cde_usedname4', function () {
+                    var langval = $(this).parents('tr').attr('lang');
+                    var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
+                    var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
+                    var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
+                    var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
+                    var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                     if ($(this).text() != config_value) {
-                        var langval = $(this).parents('tr').attr('lang');
-                        var cde_name_value = $('tr[lang=' + langval + ']').find('td').eq(0).text();
-                        var cde_usedname1_value = $('tr[lang=' + langval + ']').find('td').eq(1).text();
-                        var cde_usedname2_value = $('tr[lang=' + langval + ']').find('td').eq(2).text();
-                        var cde_usedname3_value = $('tr[lang=' + langval + ']').find('td').eq(3).text();
-                        var cde_usedname5_value = $('tr[lang=' + langval + ']').find('td').eq(5).text();
                         if (($(this).text() != '' && $(this).text() == cde_usedname1_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname2_value) ||
                                 ($(this).text() != '' && $(this).text() == cde_usedname3_value) ||
@@ -182,6 +225,10 @@
                                 'cde_usedname4_value': $(this).text()
                             });
                         }
+                    }
+                    if ($(this).text() != '') {
+                        console.log(langval);
+                        $('tr[lang=' + langval + ']').find('td').eq(5).children('.cde_usedname5').attr('contenteditable', true);
                     }
                 });
 
@@ -245,10 +292,46 @@
 
                                 $(this).find('td').eq(0).html("<div style='width:100%;min-height:23px;' class='cde_name' contenteditable='true'>" + obj.data[i].cde_name + "</div>");
                                 $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='cde_usedname' contenteditable='true'>" + obj.data[i].cde_usedname + "</div>");
-                                $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
-                                $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
-                                $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
-                                $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+
+                                if (obj.data[i].cde_usedname2 == '') {
+                                    if (obj.data[i].cde_usedname == '') {
+                                        $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='false'>" + obj.data[i].cde_usedname2 + "</div>");
+                                    } else {
+                                        $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                                    }
+                                } else {
+                                    $(this).find('td').eq(2).html("<div style='width:100%;min-height:23px;' class='cde_usedname2' contenteditable='true'>" + obj.data[i].cde_usedname2 + "</div>");
+                                }
+
+                                if (obj.data[i].cde_usedname3 == '') {
+                                    if (obj.data[i].cde_usedname2 == '') {
+                                        $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='false'>" + obj.data[i].cde_usedname3 + "</div>");
+                                    } else {
+                                        $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                                    }
+                                } else {
+                                    $(this).find('td').eq(3).html("<div style='width:100%;min-height:23px;' class='cde_usedname3' contenteditable='true'>" + obj.data[i].cde_usedname3 + "</div>");
+                                }
+
+                                if (obj.data[i].cde_usedname4 == '') {
+                                    if (obj.data[i].cde_usedname3 == '') {
+                                        $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='false'>" + obj.data[i].cde_usedname4 + "</div>");
+                                    } else {
+                                        $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                                    }
+                                } else {
+                                    $(this).find('td').eq(4).html("<div style='width:100%;min-height:23px;' class='cde_usedname4' contenteditable='true'>" + obj.data[i].cde_usedname4 + "</div>");
+                                }
+
+                                if (obj.data[i].cde_usedname5 == '') {
+                                    if (obj.data[i].cde_usedname4 == '') {
+                                        $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='false'>" + obj.data[i].cde_usedname5 + "</div>");
+                                    } else {
+                                        $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+                                    }
+                                } else {
+                                    $(this).find('td').eq(5).html("<div style='width:100%;min-height:23px;' class='cde_usedname5' contenteditable='true'>" + obj.data[i].cde_usedname5 + "</div>");
+                                }
 
                                 i++;
                             })
@@ -256,7 +339,53 @@
                     });
                 }
 
+                $(document).on('blur', 'input[name=cde_usedname]', function () {
+                    if ($(this).val() != '') {
+                        $('input[name=cde_usedname2]').removeAttr('disabled');
+                    } else {
+                        $('input[name=cde_usedname2]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname2]').val('');
+                        $('input[name=cde_usedname3]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname3]').val('');
+                        $('input[name=cde_usedname4]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname4]').val('');
+                        $('input[name=cde_usedname5]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname5]').val('');
+                    }
+                });
+                
+                $(document).on('blur', 'input[name=cde_usedname2]', function () {
+                    if ($(this).val() != '') {
+                        $('input[name=cde_usedname3]').removeAttr('disabled');
+                    } else {
+                        $('input[name=cde_usedname3]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname3]').val('');
+                        $('input[name=cde_usedname4]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname4]').val('');
+                        $('input[name=cde_usedname5]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname5]').val('');
+                    }
+                });
+                
+                $(document).on('blur', 'input[name=cde_usedname3]', function () {
+                    if ($(this).val() != '') {
+                        $('input[name=cde_usedname4]').removeAttr('disabled');
+                    } else {
+                        $('input[name=cde_usedname4]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname4]').val('');
+                        $('input[name=cde_usedname5]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname5]').val('');
+                    }
+                });
 
+                $(document).on('blur', 'input[name=cde_usedname4]', function () {
+                    if ($(this).val() != '') {
+                        $('input[name=cde_usedname5]').removeAttr('disabled');
+                    } else {
+                        $('input[name=cde_usedname5]').attr('disabled', 'disabled');
+                        $('input[name=cde_usedname5]').val('');
+                    }
+                });
 
             });
 
@@ -264,7 +393,7 @@
             function check_form() {
                 var form_data = $('#form_data').serialize();
                 console.log(form_data);
-
+                
                 $.ajax({
                     url: host + 'cdeusedname/addone',
                     data: {"form_data": form_data},
@@ -319,7 +448,7 @@
             </tr>
         </table>
         <div class="container">
-            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onsubmit="return check_form()" style="margin: 20px;">
+            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onkeydown="if(event.keyCode==13)return false;" onsubmit="return check_form()" style="margin: 20px;">
                 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -336,42 +465,42 @@
                                     <div class="form-group">
                                         <label for="cde_name" class="col-sm-3 control-label">药品名称</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="user_id" name="cde_name" value=""
+                                            <input type="text" class="form-control" name="cde_name" value=""
                                                    placeholder="请输入药品名称">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cde_usedname" class="col-sm-3 control-label">药品别名1</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="cde_usedname" value="" id="user_name"
+                                            <input type="text" class="form-control" name="cde_usedname" value=""
                                                    placeholder="请输入药品别名1">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cde_usedname2" class="col-sm-3 control-label">药品别名2</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="cde_usedname2" value="" id="address"
+                                            <input type="text" class="form-control" disabled="disabled" name="cde_usedname2" value=""
                                                    placeholder="请输入药品别名2">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cde_usedname3" class="col-sm-3 control-label">药品别名3</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"  name="cde_usedname3" value="" id="remark"
+                                            <input type="text" class="form-control" disabled="disabled" name="cde_usedname3" value=""
                                                    placeholder="请输入药品别名3">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cde_usedname4" class="col-sm-3 control-label">药品别名4</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"  name="cde_usedname4" value="" id="remark"
+                                            <input type="text" class="form-control" disabled="disabled" name="cde_usedname4" value=""
                                                    placeholder="请输入药品别名4">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cde_usedname5" class="col-sm-3 control-label">药品别名5</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"  name="cde_usedname5" value="" id="remark"
+                                            <input type="text" class="form-control" disabled="disabled" name="cde_usedname5" value=""
                                                    placeholder="请输入药品别名5">
                                         </div>
                                     </div>

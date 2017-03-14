@@ -128,11 +128,11 @@ class CdeusednameController extends Controller {
         if (!empty(trim($param_arr['cde_name']))) {
             $cde = new CdeUsedname();
             $cde->cde_name = $param_arr['cde_name'];
-            $cde->cde_usedname = $param_arr['cde_usedname'];
-            $cde->cde_usedname2 = $param_arr['cde_usedname2'];
-            $cde->cde_usedname3 = $param_arr['cde_usedname3'];
-            $cde->cde_usedname4 = $param_arr['cde_usedname4'];
-            $cde->cde_usedname5 = $param_arr['cde_usedname5'];
+            $cde->cde_usedname = array_key_exists('cde_usedname', $param_arr) ? $param_arr['cde_usedname'] : '';
+            $cde->cde_usedname2 = array_key_exists('cde_usedname2', $param_arr) ? $param_arr['cde_usedname2'] : '';
+            $cde->cde_usedname3 = array_key_exists('cde_usedname3', $param_arr) ? $param_arr['cde_usedname3'] : '';
+            $cde->cde_usedname4 = array_key_exists('cde_usedname4', $param_arr) ? $param_arr['cde_usedname4'] : '';
+            $cde->cde_usedname5 = array_key_exists('cde_usedname5', $param_arr) ? $param_arr['cde_usedname5'] : '';
             $cde->save(false);
             $obj->success = true;
         } else {
