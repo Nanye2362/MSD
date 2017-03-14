@@ -76,7 +76,8 @@ class CdeusednameController extends Controller {
 
         $obj = new \stdClass();
 
-        if (!empty(trim($cde_name_value))) {
+        $cde_name_value = trim($cde_name_value);
+        if (!empty($cde_name_value)) {
             if (!empty($id)) {
                 $cde = CdeUsedname::find()->where("id=:id", [":id" => $id])->one();
                 if (!empty($cde_name)) {
@@ -125,7 +126,9 @@ class CdeusednameController extends Controller {
         parse_str($form_data, $param_arr);
 
         $obj = new \stdClass();
-        if (!empty(trim($param_arr['cde_name']))) {
+        
+        $param_arr['cde_name'] = trim($param_arr['cde_name']);
+        if (!empty($param_arr['cde_name'])) {
             $cde = new CdeUsedname();
             $cde->cde_name = $param_arr['cde_name'];
             $cde->cde_usedname = array_key_exists('cde_usedname', $param_arr) ? $param_arr['cde_usedname'] : '';
