@@ -130,6 +130,8 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(2).children('.cde_usedname2').attr('contenteditable', true);
+                    }else{
+                        $('tr[lang=' + langval + ']').find('td').eq(2).children('.cde_usedname2').attr('contenteditable', false);
                     }
                 });
 
@@ -163,6 +165,8 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(3).children('.cde_usedname3').attr('contenteditable', true);
+                    }else{
+                        $('tr[lang=' + langval + ']').find('td').eq(3).children('.cde_usedname3').attr('contenteditable', false);
                     }
                 });
 
@@ -196,6 +200,8 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(4).children('.cde_usedname4').attr('contenteditable', true);
+                    }else{
+                        $('tr[lang=' + langval + ']').find('td').eq(4).children('.cde_usedname4').attr('contenteditable', false);
                     }
                 });
 
@@ -229,6 +235,8 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(5).children('.cde_usedname5').attr('contenteditable', true);
+                    }else{
+                        $('tr[lang=' + langval + ']').find('td').eq(5).children('.cde_usedname5').attr('contenteditable', false);
                     }
                 });
 
