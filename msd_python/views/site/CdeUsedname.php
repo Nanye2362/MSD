@@ -364,7 +364,12 @@
                 
                 $(document).on('blur', 'input[name=cde_usedname2]', function () {
                     if ($(this).val() != '') {
-                        $('input[name=cde_usedname3]').removeAttr('disabled');
+                        if($(this).val() == $('input[name=cde_usedname]').val()){
+                            alert('药品别名有重复！');
+                            $(this).val('');
+                        }else{
+                            $('input[name=cde_usedname3]').removeAttr('disabled');
+                        }
                     } else {
                         $('input[name=cde_usedname3]').attr('disabled', 'disabled');
                         $('input[name=cde_usedname3]').val('');
@@ -377,7 +382,12 @@
                 
                 $(document).on('blur', 'input[name=cde_usedname3]', function () {
                     if ($(this).val() != '') {
-                        $('input[name=cde_usedname4]').removeAttr('disabled');
+                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val()){
+                            alert('药品别名有重复！');
+                            $(this).val('');
+                        }else{
+                            $('input[name=cde_usedname4]').removeAttr('disabled');
+                        }
                     } else {
                         $('input[name=cde_usedname4]').attr('disabled', 'disabled');
                         $('input[name=cde_usedname4]').val('');
@@ -388,13 +398,26 @@
 
                 $(document).on('blur', 'input[name=cde_usedname4]', function () {
                     if ($(this).val() != '') {
-                        $('input[name=cde_usedname5]').removeAttr('disabled');
+                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val()){
+                            alert('药品别名有重复！');
+                            $(this).val('');
+                        }else{
+                            $('input[name=cde_usedname5]').removeAttr('disabled');
+                        }
                     } else {
                         $('input[name=cde_usedname5]').attr('disabled', 'disabled');
                         $('input[name=cde_usedname5]').val('');
                     }
                 });
 
+                $(document).on('blur', 'input[name=cde_usedname5]',function(){
+                    if($(this).val() != ''){
+                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val() || $(this).val() == $('input[name=cde_usedname4]').val()){
+                            alert('药品别名有重复！');
+                            $(this).val('');
+                        }
+                    }
+                });
             });
 
             // 添加
