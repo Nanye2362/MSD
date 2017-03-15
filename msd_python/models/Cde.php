@@ -110,7 +110,10 @@ class Cde extends \yii\db\ActiveRecord {
             $return['code'] = $timeline['code'];
             $return['name'] = $timeline['name'];
             $return['company'] = $timeline['company'];
+            
+            //oracle end_date null ; mysql end_date 0000-00-00
             if ($timeline['end_date'] == '0000-00-00') {
+//            if (empty($timeline['end_date'])) {
                 $timeline['end_date'] = date('Y-m-d');
             }
             $days = (strtotime($timeline['end_date']) - strtotime($timeline['start_date'])) / 86400 + 1; //至少一天
