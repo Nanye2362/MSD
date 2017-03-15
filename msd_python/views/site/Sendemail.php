@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>发送邮件</title>
         <link rel="stylesheet" href="../css/grid.paging.min.css" />
         <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bsgrid.all.min.css" />
