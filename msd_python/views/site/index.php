@@ -265,7 +265,7 @@
                             }
 
                             //时间借点记录填充
-                            if(obj.data[i].rankList[0].datetime != ''){
+                            if(typeof(obj.data[i].rankList[0]) != 'undefined'){
                                 $(this).find('td').eq(7).html("<p style='position:relative'>" + $(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime + "</p>");
                             }
 
