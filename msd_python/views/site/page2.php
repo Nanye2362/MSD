@@ -110,9 +110,17 @@
                         }
                         for (var i in data.data.lightList) {
                             for (var j in data.data.lightList[i]) {
-                                var t = j - 2;
-                                if (t < 0) {
-                                    t = t * -1;
+                                if (j == 0) {
+                                    var k = parseInt(j + 1);
+                                    var t = k - 2;
+                                    if (t < 0) {
+                                        t = t * -1;
+                                    }
+                                } else {
+                                    var t = j - 2;
+                                    if (t < 0) {
+                                        t = t * -1;
+                                    }
                                 }
 
                                 var date = '';
