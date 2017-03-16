@@ -65,8 +65,8 @@ class ChinaDrugTrials extends \yii\db\ActiveRecord
         $list=ChinaDrugTrials::find()->select("china_drug_trials.*,cde.company")
             ->rightJoin('cde_china_drug_trials','cde_china_drug_trials.china_drug_trials_id=china_drug_trials.id')
             ->innerJoin('cde', 'cde_china_drug_trials.cde_id=cde.id')
-            ->where('cde_china_drug_trials.cde_id=:id',[':id'=>$cdeId])->asArray()->all();
-
+            ->where('cde_china_drug_trials.cde_id=:id',[':id'=>$cdeId])->orderBy('cde_china_drug_trials.inquire_type')->asArray()->all();
+        
         return $list;
     }
 }
