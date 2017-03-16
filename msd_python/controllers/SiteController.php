@@ -11,6 +11,8 @@ use app\filter\UserFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use yii\helpers\ArrayHelper;
+use yii\filters\Cors;
 
 class SiteController extends Controller {
 
@@ -20,15 +22,24 @@ class SiteController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
-        return [
-            'user' => [
+	public function behaviors()
+    {
+        return ArrayHelper::merge([
+            [
+                'class' => Cors::className(),
+                'cors' => [
+                    'Origin' => ['Origin'=>'*'],
+                    'Access-Control-Request-Method' => ['GET','POST', 'HEAD', 'OPTIONS']
+                ],
+            ],
+	   'user' => [
                 'class' => UserFilter::className(),
                 'admin_actions' => ['config', 'mailconfig', 'IndicationsTypes'],
                 'user_actions' => ['index', 'page2', 'page3', 'index4']
-            ],
-        ];
+            ]
+        ], parent::behaviors());
     }
+
 
     /**
      * @inheritdoc
@@ -44,6 +55,11 @@ class SiteController extends Controller {
             ],
         ];
     }
+	
+	//加密用  by chen
+	public function actionGetdate() {                                            
+		echo date("Y-m-d H:i:s");
+	}
 
     public function actionLogin() {
         $mail = Yii::$app->request->get('mail');

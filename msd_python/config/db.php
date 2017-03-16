@@ -8,3 +8,15 @@ return [
     'password' => '123456',
     'charset' => 'utf8',
 ];
+
+//oracle
+//return [
+//    'db2' => array(
+//        'class' => 'yii\db\Connection',
+//        'connectionString' => 'oci:dbname=msd_python',
+//        'emulatePrepare' => true,
+//        'username' => '',
+//        'password' => '',
+//        'charset' => 'utf8',
+//    )
+//];
