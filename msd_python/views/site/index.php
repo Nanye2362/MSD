@@ -274,7 +274,7 @@
 
                             //循环排名变化表
                             var len = obj.data[i].rankList.length;
-                            var ranklist = $("<div class='panel_div' style='z-index: 99;position:absolute;left:-1px;width: 100%;background:#fff;border:1px solid #000;min-height: 100px; display: none;'></div>");
+                            var ranklist = $("<div class='panel_div' style='overflow:auto;height:200px;z-index: 99;position:absolute;left:-1px;width: 100%;background:#fff;border:1px solid #000;min-height: 100px; display: none;'></div>");
                             for (var o = 1; o < len; o++) {
                                 ranklist.append("<p>" + 'No.' + obj.data[i].rankList[o].rank + " " + obj.data[i].rankList[o].datetime + "</p>");
                             }
