@@ -2,27 +2,31 @@
 
 namespace app\controllers;
 
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\Session;
+use app\components\rsa;
+
 use app\filter\UserFilter;
+
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\filters\Cors;
 
-class SiteController extends Controller {
-
+class SiteController extends Controller
+{
     //不使用布局文件
     public $layout = false;
 
     /**
      * @inheritdoc
      */
-	public function behaviors()
+    public function behaviors()
     {
         return ArrayHelper::merge([
             [
@@ -32,7 +36,7 @@ class SiteController extends Controller {
                     'Access-Control-Request-Method' => ['GET','POST', 'HEAD', 'OPTIONS']
                 ],
             ],
-	   'user' => [
+            'user' => [
                 'class' => UserFilter::className(),
                 'admin_actions' => ['config', 'mailconfig', 'IndicationsTypes'],
                 'user_actions' => ['index', 'page2', 'page3', 'index4']
@@ -40,11 +44,11 @@ class SiteController extends Controller {
         ], parent::behaviors());
     }
 
-
     /**
      * @inheritdoc
      */
-    public function actions() {
+    public function actions()
+    {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -55,40 +59,45 @@ class SiteController extends Controller {
             ],
         ];
     }
-	
-	//加密用  by chen
-	public function actionGetdate() {                                            
-		echo date("Y-m-d H:i:s");
-	}
 
-    public function actionLogin() {
-        $mail = Yii::$app->request->get('mail');
-        $role = Yii::$app->request->get('isrole');
-        if (!empty($mail)) {
-            $user = user::findOne(['email' => $mail]);
+    public function actionGetdate(){
+        echo date("Y-m-d H:i:s");
+        exit;
+    }
 
-            if (empty($user)) {
-                $user = new user();
-                $user->created_at = time();
-                $user->status = 1;
+    public function actionLogin(){
+        //格式  mail=hong.chen@cognizant.com&name=hong.chen&isrole=true&date=2017-02-02 12:33:00
+        $url_str=rsa::decodeing(Yii::$app->request->get('token'));
+        if(empty($url_str)){
+            echo 'token不正确';
+            exit;
+        }
+        parse_str($url_str);
+
+        if(time()-strtotime($date)>300){
+            echo 'token过期';
+            exit;
+        }
+
+
+        if(!empty($mail)){
+            $user=user::findOne(['email'=>$mail]);
+            if(empty($user)){
+                $user=new user();
+                $user->created_at=time();
+                $user->status=1;
                 $user->email = $mail;
             }
 
-            $user->role = empty($role) ? 0 : 1;
-            $user->updated_at = time();
+            $user->role=empty($isrole)|$isrole=='false'?0:1;
+            $user->name=$name;
+            $user->updated_at=time();
             $user->save();
 
             $session = Yii::$app->session;
             $session['user_id'] = $user->id;
-
-            $user_favorite = user::getUserfavorite($mail);
-
-            if ($user_favorite > 0) {
-                return $this->redirect(['site/myfavorite']);
-            } else {
-                return $this->redirect(['site/index']);
-            }
-        } else {
+            return $this->redirect(['site/index']);
+        }else{
             echo '权限不够，以后跳转到teamspace.merck.com';
             exit;
         }
@@ -123,7 +132,7 @@ class SiteController extends Controller {
     public function actionMailconfig() {
         return $this->render('mailconfig');
     }
-    
+
     public function actionUsednameconfig() {
         return $this->render('CdeUsedname');
     }
@@ -139,5 +148,4 @@ class SiteController extends Controller {
     public function actionSendemail() {
         return $this->render('Sendemail');
     }
-
 }
