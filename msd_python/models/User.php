@@ -17,6 +17,8 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord {
 
+    public static $currUser;
+
     /**
      * @inheritdoc
      */
