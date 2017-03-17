@@ -164,7 +164,7 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
                     $one['remark1'] = $premark['public_remark'];
@@ -221,8 +221,6 @@ class Cde extends \yii\db\ActiveRecord {
 
         $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
 
-
-
         if (!empty($typeId)) {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
         }
@@ -268,7 +266,7 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['uid'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
                     $one['remark1'] = $premark['public_remark'];
@@ -319,7 +317,7 @@ class Cde extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getPublicremark() {
-        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->orderBy('create_date desc');
+        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->select("cde_publicremark.*,user.name")->leftJoin("user",'user.id=cde_publicremark.uid')->orderBy('create_date desc');
     }
 
 }

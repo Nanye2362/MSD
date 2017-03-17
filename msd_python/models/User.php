@@ -13,10 +13,9 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $name
  */
 class User extends \yii\db\ActiveRecord {
-
-    public static $currUser;
 
     /**
      * @inheritdoc
@@ -32,7 +31,7 @@ class User extends \yii\db\ActiveRecord {
         return [
                 [['email', 'created_at', 'updated_at'], 'required'],
                 [['role', 'status', 'created_at', 'updated_at'], 'integer'],
-                [['email'], 'string', 'max' => 255],
+                [['email', 'name'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,6 +46,7 @@ class User extends \yii\db\ActiveRecord {
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'name' => 'Name',
         ];
     }
 
