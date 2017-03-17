@@ -61,12 +61,14 @@ class ChinaDrugTrials extends \yii\db\ActiveRecord {
     static function getChinaDrugByCdeId($curPage = 1, $pageSize = 20, $cdeId) {
         $start = ($curPage - 1) * $pageSize;
         $list = ChinaDrugTrials::find();
-        $result = $list->select("china_drug_trials.*,cde.company")
+        $list->select("china_drug_trials.*,cde.company")
                 ->rightJoin('cde_china_drug_trials', 'cde_china_drug_trials.china_drug_trials_id=china_drug_trials.id')
                 ->innerJoin('cde', 'cde_china_drug_trials.cde_id=cde.id')
-                ->where('cde_china_drug_trials.cde_id=:id', [':id' => $cdeId])->orderBy('cde_china_drug_trials.inquire_type')->limit($pageSize)->offset($start)->asArray()->all();
+                ->where('cde_china_drug_trials.cde_id=:id', [':id' => $cdeId])->orderBy('cde_china_drug_trials.inquire_type');
 
         $num = $list->count();
+        
+        $result = $list->limit($pageSize)->offset($start)->asArray()->all();
         
         $obj = new \stdClass();
         $obj->totalRows = $num;
