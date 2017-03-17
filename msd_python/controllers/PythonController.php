@@ -217,9 +217,11 @@ class PythonController extends \yii\web\Controller {
 
     public function actionGetchinadrug() {
         $cdeId = Yii::$app->request->post('cdeId');
+        $curPage = Yii::$app->request->post('curPage');
+        $pageSize = Yii::$app->request->post('pageSize');        
         $obj = new \stdClass();
         if (!empty($cdeId)) {
-            $obj->data = ChinaDrugTrials::getChinaDrugByCdeId($cdeId);
+            $obj = ChinaDrugTrials::getChinaDrugByCdeId($curPage, $pageSize, $cdeId);
             $obj->success = true;
         } else {
             $obj->success = false;
