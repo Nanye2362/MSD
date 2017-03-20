@@ -392,6 +392,8 @@
 
         <br />
         <br />
+        
+        <p style="margin-left: 3%;">注：2017年1月9日前的排名数据为99999</p>
 
         <table id="searchTable" align="center">
             <tr id="trhead">
