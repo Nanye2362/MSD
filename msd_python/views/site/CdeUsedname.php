@@ -447,7 +447,7 @@
                         }
                     },
                     error: function () {
-                        alert('请求出错');
+                        alert('重复添加！');
                     },
                     complete: function () {
                         $('#acting_tips').hide();
@@ -466,7 +466,7 @@
             搜索:
             <input id="input" type="text" placeholder="">
             <button id="search" class="btn btn-primary btn-sm">Search</button>&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加</button>
+            <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加药品名称</button>
         </div>
         <table id="searchTable" align="center">
             <tr>
