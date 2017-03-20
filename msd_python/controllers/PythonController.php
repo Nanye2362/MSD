@@ -49,7 +49,7 @@ class PythonController extends \yii\web\Controller {
         $cde_name = CdeUsedname::getCdename($searchText);
         
         if(!empty($cde_name)){
-            $searchText = $cde_name;
+            $searchText = array($searchText, $cde_name);
         }
         
         if (!empty($curPage) && !empty($pageSize)) {

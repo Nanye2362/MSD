@@ -110,7 +110,7 @@ class Cde extends \yii\db\ActiveRecord {
             $return['code'] = $timeline['code'];
             $return['name'] = $timeline['name'];
             $return['company'] = $timeline['company'];
-            
+
             if (empty($timeline['end_date'])) {
                 $timeline['end_date'] = date('Y-m-d');
             }
@@ -140,7 +140,12 @@ class Cde extends \yii\db\ActiveRecord {
         }
 
         if (!empty($searchText)) {
-            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+            if (is_array($searchText)) {
+                $cde_name = $searchText[1];
+                $cdeObj->andWhere("code like :searchText or name like :searchText or name like :cde_name or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+            } else {
+                $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+            }
         }
 
         $num = $cdeObj->count();
@@ -175,12 +180,12 @@ class Cde extends \yii\db\ActiveRecord {
                     $one['showremark'] = $showRemark;
                 }
             }
-            
+
             if (!empty($cde_ids) && !empty($export)) {
                 $rv = $one['rankList'][0];
                 $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
             }
-            
+
             if (empty($one['ephmra_atc_code'])) {
                 $one['ephmra_atc_code'] = '';
             }
@@ -198,10 +203,10 @@ class Cde extends \yii\db\ActiveRecord {
                 $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
                 $ephmra_atc_code = implode('<br>', $ephmra_atc_codes);
             }
-            if($export != '1'){
+            if ($export != '1') {
                 $one['ephmra_atc_code'] = $ephmra_atc_code;
             }
-            
+
             unset($one['publicremark']);
         }
 
@@ -277,7 +282,7 @@ class Cde extends \yii\db\ActiveRecord {
                     $one['showremark'] = $showRemark;
                 }
             }
-            
+
             if (empty($one['ephmra_atc_code'])) {
                 $one['ephmra_atc_code'] = '';
             }
@@ -315,7 +320,7 @@ class Cde extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getPublicremark() {
-        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->select("cde_publicremark.*,user.name")->leftJoin("user",'user.id=cde_publicremark.uid')->orderBy('create_date desc');
+        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->select("cde_publicremark.*,user.name")->leftJoin("user", 'user.id=cde_publicremark.uid')->orderBy('create_date desc');
     }
 
 }
