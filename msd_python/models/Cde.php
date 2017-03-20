@@ -233,7 +233,12 @@ class Cde extends \yii\db\ActiveRecord {
         }
 
         if (!empty($searchText)) {
-            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+            if (is_array($searchText)) {
+                $cde_name = $searchText[1];
+                $cdeObj->andWhere("code like :searchText or name like :searchText or name like :cde_name or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+            } else {
+                $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+            }
         }
 
         $num = $cdeObj->count();
