@@ -156,7 +156,7 @@ class Cde extends \yii\db\ActiveRecord {
             $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
         }
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.chinese_name,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
             $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
@@ -197,10 +197,10 @@ class Cde extends \yii\db\ActiveRecord {
             } else {
                 $one['sfda_status'] = '';
             }
-
+            
             $ephmra_atc_codes = explode(',', $one['ephmra_atc_code']);
             foreach ($ephmra_atc_codes as $k => $v) {
-                $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
+                $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $one['chinese_name'] . $v . "</a>";
                 $ephmra_atc_code = implode('<br>', $ephmra_atc_codes);
             }
             if ($export != '1') {
