@@ -96,7 +96,14 @@ class SiteController extends Controller
 
             $session = Yii::$app->session;
             $session['user_id'] = $user->id;
-            return $this->redirect(['site/index']);
+
+            $user_favorite = user::getUserfavorite($mail);
+
+            if ($user_favorite > 0) {
+                return $this->redirect(['site/myfavorite']);
+            } else {
+                return $this->redirect(['site/index']);
+            }
         }else{
             echo '权限不够，以后跳转到teamspace.merck.com';
             exit;
