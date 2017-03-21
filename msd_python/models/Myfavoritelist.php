@@ -52,9 +52,14 @@ class Myfavoritelist extends \yii\db\ActiveRecord
         if (!empty($typeId)) {
             $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
         }
-
+    
         if (!empty($searchText)) {
-            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText", [':searchText' => '%' . $searchText . '%']);
+            if (is_array($searchText)) {
+                $cde_name = $searchText[1];
+                $cdeObj->andWhere("code like :searchText or name like :searchText or name like :cde_name or company like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+            } else {
+                $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText", [':searchText' => '%' . $searchText . '%']);
+            }
         }
 
         //查找cde_favorite中的cde_id

@@ -70,7 +70,7 @@ class MyfavoriteController extends Controller {
         $cde_name = CdeUsedname::getCdename($searchText);
 
         if (!empty($cde_name)) {
-            $searchText = $cde_name;
+            $searchText = array($searchText, $cde_name);
         }
 
         $obj = new \stdClass();
