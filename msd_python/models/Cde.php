@@ -170,8 +170,8 @@ class Cde extends \yii\db\ActiveRecord {
                     $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
-                    $one['remark1'] = $premark['public_remark'];
-                    $one['custom_remark'] = $premark['remark'];
+                    $one['remark1'] = empty($premark['public_remark']) ? '' : $premark['public_remark'];
+                    $one['custom_remark'] = empty($premark['remark']) ? '' : $premark['remark'];
                 }
 
                 if (!empty($cde_ids) && !empty($export)) {
@@ -197,7 +197,7 @@ class Cde extends \yii\db\ActiveRecord {
             } else {
                 $one['sfda_status'] = '';
             }
-            
+
             $ephmra_atc_codes = explode(',', $one['ephmra_atc_code']);
             foreach ($ephmra_atc_codes as $k => $v) {
                 $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $one['chinese_name'] . $v . "</a>";
@@ -277,8 +277,8 @@ class Cde extends \yii\db\ActiveRecord {
                     $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
                 if ($uid == $premark['uid']) {
-                    $one['remark1'] = $premark['public_remark'];
-                    $one['custom_remark'] = $premark['remark'];
+                    $one['remark1'] = empty($premark['public_remark']) ? '' : $premark['public_remark'];
+                    $one['custom_remark'] = empty($premark['remark']) ? '' : $premark['remark'];
                 }
 
                 if (!empty($cde_ids)) {

@@ -33,46 +33,48 @@
 
     <body>
         <?php include "menu.php"; ?>
-        <table style="display:none" border="1px">
-            <tr style="background-color:lavender;">
-                <td width="10%">受理号</td>
-                <td width="15%">药品名称</td>
-                <td width="15%">企业名称</td>
-                <td width="15%">药理毒理</td>
-                <td width="15%">临床</td>
-                <td width="15%">药学</td>
-                <td width="15%">证书批准状态</td>
-            </tr>
-            <tr>
-                <th rowspan="4" ><span class="code"></span><br/><br/>
-                    <input class="btn" type="button" value="注册进度时间轴" style="font-size: 1.0rem; background-color: powderblue;height: 2.1rem;"></th>
-                <th rowspan="4" ><span class="name"></span></th>
-                <th rowspan="4" ><span class="company"></span></th>
-                <td class=""><img src="../images/gray.jpg"></td>
-                <td><img src="../images/gray.jpg"></td>
-                <td><img src="../images/gray.jpg"></td>
-                <th rowspan="4" class="status"></th>
+        <div style="padding-top:15px;">
+            <table style="display:none" border="1px">
+                <tr style="background-color:lavender;">
+                    <td width="10%">受理号</td>
+                    <td width="15%">药品名称</td>
+                    <td width="15%">企业名称</td>
+                    <td width="15%">药理毒理</td>
+                    <td width="15%">临床</td>
+                    <td width="15%">药学</td>
+                    <td width="15%">证书批准状态</td>
+                </tr>
+                <tr>
+                    <th rowspan="4" ><span class="code"></span><br/><br/>
+                        <input class="btn" type="button" value="注册进度时间轴" style="font-size: 1.0rem; background-color: powderblue;height: 2.1rem;"></th>
+                    <th rowspan="4" ><span class="name"></span></th>
+                    <th rowspan="4" ><span class="company"></span></th>
+                    <td class=""><img src="../images/gray.jpg"></td>
+                    <td><img src="../images/gray.jpg"></td>
+                    <td><img src="../images/gray.jpg"></td>
+                    <th rowspan="4" class="status"></th>
 
-            </tr>
-            <tr class="lie">
-                <td class="row0"><img src="../images/gray.jpg"></td>
-                <td class="row1"><img src="../images/gray.jpg"></td>
-                <td class="row2"><img src="../images/gray.jpg"></td>
+                </tr>
+                <tr class="lie">
+                    <td class="row0"><img src="../images/gray.jpg"></td>
+                    <td class="row1"><img src="../images/gray.jpg"></td>
+                    <td class="row2"><img src="../images/gray.jpg"></td>
 
-            </tr>
-            <tr class="lie">
-                <td class="row0"><img src="../images/green.jpg"></td>
-                <td class="row1"><img src="../images/green.jpg"></td>
-                <td class="row2"><img src="../images/green.jpg"></td>
+                </tr>
+                <tr class="lie">
+                    <td class="row0"><img src="../images/green.jpg"></td>
+                    <td class="row1"><img src="../images/green.jpg"></td>
+                    <td class="row2"><img src="../images/green.jpg"></td>
 
-            </tr>
-            <tr class="lie">
-                <td class="row0"><img src="../images/yellow.jpg"></td>
-                <td class="row1"><img src="../images/yellow.jpg"></td>
-                <td class="row2"><img src="../images/yellow.jpg"></td>
+                </tr>
+                <tr class="lie">
+                    <td class="row0"><img src="../images/yellow.jpg"></td>
+                    <td class="row1"><img src="../images/yellow.jpg"></td>
+                    <td class="row2"><img src="../images/yellow.jpg"></td>
 
-            </tr>
-        </table>
+                </tr>
+            </table>
+        </div>
         <br><br>
         <div class="note" style="margin: auto;text-align: center;">
             <img src="../images/green.jpg">本专业正在审评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

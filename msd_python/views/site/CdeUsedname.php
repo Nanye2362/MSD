@@ -130,7 +130,7 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(2).children('.cde_usedname2').attr('contenteditable', true);
-                    }else{
+                    } else {
                         $('tr[lang=' + langval + ']').find('td').eq(2).children('.cde_usedname2').attr('contenteditable', false);
                     }
                 });
@@ -165,7 +165,7 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(3).children('.cde_usedname3').attr('contenteditable', true);
-                    }else{
+                    } else {
                         $('tr[lang=' + langval + ']').find('td').eq(3).children('.cde_usedname3').attr('contenteditable', false);
                     }
                 });
@@ -200,7 +200,7 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(4).children('.cde_usedname4').attr('contenteditable', true);
-                    }else{
+                    } else {
                         $('tr[lang=' + langval + ']').find('td').eq(4).children('.cde_usedname4').attr('contenteditable', false);
                     }
                 });
@@ -235,7 +235,7 @@
                     if ($(this).text() != '') {
                         console.log(langval);
                         $('tr[lang=' + langval + ']').find('td').eq(5).children('.cde_usedname5').attr('contenteditable', true);
-                    }else{
+                    } else {
                         $('tr[lang=' + langval + ']').find('td').eq(5).children('.cde_usedname5').attr('contenteditable', false);
                     }
                 });
@@ -361,13 +361,13 @@
                         $('input[name=cde_usedname5]').val('');
                     }
                 });
-                
+
                 $(document).on('blur', 'input[name=cde_usedname2]', function () {
                     if ($(this).val() != '') {
-                        if($(this).val() == $('input[name=cde_usedname]').val()){
+                        if ($(this).val() == $('input[name=cde_usedname]').val()) {
                             alert('药品别名有重复！');
                             $(this).val('');
-                        }else{
+                        } else {
                             $('input[name=cde_usedname3]').removeAttr('disabled');
                         }
                     } else {
@@ -379,13 +379,13 @@
                         $('input[name=cde_usedname5]').val('');
                     }
                 });
-                
+
                 $(document).on('blur', 'input[name=cde_usedname3]', function () {
                     if ($(this).val() != '') {
-                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val()){
+                        if ($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val()) {
                             alert('药品别名有重复！');
                             $(this).val('');
-                        }else{
+                        } else {
                             $('input[name=cde_usedname4]').removeAttr('disabled');
                         }
                     } else {
@@ -398,10 +398,10 @@
 
                 $(document).on('blur', 'input[name=cde_usedname4]', function () {
                     if ($(this).val() != '') {
-                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val()){
+                        if ($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val()) {
                             alert('药品别名有重复！');
                             $(this).val('');
-                        }else{
+                        } else {
                             $('input[name=cde_usedname5]').removeAttr('disabled');
                         }
                     } else {
@@ -410,9 +410,9 @@
                     }
                 });
 
-                $(document).on('blur', 'input[name=cde_usedname5]',function(){
-                    if($(this).val() != ''){
-                        if($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val() || $(this).val() == $('input[name=cde_usedname4]').val()){
+                $(document).on('blur', 'input[name=cde_usedname5]', function () {
+                    if ($(this).val() != '') {
+                        if ($(this).val() == $('input[name=cde_usedname]').val() || $(this).val() == $('input[name=cde_usedname2]').val() || $(this).val() == $('input[name=cde_usedname3]').val() || $(this).val() == $('input[name=cde_usedname4]').val()) {
                             alert('药品别名有重复！');
                             $(this).val('');
                         }
@@ -424,7 +424,7 @@
             function check_form() {
                 var form_data = $('#form_data').serialize();
                 console.log(form_data);
-                
+
                 $.ajax({
                     url: host + 'cdeusedname/addone',
                     data: {"form_data": form_data},
@@ -461,12 +461,13 @@
 
     <body>
         <?php include "menu.php"; ?>
-        <p style="margin: 10px;font-size: 20px;text-align: center;">别名配置</p>
-        <div style="float: right; margin-right: 3%;">
-            搜索:
-            <input id="input" type="text" placeholder="">
-            <button id="search" class="btn btn-primary btn-sm">Search</button>&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加药品名称</button>
+        <div style="padding-top:15px;">
+            <div style="float: right; margin-right: 3%;">
+                搜索:
+                <input id="input" type="text" placeholder="">
+                <button id="search" class="btn btn-primary btn-sm">Search</button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-sm" data-toggle="modal"  data-target="#addUserModal" >添加药品名称</button>
+            </div>
         </div>
         <table id="searchTable" align="center">
             <tr>
@@ -479,7 +480,8 @@
             </tr>
         </table>
         <div class="container">
-            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onkeydown="if(event.keyCode==13)return false;" onsubmit="return check_form()" style="margin: 20px;">
+            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onkeydown="if (event.keyCode == 13)
+                        return false;" onsubmit="return check_form()" style="margin: 20px;">
                 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">

@@ -165,8 +165,8 @@ class PythonController extends \yii\web\Controller {
         $remark = Yii::$app->request->post('remark');
         //后期修改 对接  临时用表单传递
         $userid = User::$currUser->id;
-
-
+        $user_name = User::$currUser->name;
+        
         $obj = new \stdClass();
         if (!empty($cdeId)) {
             $cde = CdePublicremark::find()->where("cde_id=:cdeid and uid=:uid", [":cdeid" => $cdeId, ":uid" => $userid])->one();
@@ -180,6 +180,7 @@ class PythonController extends \yii\web\Controller {
             $cde->create_date = date('Y-m-d H:i:s');
             $cde->save(false);
             $obj->uid = $userid;
+            $obj->user_name = $user_name;
             $obj->success = true;
         } else {
             $obj->success = false;

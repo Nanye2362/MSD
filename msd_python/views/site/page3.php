@@ -111,7 +111,7 @@
     </head>
     <body>
         <?php include "menu.php"; ?>
-        <p style="margin: 10px;font-size: 20px;text-align: center;">相关临床实验</p>
+        <div style="padding-top:15px;"></div>
         <table id="searchTable" align="center" >
             <tr>
                     <!--<th w_check="true" width="3%;" title="全选"></th>-->       	

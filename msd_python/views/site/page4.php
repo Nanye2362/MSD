@@ -210,7 +210,7 @@
                             }
 
                             //时间借点记录填充
-                            if (typeof(obj.data[i].rankList[0]) != 'undefined') {
+                            if (typeof (obj.data[i].rankList[0]) != 'undefined') {
                                 $(this).find('td').eq(6).html("<p style='position:relative'>" + $(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime + "</p>")
                             }
                             //在序号排名变化时间节点记录页新增div
@@ -248,27 +248,27 @@
 
     <body>
         <?php include "menu.php"; ?>
-        <p style="margin: 10px;font-size: 20px;text-align: center;">适应症分类</p>
-        <div id="bar" style="float: left; margin-left: 3%;">
-            <select id="select1">
+        <div style="padding-top:15px;">
+            <div id="bar" style="float: left; margin-left: 3%;">
+                <select id="select1">
 
-            </select>
-            <select id="select2">
+                </select>
+                <select id="select2">
 
-            </select>
-            <select id="select3">
+                </select>
+                <select id="select3">
 
-            </select>
+                </select>
+            </div>
+
+            <div id="bar" style="float: right; margin-right: 3%;">
+                <input id="input" type="text" placeholder="">
+                <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary btn-sm" id="copy">Copy</button>
+                <button class="btn btn-primary btn-sm" id="export">Export</button>
+                <button class="btn btn-primary btn-sm" id="Print">Print</button>
+            </div>
         </div>
-
-        <div id="bar" style="float: right; margin-right: 3%;">
-            <input id="input" type="text" placeholder="">
-            <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-primary btn-sm" id="copy">Copy</button>
-            <button class="btn btn-primary btn-sm" id="export">Export</button>
-            <button class="btn btn-primary btn-sm" id="Print">Print</button>
-        </div>
-
         <br />
         <br />
 
