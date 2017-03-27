@@ -31,7 +31,7 @@
         $(function () {
             var encrypt = new JSEncrypt();
                  encrypt.setPublicKey("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqzU5QYt6kNcKqyXoaQWC3N9fqUlxUgFedNVdaDcCe6QXqsTtSswW8WhAwgk5G4b9vcy6gDfmr1Z/Nrr0hwRgqSJ2s+TJUJZe2mDTKIdHNUcOk6sWGsnwRQHAOKWIaf2RqvU5zXDsR6AjU19OVoTEHJ1IG/IvACiFzDoXZYAlNvQIDAQAB");//设置公有key
-            var data = encrypt.encrypt("mail=hong.chen@cognizant.com&name=hong.chen&isrole=false&date="+getNowFormatDate()	);
+            var data = encrypt.encrypt("mail=hong.chen@cognizant.com&name=hong.chen&isrole=true&date="+getNowFormatDate()	);
             $("#tra").val(encodeURIComponent(data));
       
         }); 

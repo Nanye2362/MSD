@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb4b3dcaff301fff46ec78e9603e0fc5",
+    "content-hash": "82d9e20315160cf66f4519a3b11b77c0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -281,20 +281,23 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.8.0",
+            "version": "v4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
+                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/ezyang/htmlpurifier/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2.zip",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "url": "https://files.phpcomposer.com/files/ezyang/htmlpurifier/6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4.zip",
+                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
             },
             "type": "library",
             "autoload": {
@@ -321,7 +324,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-07-16T12:58:58+00:00"
+            "time": "2017-03-13T06:30:53+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -679,6 +682,51 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "apaoww/yii2-oci8",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apaoww/yii2-oci8.git",
+                "reference": "e0e83f85f200599a7d909a44e235836d55eda904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/apaoww/yii2-oci8/e0e83f85f200599a7d909a44e235836d55eda904.zip",
+                "reference": "e0e83f85f200599a7d909a44e235836d55eda904",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "apaoww\\oci8\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Apa Oww",
+                    "email": "apa.oww@gmail.com"
+                }
+            ],
+            "description": "Oci8 Driver for Yii2 ",
+            "keywords": [
+                "oci8",
+                "yii"
+            ],
+            "time": "2015-07-08T06:13:38+00:00"
+        },
         {
             "name": "bower-asset/typeahead.js",
             "version": "v0.11.1",
@@ -1090,7 +1138,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "apaoww/yii2-oci8": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

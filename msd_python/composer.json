@@ -25,7 +25,8 @@
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
         "yiisoft/yii2-faker": "*",
-        "moonlandsoft/yii2-phpexcel": "*"
+        "moonlandsoft/yii2-phpexcel": "*",
+        "apaoww/yii2-oci8": "dev-master"
     },
     "config": {
         "process-timeout": 1800

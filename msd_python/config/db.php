@@ -9,14 +9,9 @@ return [
     'charset' => 'utf8',
 ];
 
-//oracle
 //return [
-//    'db2' => array(
-//        'class' => 'yii\db\Connection',
-//        'connectionString' => 'oci:dbname=msd_python',
-//        'emulatePrepare' => true,
-//        'username' => '',
-//        'password' => '',
-//        'charset' => 'utf8',
-//    )
+//    'class' => 'yii\db\Connection',
+//    'dsn'=>"oci:dbname=//139.196.34.172/XE;charset=utf8",
+//    'username' => 'MSD_PYTHON',
+//    'password' => '123456',
 //];
