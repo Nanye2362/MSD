@@ -182,8 +182,12 @@ class Cde extends \yii\db\ActiveRecord {
             }
 
             if (!empty($cde_ids) && !empty($export)) {
-                $rv = $one['rankList'][0];
-                $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
+                if (!empty($one['rankList'])) {
+                    $rv = $one['rankList'][0];
+                    $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
+                } else {
+                    $one['rl'] = '';
+                }
             }
 
             if (empty($one['ephmra_atc_code'])) {
