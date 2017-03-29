@@ -11,7 +11,6 @@
                 border-collapse: collapse;
                 padding: 3px;
                 border: solid 1px #ccc;
-                background-color: white;
                 text-align: center;
                 color: #333;
                 line-height: 1.8em;

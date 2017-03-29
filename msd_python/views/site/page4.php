@@ -248,27 +248,27 @@
 
     <body>
         <?php include "menu.php"; ?>
-        <div style="padding-top:15px;">
-            <div id="bar" style="float: left; margin-left: 3%;">
-                <select id="select1">
+        <p style="margin: 10px;font-size: 20px;text-align: center;">适应症分类</p>
+        <div id="bar" style="float: left; margin-left: 3%;">
+            <select id="select1">
 
-                </select>
-                <select id="select2">
+            </select>
+            <select id="select2">
 
-                </select>
-                <select id="select3">
+            </select>
+            <select id="select3">
 
-                </select>
-            </div>
-
-            <div id="bar" style="float: right; margin-right: 3%;">
-                <input id="input" type="text" placeholder="">
-                <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary btn-sm" id="copy">Copy</button>
-                <button class="btn btn-primary btn-sm" id="export">Export</button>
-                <button class="btn btn-primary btn-sm" id="Print">Print</button>
-            </div>
+            </select>
         </div>
+
+        <div id="bar" style="float: right; margin-right: 3%;">
+            <input id="input" type="text" placeholder="">
+            <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary btn-sm" id="copy">Copy</button>
+            <button class="btn btn-primary btn-sm" id="export">Export</button>
+            <button class="btn btn-primary btn-sm" id="Print">Print</button>
+        </div>
+
         <br />
         <br />
 

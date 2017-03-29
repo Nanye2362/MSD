@@ -68,66 +68,67 @@
                 var code = GetQueryString('code');
                 if (code.length > 0) {
                     $.post(host + 'python/gettimeline', {'cdeId': code}, function (data) {
-                        var totalWeek = 0;//总周数
-                        var yuweek = 0;
-                        console.log(data.data.timeline);
+                        if (data.data.timeline[-1] == undefined) {
+                            var totalWeek = 0;//总周数
+                            var yuweek = 0;
+                            console.log(data.data.timeline);
 
-                        var li_num = new Array;
+                            var li_num = new Array;
 
-                        for (var i in data.data.timeline) {
-                            li_num.push(i);
-                            //填充空白展位
-                            for (var j = 0; j < parseInt(totalWeek); j++) {
-                                $('.ul_1').eq(i).append("<li></li>");
-                            }
-
-                            //填充前部分余数
-                            var curWeek = data.data.timeline[i];
-                            if (yuweek != 0) {
-                                var li_span = $("<li class='show'></li>");
-                                var span_start = $("<span class='span_start'></span>");
-                                span_start.width(yuweek + "%");
-                                li_span.append(span_start);
-                                $('.ul_1').eq(i).append(li_span);
-                                curWeek = curWeek - (1 - yuweek / 100);
-                            }
-                            console.log(curWeek);
-
-                            //填充整数
-                            var manweek = parseInt(curWeek);
-                            console.log(manweek);
-                            for (var k = 0; k < manweek; k++) {
-                                $('.ul_1').eq(i).append("<li class='show'></li>");
-                            }
-
-
-                            //填充后部分余数
-                            yuweek = curWeek * 100 % 100;
-                            console.log(yuweek);
-                            if (yuweek != 0) {
-                                var span_width = 0;
-                                if (yuweek > 0) {
-                                    var li_span = $("<li class='show'></li>");
-                                    span_width = 100 - yuweek; //只有尾情况
-                                } else {
-                                    span_width = yuweek * -1; //有头和尾情况
-                                    yuweek = 100 - (yuweek * -1);
+                            for (var i in data.data.timeline) {
+                                li_num.push(i);
+                                //填充空白展位
+                                for (var j = 0; j < parseInt(totalWeek); j++) {
+                                    $('.ul_1').eq(i).append("<li></li>");
                                 }
-                                var span_end = $("<span class='span_end'></span>");
-                                span_end.width(span_width + "%");
-                                li_span.append(span_end);
-                                $('.ul_1').eq(i).append(li_span);
-                            }
 
-                            totalWeek += data.data.timeline[i];
+                                //填充前部分余数
+                                var curWeek = data.data.timeline[i];
+                                if (yuweek != 0) {
+                                    var li_span = $("<li class='show'></li>");
+                                    var span_start = $("<span class='span_start'></span>");
+                                    span_start.width(yuweek + "%");
+                                    li_span.append(span_start);
+                                    $('.ul_1').eq(i).append(li_span);
+                                    curWeek = curWeek - (1 - yuweek / 100);
+                                }
+                                console.log(curWeek);
 
-                            //添加虚线和日期
-                            if ((totalWeek - parseInt(totalWeek)) == 0) {
-                                var divwidth = parseInt(totalWeek) * 75;
-                            } else {
-                                var divwidth = parseInt(totalWeek) * 75 + 5 + (totalWeek - parseInt(totalWeek)) * 65;
-                            }
-                            
+                                //填充整数
+                                var manweek = parseInt(curWeek);
+                                console.log(manweek);
+                                for (var k = 0; k < manweek; k++) {
+                                    $('.ul_1').eq(i).append("<li class='show'></li>");
+                                }
+
+
+                                //填充后部分余数
+                                yuweek = curWeek * 100 % 100;
+                                console.log(yuweek);
+                                if (yuweek != 0) {
+                                    var span_width = 0;
+                                    if (yuweek > 0) {
+                                        var li_span = $("<li class='show'></li>");
+                                        span_width = 100 - yuweek; //只有尾情况
+                                    } else {
+                                        span_width = yuweek * -1; //有头和尾情况
+                                        yuweek = 100 - (yuweek * -1);
+                                    }
+                                    var span_end = $("<span class='span_end'></span>");
+                                    span_end.width(span_width + "%");
+                                    li_span.append(span_end);
+                                    $('.ul_1').eq(i).append(li_span);
+                                }
+
+                                totalWeek += data.data.timeline[i];
+
+                                //添加虚线和日期
+                                if ((totalWeek - parseInt(totalWeek)) == 0) {
+                                    var divwidth = parseInt(totalWeek) * 75;
+                                } else {
+                                    var divwidth = parseInt(totalWeek) * 75 + 5 + (totalWeek - parseInt(totalWeek)) * 65;
+                                }
+
                                 var enddate = data.data.end_date[i];
                                 if (i == 0) {
                                     $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
@@ -159,33 +160,33 @@
 //                                $('.span_start').parent('li').eq(l).css('margin-left', 15 + 10 * l);
 //                            }
 
+                            }
+                            console.log(divwidth);
+                            var all_li = ['0', '1', '2', '3', '4'];
+                            var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
+                            for (var dv = 0; dv < diff.length; dv++) {
+                                var num = parseInt(diff[dv]) + 1;
+                                var id1 = '#cont_a_nth_' + num;
+                                var id2 = '#timelineposition_' + num;
+                                $(id1).remove();
+                                $(id2).remove();
+                            }
+
+                            for (var k in li_num) {
+                                var xuxianclass = '.xuxian' + (parseInt(li_num[k]) + 1);
+                                console.log(li_num);
+                                var height = 67 * li_num.length + 15;//li_num.length行数 67行高 15xuxian div top
+                                $(xuxianclass).css('height', height);
+                            }
+
+                            totalWeek = parseInt(totalWeek + 0.99);
+
+                            for (var i = 1; i <= totalWeek; i++) {
+                                $('.ul_c').append("<li><span>" + i + "</span>周</li>");
+                            }
+
+                            $('.ul_1,.ul_c').width(totalWeek * 75 + 50);
                         }
-                        console.log(divwidth);
-                        var all_li = ['0', '1', '2', '3', '4'];
-                        var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
-                        for (var dv = 0; dv < diff.length; dv++) {
-                            var num = parseInt(diff[dv]) + 1;
-                            var id1 = '#cont_a_nth_' + num;
-                            var id2 = '#timelineposition_' + num;
-                            $(id1).remove();
-                            $(id2).remove();
-                        }
-
-                        for (var k in li_num) {
-                            var xuxianclass = '.xuxian' + (parseInt(li_num[k]) + 1);
-                            console.log(li_num);
-                            var height = 67 * li_num.length + 15;//li_num.length行数 67行高 15xuxian div top
-                            $(xuxianclass).css('height', height);
-                        }
-
-                        totalWeek = parseInt(totalWeek + 0.99);
-
-                        for (var i = 1; i <= totalWeek; i++) {
-                            $('.ul_c').append("<li><span>" + i + "</span>周</li>");
-                        }
-
-                        $('.ul_1,.ul_c').width(totalWeek * 75 + 50);
-
 
 
                     })
