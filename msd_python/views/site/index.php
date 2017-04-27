@@ -147,11 +147,15 @@
                 $('#export').click(function () {
                     var checkedbox = $('.bsgrid_editgrid_check:checked');
                     var checkboxvalues = new Array;
-                    for (var i = 0; i < checkedbox.length; i++) {
-                        checkboxvalues[i] = checkedbox.eq(i).val();
+                    if(checkedbox.length == 0){
+                        alert('请选择需要导出的信息');
+                    }else{
+                        for (var i = 0; i < checkedbox.length; i++) {
+                            checkboxvalues[i] = checkedbox.eq(i).val();
+                        }
+                        var cde_id = checkboxvalues;
+                        window.open(host + 'python/export?export=1&cde_id=' + cde_id);
                     }
-                    var cde_id = checkboxvalues;
-                    window.open(host + 'python/export?export=1&cde_id=' + cde_id);
                 });
             });
 
