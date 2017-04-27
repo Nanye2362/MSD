@@ -132,27 +132,27 @@
                                 var enddate = data.data.end_date[i];
                                 if (i == 0) {
                                     $('.ul_one').append("<div class='xuxian1' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='fdate' style='font-size: 12px;position: absolute;top: 20px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='fdate' style='position: absolute;top: 40px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian1').css('width', divwidth);
                                     $('.fdate').css('left', divwidth - 29);
                                 } else if (i == 1) {
                                     $('.ul_one').append("<div class='xuxian2' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='sdate' style='font-size: 12px;position: absolute;top: 0px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='sdate' style='position: absolute;top: 30px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian2').css('width', divwidth);
                                     $('.sdate').css('left', divwidth - 29);
                                 } else if (i == 2) {
                                     $('.ul_one').append("<div class='xuxian3' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='tdate' style='font-size: 12px;position: absolute;top: 20px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='tdate' style='position: absolute;top: 20px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian3').css('width', divwidth);
                                     $('.tdate').css('left', divwidth - 29);
                                 } else if (i == 3) {
                                     $('.ul_one').append("<div class='xuxian4' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='fodate' style='font-size: 12px;position: absolute;top: 0px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='fodate' style='position: absolute;top: 10px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian4').css('width', divwidth);
                                     $('.fodate').css('left', divwidth - 29);
                                 } else if (i == 4) {
                                     $('.ul_one').append("<div class='xuxian5' style='position: absolute;top: 52px;left: 0;border-right: 1px dotted rgb(138, 131, 131);'></div>");
-                                    $('.ul_one').append("<div class='fidate' style='font-size: 12px;position: absolute;top: 20px;padding-top: 15px;width: 56px;'>" + enddate + "</div>");
+                                    $('.ul_one').append("<div class='fidate' style='position: absolute;top: 0px;width: 56px;'>" + enddate + "</div>");
                                     $('.xuxian5').css('width', divwidth);
                                     $('.fidate').css('left', divwidth - 29);
                                 }
@@ -163,7 +163,12 @@
                             }
                             console.log(divwidth);
                             var all_li = ['0', '1', '2', '3', '4'];
-                            var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
+                            Array.prototype.diff = function(a) {
+                                return this.filter(function(i) {return a.indexOf(i) < 0;});
+                            };
+                            var diff = all_li.diff(li_num);
+                            console.log(diff);
+                            //var diff = li_num.concat(all_li).filter(v => !li_num.includes(v) || !all_li.includes(v));//取差集
                             for (var dv = 0; dv < diff.length; dv++) {
                                 var num = parseInt(diff[dv]) + 1;
                                 var id1 = '#cont_a_nth_' + num;

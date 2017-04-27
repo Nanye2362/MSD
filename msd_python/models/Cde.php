@@ -85,15 +85,25 @@ class Cde extends \yii\db\ActiveRecord {
     }
 
     static function getDetailByCdeId($cdeId) {
-        $cdeObj = Cde::find()->select("cde.*,cde_sfda_status.name sfda_name,cde_light.*,cde.id cdeId")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_light', 'cde_light.cde_id=cde.id')->leftJoin('cde_sfda_status', 'cde_sfda_status.id=cde.sfda_status')->asArray()->all();
         $return = array();
+        $is_old_value = Cde::find()->select('cde.sfda_date, cde.old_value')->where('cde.id=:id', [':id' => $cdeId])->asArray()->one();
+        if ($is_old_value['old_value'] == 1) {
+            $old_data_cfda = Cde::find()->select('olddata_cfda.sfda_status, olddata_cfda.finishtime')->where('cde.id=:id', [':id' => $cdeId])->leftJoin('olddata_cfda', 'olddata_cfda.code=cde.code')->asArray()->one();
+            $return['olddata_status'] = !empty($old_data_cfda['sfda_status']) ? $old_data_cfda['sfda_status'] : '';
+            $return['sfda_date'] = !empty($old_data_cfda['finishtime']) ? $old_data_cfda['finishtime'] : '';
+        } elseif ($is_old_value['old_value'] == 0) {
+            $return['sfda_date'] = !empty($is_old_value['sfda_date']) ? $is_old_value['sfda_date'] : '';
+        }
+
+        $cdeObj = Cde::find()->select("cde.*,cde_sfda_status.name sfda_name,cde_light.*,cde.id cdeId")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_light', 'cde_light.cde_id=cde.id')->leftJoin('cde_sfda_status', 'cde_sfda_status.id=cde.sfda_status')->asArray()->all();
 
         foreach ($cdeObj as $light) {
             $return['id'] = $light['cdeId'];
             $return['code'] = $light['code'];
             $return['name'] = $light['name'];
             $return['company'] = $light['company'];
-            $return['status'] = $light['sfda_name'];
+            $return['status'] = !empty($light['sfda_name']) ? $light['sfda_name'] : '';
+            $return['olddata_status'] = !empty($return['olddata_status']) ? $return['olddata_status'] : '';
             $return['status_id'] = $light['sfda_status'];
             $return['lightList'][$light['type'] - 1][$light['sub_type'] - 1][] = $light['change_date'];
         }
@@ -142,9 +152,9 @@ class Cde extends \yii\db\ActiveRecord {
         if (!empty($searchText)) {
             if (is_array($searchText)) {
                 $cde_name = $searchText[1];
-                $cdeObj->andWhere("code like :searchText or name like :searchText or name like :cde_name or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(name) like :cde_name or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
             } else {
-                $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText . '%']);
             }
         }
 
@@ -239,9 +249,9 @@ class Cde extends \yii\db\ActiveRecord {
         if (!empty($searchText)) {
             if (is_array($searchText)) {
                 $cde_name = $searchText[1];
-                $cdeObj->andWhere("code like :searchText or name like :searchText or name like :cde_name or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(name) like :cde_name or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
             } else {
-                $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText or clinical_indication like :searchText", [':searchText' => '%' . $searchText . '%']);
+                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText . '%']);
             }
         }
 

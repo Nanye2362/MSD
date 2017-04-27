@@ -40,18 +40,20 @@ class PythonController extends \yii\web\Controller {
         $searchText = Yii::$app->request->post('searchText');
         $sortName = Yii::$app->request->post('sortName');
         $sortOrder = Yii::$app->request->post('sortOrder');
-        
+
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
 
         $obj = new \stdClass();
 
         $cde_name = CdeUsedname::getCdename($searchText);
-        
-        if(!empty($cde_name)){
-            $searchText = array($searchText, $cde_name);
+
+        if (!empty($cde_name)) {
+            $searchText = array(strtoupper($searchText), strtoupper($cde_name));
+        } else {
+            $searchText = strtoupper($searchText);
         }
-        
+
         if (!empty($curPage) && !empty($pageSize)) {
             $obj = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids, $sortName, $sortOrder);
             $obj->success = true;
@@ -72,14 +74,16 @@ class PythonController extends \yii\web\Controller {
         $ephmra_atc_code = Yii::$app->request->post('ephmra_atc_code');
         $sortName = Yii::$app->request->post('sortName');
         $sortOrder = Yii::$app->request->post('sortOrder');
-        
+
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
-        
+
         $cde_name = CdeUsedname::getCdename($searchText);
-        
-        if(!empty($cde_name)){
-            $searchText = $cde_name;
+
+        if (!empty($cde_name)) {
+            $searchText = array(strtoupper($searchText), strtoupper($cde_name));
+        } else {
+            $searchText = strtoupper($searchText);
         }
 
         $obj = new \stdClass();
@@ -95,7 +99,7 @@ class PythonController extends \yii\web\Controller {
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
     }
-    
+
     public function actionGettype() {
         $obj = CdeType::getList();
         $response = Yii::$app->response;
@@ -166,7 +170,7 @@ class PythonController extends \yii\web\Controller {
         //后期修改 对接  临时用表单传递
         $userid = User::$currUser->id;
         $user_name = User::$currUser->name;
-        
+
         $obj = new \stdClass();
         if (!empty($cdeId)) {
             $cde = CdePublicremark::find()->where("cde_id=:cdeid and uid=:uid", [":cdeid" => $cdeId, ":uid" => $userid])->one();
@@ -219,7 +223,7 @@ class PythonController extends \yii\web\Controller {
     public function actionGetchinadrug() {
         $cdeId = Yii::$app->request->post('cdeId');
         $curPage = Yii::$app->request->post('curPage');
-        $pageSize = Yii::$app->request->post('pageSize');        
+        $pageSize = Yii::$app->request->post('pageSize');
         $obj = new \stdClass();
         if (!empty($cdeId)) {
             $obj = ChinaDrugTrials::getChinaDrugByCdeId($curPage, $pageSize, $cdeId);
@@ -233,17 +237,17 @@ class PythonController extends \yii\web\Controller {
     }
 
     public function actionExport() {
-        $cde_ids = Yii::$app->request->get('cde_id'); 
-        $export = Yii::$app->request->get('export'); 
-        
+        $cde_ids = Yii::$app->request->get('cde_id');
+        $export = Yii::$app->request->get('export');
+
         $curPage = Yii::$app->request->post('curPage');
         $pageSize = Yii::$app->request->post('pageSize');
         $typeId = Yii::$app->request->post('typeId');
         $searchText = Yii::$app->request->post('searchText');
         $uid = User::$currUser->id;
         $role = User::$currUser->role;
-        
-        
+
+        $searchText = strtoupper($searchText);
         $data = Cde::getList($curPage, $pageSize, $typeId, $searchText, $uid, $role, $cde_ids, '', '', $export);
         $excel_data = $data->data;
 

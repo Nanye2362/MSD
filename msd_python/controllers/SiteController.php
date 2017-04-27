@@ -12,6 +12,7 @@ use app\filter\UserFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use app\models\SpiderDate;
 use yii\helpers\ArrayHelper;
 use yii\filters\Cors;
 
@@ -57,21 +58,22 @@ class SiteController extends Controller {
 
     public function actionGetdate() {
         echo date("Y-m-d H:i:s");
-        exit;
     }
 
     public function actionLogin() {
         //格式  mail=hong.chen@cognizant.com&name=hong.chen&isrole=true&date=2017-02-02 12:33:00
         $url_str = rsa::decodeing(Yii::$app->request->get('token'));
         if (empty($url_str)) {
-            echo 'token不正确';
-            exit;
+            $this->redirect('http://teamspace.merck.com');
+            //echo 'token不正确';
+            //exit;
         }
         parse_str($url_str);
 
         if (time() - strtotime($date) > 300) {
-            echo 'token过期';
-            exit;
+            $this->redirect('http://teamspace.merck.com');
+            //echo 'token过期';
+            //exit;
         }
 
 
@@ -92,7 +94,7 @@ class SiteController extends Controller {
             $session = Yii::$app->session;
             $session['user_id'] = $user->id;
             $session['user_name'] = $user->name;
-            
+
             $user_favorite = user::getUserfavorite($mail);
 
             if ($user_favorite > 0) {
@@ -101,35 +103,38 @@ class SiteController extends Controller {
                 return $this->redirect(['site/index']);
             }
         } else {
-            echo '权限不够，以后跳转到teamspace.merck.com';
-            exit;
+            $this->redirect('http://teamspace.merck.com');
+            //echo '权限不够，以后跳转到teamspace.merck.com';
+            //exit;
         }
     }
 
     public function actionIndex() {
         //return $this->redirect(['site/index']);
+        $spider_time = SpiderDate::getSpiderdate();
         $data['title'] = 'index';
+        $data['spider_time'] = $spider_time['spider_time'];
         return $this->render('index', $data);
     }
 
     public function actionPage2() {
         $data['title'] = 'page2';
-        return $this->render('page2',$data);
+        return $this->render('page2', $data);
     }
 
     public function actionPage3() {
         $data['title'] = 'page3';
-        return $this->render('page3',$data);
+        return $this->render('page3', $data);
     }
 
     public function actionPage4() {
         $data['title'] = 'page4';
-        return $this->render('page4',$data);
+        return $this->render('page4', $data);
     }
 
     public function actionIndex4() {
         $data['title'] = 'index4';
-        return $this->render('index4',$data);
+        return $this->render('index4', $data);
     }
 
     public function actionConfig() {

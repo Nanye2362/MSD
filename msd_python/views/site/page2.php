@@ -105,9 +105,9 @@
                         $('.company').html(data.data.company);
 
                         if (data.data.status_id == 8) {
-                            $('.status').html('<span style="vertical-align:middle">' + data.data.status + '</span>' + '<a href="page3?code=' + data.data.id + '"><img style="width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;" src="<?php echo Yii::$app->request->baseUrl; ?>/images/Diploma.png"/></a>');
+                            $('.status').html('<span style="vertical-align:middle">' + data.data.status + '</span>' + '<a href="page3?code=' + data.data.id + '"><img style="width:14px;height:14px;margin-left:5px;line-height:12px;vertical-align:middle;" src="<?php echo Yii::$app->request->baseUrl; ?>/images/Diploma.png"/></a>' + '<br>' + data.data.sfda_date);
                         } else {
-                            $('.status').html(data.data.status);
+                            $('.status').html(data.data.status + '<br>' + data.data.sfda_date);
                         }
                         for (var i in data.data.lightList) {
                             for (var j in data.data.lightList[i]) {
