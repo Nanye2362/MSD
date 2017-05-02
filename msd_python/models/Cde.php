@@ -214,7 +214,7 @@ class Cde extends \yii\db\ActiveRecord {
 
             $ephmra_atc_codes = explode(',', $one['ephmra_atc_code']);
             foreach ($ephmra_atc_codes as $k => $v) {
-                $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $one['chinese_name'] . $v . "</a>";
+                $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
                 $ephmra_atc_code = implode('<br>', $ephmra_atc_codes);
             }
             if ($export != '1') {

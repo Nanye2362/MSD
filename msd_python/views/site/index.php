@@ -261,10 +261,13 @@
 
                             //判断行颜色
                             if (obj.data[i].row_status == 1) {
+								//粉色
                                 $(this).find('td').css("background-color", "#FFD2D2")
                             } else if (obj.data[i].row_status == 2) {
+								//绿色
                                 $(this).find('td').css("background-color", "#ceffce")
                             } else if (obj.data[i].row_status == 3) {
+								//黄色
                                 $(this).find('td').css("background-color", "#ffffce")
                             }
 
@@ -398,7 +401,7 @@
         <br />
 
         <p style="margin-left: 3%;">注：2017年1月9日前的排名数据为99999</p>
-        <p style="margin-left: 3%;">统计至<?php echo $spider_time;?></p>
+        <p style="margin-left: 3%;">统计至<?php echo $spider_time.'&nbsp;'.$http_status;?></p>
         
         <table id="searchTable" align="center">
             <tr id="trhead">

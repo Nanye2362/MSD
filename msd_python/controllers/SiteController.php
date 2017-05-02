@@ -114,6 +114,11 @@ class SiteController extends Controller {
         $spider_time = SpiderDate::getSpiderdate();
         $data['title'] = 'index';
         $data['spider_time'] = $spider_time['spider_time'];
+        if($spider_time['http_status'] == 1){
+            $data['http_status'] = '';
+        }else{
+            $data['http_status'] = 'CFDA(或CDE)网站数据源位置发生变化，需重新配置，更新完成的时间待定';
+        }
         return $this->render('index', $data);
     }
 
