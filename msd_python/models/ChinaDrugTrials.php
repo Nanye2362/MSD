@@ -64,7 +64,7 @@ class ChinaDrugTrials extends \yii\db\ActiveRecord {
         $list->select("china_drug_trials.*,cde.company")
                 ->rightJoin('cde_china_drug_trials', 'cde_china_drug_trials.china_drug_trials_id=china_drug_trials.id')
                 ->innerJoin('cde', 'cde_china_drug_trials.cde_id=cde.id')
-                ->where('cde_china_drug_trials.cde_id=:id', [':id' => $cdeId])->orderBy('cde_china_drug_trials.inquire_type');
+                ->where('cde_china_drug_trials.cde_id=:id', [':id' => $cdeId])->orderBy('cde_china_drug_trials.inquire_type, china_drug_trials.drug_name');
 
         $num = $list->count();
         
