@@ -36,12 +36,12 @@ class IndicationstypesSearch extends Indicationstypes {
         $IndicationstypesObj = Indicationstypes::find();
         
         if (!empty($searchText)) {
-            $IndicationstypesObj->andWhere("english_name like :searchText or chinese_name like :searchText or ephmra_atc_code like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $IndicationstypesObj->andWhere('"english_name" like :searchText or "chinese_name" like :searchText or "ephmra_atc_code" like :searchText', [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $IndicationstypesObj->count();
         
-        $IndicationstypesValues = $IndicationstypesObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();        
+        $IndicationstypesValues = $IndicationstypesObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();        
 
         $obj = new \stdClass();
         $obj->totalRows = $num;

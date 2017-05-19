@@ -46,7 +46,7 @@ class MailconfigController extends Controller{
         $value = Yii::$app->request->post('value');
         $obj = new \stdClass();
         if (!empty($id)) {
-            $cde = Mailconfig::find()->where("id=:id", [":id" => $id])->one();
+            $cde = Mailconfig::find()->where('"id"=:id', [":id" => $id])->one();
             $cde->value = $value;
             $cde->save(false);
             $obj->success = true;

@@ -79,7 +79,7 @@ class CdeusednameController extends Controller {
         $cde_name_value = trim($cde_name_value);
         if (!empty($cde_name_value)) {
             if (!empty($id)) {
-                $cde = CdeUsedname::find()->where("id=:id", [":id" => $id])->one();
+                $cde = CdeUsedname::find()->where('"id"=:id', [":id" => $id])->one();
                 if (!empty($cde_name)) {
                     $cde->cde_name = $cde_name_value;
                 }
@@ -106,7 +106,7 @@ class CdeusednameController extends Controller {
         } else {
             if (!empty($id)) {
                 $cde = new CdeUsedname();
-                $cde->deleteAll('id = :id', [':id' => $id]);
+                $cde->deleteAll('"id" = :id', [':id' => $id]);
                 $obj->success = true;
                 $obj->delete = true;
             } else {

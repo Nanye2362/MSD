@@ -33,7 +33,7 @@
                             //标识建
                             $(this).attr('lang', obj.data[i].id);
 
-                            $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='config_value' contenteditable='true'>" + obj.data[i].value + "</div>");
+                            $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;word-break:break-all;word-wrap:break-word;' class='config_value' contenteditable='true'>" + obj.data[i].value + "</div>");
 
                             i++;
                         })
@@ -87,8 +87,8 @@
 
                             //标识建
                             $(this).attr('lang', obj.data[i].id);
-
-                            $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='config_value' contenteditable='true'>" + obj.data[i].value + "</div>");
+							
+                            $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;word-break:break-all;word-wrap:break-word;' class='config_value' contenteditable='true'>" + obj.data[i].value + "</div>");
 
                             i++;
                         })
@@ -101,12 +101,12 @@
     <body>
         <?php include "menu.php"; ?>
         <div style="padding-top:15px;">
-            <div style="float: right; margin-right: 3%;">
-                搜索:
-                <input id="input" type="text" placeholder="">
-                <button class="btn btn-primary btn-sm" id="search">Search</button>
-            </div>
-        </div>
+			<div style="float: right; margin-right: 3%;">
+				搜索:
+				<input id="input" type="text" placeholder="">
+				<button class="btn btn-primary btn-sm" id="search">Search</button>
+			</div>
+		</div>
         <table id="searchTable" align="center">
             <tr>
                 <th w_index="name" width="33%;" class='rank'>标识健</th>

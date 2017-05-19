@@ -85,34 +85,34 @@ class Cde extends \yii\db\ActiveRecord {
     }
 
     static function getDetailByCdeId($cdeId) {
-        $return = array();
-        $is_old_value = Cde::find()->select('cde.sfda_date, cde.old_value')->where('cde.id=:id', [':id' => $cdeId])->asArray()->one();
-        if ($is_old_value['old_value'] == 1) {
-            $old_data_cfda = Cde::find()->select('olddata_cfda.sfda_status, olddata_cfda.finishtime')->where('cde.id=:id', [':id' => $cdeId])->leftJoin('olddata_cfda', 'olddata_cfda.code=cde.code')->asArray()->one();
-            $return['olddata_status'] = !empty($old_data_cfda['sfda_status']) ? $old_data_cfda['sfda_status'] : '';
-            $return['sfda_date'] = !empty($old_data_cfda['finishtime']) ? $old_data_cfda['finishtime'] : '';
-        } elseif ($is_old_value['old_value'] == 0) {
-            $return['sfda_date'] = !empty($is_old_value['sfda_date']) ? $is_old_value['sfda_date'] : '';
-        }
-
-        $cdeObj = Cde::find()->select("cde.*,cde_sfda_status.name sfda_name,cde_light.*,cde.id cdeId")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_light', 'cde_light.cde_id=cde.id')->leftJoin('cde_sfda_status', 'cde_sfda_status.id=cde.sfda_status')->asArray()->all();
-
+		$return = array();
+		$is_old_value = Cde::find()->select("to_char(\"sfda_date\",'yyyy-mm-dd HH24:MI:SS') \"sfda_date\", \"old_value\"")->where('"cde"."id"=:id', [':id' => $cdeId])->asArray()->one();
+		if($is_old_value['old_value'] == 1){
+			$old_data_cfda = Cde::find()->select('"olddata_cfda"."sfda_status", "olddata_cfda"."finishtime"')->where('"cde"."id"=:id', [':id' => $cdeId])->leftJoin('"olddata_cfda"', '"olddata_cfda"."code"="cde"."code"')->asArray()->one();
+			$return['olddata_status'] = !empty($old_data_cfda['sfda_status']) ? $old_data_cfda['sfda_status'] : '';
+			$return['sfda_date'] = !empty($old_data_cfda['finishtime']) ? $old_data_cfda['finishtime'] : '';
+		} elseif ($is_old_value['old_value'] == 0) {
+			$return['sfda_date'] = !empty($is_old_value['sfda_date'])?$is_old_value['sfda_date']:'';
+		}
+		
+        $cdeObj = Cde::find()->select("cde.*,cde_sfda_status.name sfda_name,cde_light.*,to_char(\"change_date\",'yyyy-mm-dd') \"change_date\",cde.id cdeId")->where('"cde"."id"=:id', [':id' => $cdeId])->leftJoin('cde_light', '"cde_light"."cde_id"="cde"."id"')->leftJoin('cde_sfda_status', '"cde_sfda_status"."id"="cde"."sfda_status"')->asArray()->all();
+        		
         foreach ($cdeObj as $light) {
             $return['id'] = $light['cdeId'];
             $return['code'] = $light['code'];
             $return['name'] = $light['name'];
             $return['company'] = $light['company'];
             $return['status'] = !empty($light['sfda_name']) ? $light['sfda_name'] : '';
-            $return['olddata_status'] = !empty($return['olddata_status']) ? $return['olddata_status'] : '';
+			$return['olddata_status'] = !empty($return['olddata_status']) ? $return['olddata_status'] : '';
             $return['status_id'] = $light['sfda_status'];
-            $return['lightList'][$light['type'] - 1][$light['sub_type'] - 1][] = $light['change_date'];
+            $return['lightList'][$light['type']][$light['sub_type']][] = $light['change_date'];
         }
-
+		
         return $return;
     }
 
     static function getTimelineByCdeId($cdeId) {
-        $cdeObj = Cde::find()->select("*")->where('cde.id=:id', [':id' => $cdeId])->leftJoin('cde_timeline', 'cde_timeline.cde_id=cde.id')->orderBy("cde_timeline.start_date asc")->asArray()->all();
+        $cdeObj = Cde::find()->select("*")->where('"cde"."id"=:id', [':id' => $cdeId])->leftJoin('cde_timeline', '"cde_timeline"."cde_id"="cde"."id"')->orderBy('"cde_timeline"."start_date" asc')->asArray()->all();
         $return = array();
 
 
@@ -137,25 +137,31 @@ class Cde extends \yii\db\ActiveRecord {
     static function getList($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $cde_ids = '', $sortName = '', $sortOrder = '', $export = '') {
         $start = ($curPage - 1) * $pageSize;
 
-        $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
+        $cdeObj = Cde::find()->leftJoin('indications_types', '"indications_types"."id"="cde"."indication_id"')->with('rankList')->with('publicremark');
 
 
 
         if (!empty($typeId)) {
-            $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
+            $cdeObj->andWhere('"tid"=:tid', [':tid' => $typeId]);
         }
 
         if (!empty($cde_ids)) {
-            $cdeObj->andWhere('FIND_IN_SET(cde.id , :cde_id)', [':cde_id' => $cde_ids]);
+			$cdeObj->andWhere('"cde"."id" in('. $cde_ids .')');
         }
 
         if (!empty($searchText)) {
             if (is_array($searchText)) {
-                $cde_name = $searchText[1];
-                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(name) like :cde_name or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
-            } else {
-                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText . '%']);
-            }
+                $cde_name = $searchText[0];
+				$cde_used_name = !empty($searchText[1]) ? $searchText[1] : $cde_name;
+				$cde_used_name2 = !empty($searchText[2]) ? $searchText[2] : $cde_name;
+				$cde_used_name3 = !empty($searchText[3]) ? $searchText[3] : $cde_name;
+				$cde_used_name4 = !empty($searchText[4]) ? $searchText[4] : $cde_name;
+				$cde_used_name5 = !empty($searchText[5]) ? $searchText[5] : $cde_name;
+                $cdeObj->andWhere('"code" like :searchText or UPPER("name") like :cde_name or UPPER("name") like :cde_used_name or UPPER("name") like :cde_used_name2 or UPPER("name") like :cde_used_name3 or UPPER("name") like :cde_used_name4 or UPPER("name") like :cde_used_name5 or UPPER("company") like :searchText or UPPER("clinical_indication") like :searchText', [':cde_name' => '%' . $cde_name . '%', ':cde_used_name' => '%' . $cde_used_name . '%', ':cde_used_name2' => '%' . $cde_used_name2 . '%', ':cde_used_name3' => '%' . $cde_used_name3 . '%', ':cde_used_name4' => '%' . $cde_used_name4 . '%', ':cde_used_name5' => '%' . $cde_used_name5 . '%', ':searchText' => '%' . $searchText[6] . '%']);
+            }else{
+				$cdeObj->andWhere('"code" like :searchText or UPPER("name") like :searchText or UPPER("company") like :searchText or UPPER("clinical_indication") like :searchText', [':searchText' => '%' . $searchText . '%']);
+			}
+			
         }
 
         $num = $cdeObj->count();
@@ -163,13 +169,13 @@ class Cde extends \yii\db\ActiveRecord {
         if (!empty($sortName) && !empty($sortOrder)) {
             $cdeObj->orderBy($sortName . ' ' . $sortOrder);
         } else {
-            $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
+            $cdeObj->orderBy('"flag","row_status"');
         }
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.chinese_name,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->select(['decode("row_status", 0 , 1 , 0) "flag","cde"."id","code","company",to_char("join_date",\'yyyy-mm-dd\') "join_date","name","rank","rank_status","row_status","sfda_status","indications_types"."chinese_name","indications_types"."ephmra_atc_code","clinical_indication"'])->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
-            $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
+            $clinical_test_links = Cde::find()->select('count(DISTINCT("cde_china_drug_trials"."china_drug_trials_id")) as "clinical_test_link"')->innerJoin('cde_china_drug_trials', '"cde_china_drug_trials"."cde_id" = "cde"."id"')->andWhere('"cde"."id" = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
             $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
 
             $showRemark = '';
@@ -177,9 +183,9 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['user_id'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
-                if ($uid == $premark['uid']) {
+                if ($uid == $premark['user_id']) {
                     $one['remark1'] = empty($premark['public_remark']) ? '' : $premark['public_remark'];
                     $one['custom_remark'] = empty($premark['remark']) ? '' : $premark['remark'];
                 }
@@ -192,12 +198,12 @@ class Cde extends \yii\db\ActiveRecord {
             }
 
             if (!empty($cde_ids) && !empty($export)) {
-                if (!empty($one['rankList'])) {
-                    $rv = $one['rankList'][0];
-                    $one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
-                } else {
-                    $one['rl'] = '';
-                }
+				if(!empty($one['rankList'])){
+					$rv = $one['rankList'][0];
+					$one['rl'] = 'No.' . $rv['rank'] . ' ' . $rv['datetime'];
+				}else{
+					$one['rl'] = '';
+				}
             }
 
             if (empty($one['ephmra_atc_code'])) {
@@ -211,7 +217,7 @@ class Cde extends \yii\db\ActiveRecord {
             } else {
                 $one['sfda_status'] = '';
             }
-
+            
             $ephmra_atc_codes = explode(',', $one['ephmra_atc_code']);
             foreach ($ephmra_atc_codes as $k => $v) {
                 $ephmra_atc_codes[$k] = "<a style='display: inline-block;text-decoration:underline;color:#000;' href='/site/page4?ephmra_atc_code=" . $v . "'>" . $v . "</a>";
@@ -236,22 +242,22 @@ class Cde extends \yii\db\ActiveRecord {
     static function getListbyephmra($curPage = 1, $pageSize = 20, $typeId = '', $searchText = '', $uid, $role, $ephmra_atc_code = '', $sortName = '', $sortOrder = '') {
         $start = ($curPage - 1) * $pageSize;
 
-        $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
+        $cdeObj = Cde::find()->leftJoin('indications_types', '"indications_types"."id"="cde"."indication_id"')->with('rankList')->with('publicremark');
 
         if (!empty($typeId)) {
-            $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
+            $cdeObj->andWhere('"tid"=:tid', [':tid' => $typeId]);
         }
 
         if (!empty($ephmra_atc_code)) {
-            $cdeObj->andWhere('indications_types.ephmra_atc_code like :ephmra_atc_code', [':ephmra_atc_code' => '%' . $ephmra_atc_code . '%']);
+            $cdeObj->andWhere('"indications_types"."ephmra_atc_code" like :ephmra_atc_code', [':ephmra_atc_code' => '%' . $ephmra_atc_code . '%']);
         }
 
         if (!empty($searchText)) {
             if (is_array($searchText)) {
                 $cde_name = $searchText[1];
-                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(name) like :cde_name or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
+                $cdeObj->andWhere('"code" like :searchText or UPPER("name") like :searchText or UPPER("name") like :cde_name or UPPER("company") like :searchText or UPPER("clinical_indication") like :searchText', [':searchText' => '%' . $searchText[0] . '%', ':cde_name' => '%' . $cde_name . '%']);
             } else {
-                $cdeObj->andWhere("code like :searchText or upper(name) like :searchText or upper(company) like :searchText or upper(clinical_indication) like :searchText", [':searchText' => '%' . $searchText . '%']);
+                $cdeObj->andWhere('"code" like :searchText or UPPER("name") like :searchText or UPPER("company") like :searchText or UPPER("clinical_indication") like :searchText', [':searchText' => '%' . $searchText . '%']);
             }
         }
 
@@ -260,10 +266,10 @@ class Cde extends \yii\db\ActiveRecord {
         if (!empty($sortName) && ($sortName != 'end_date' && $sortName != 'total_days')) {
             $cdeObj->orderBy($sortName . ' ' . $sortOrder);
         } elseif (empty($sortName)) {
-            $cdeObj->orderBy('`row_status`!=0 DESC, row_status');
+            $cdeObj->orderBy('"flag","row_status"');
         }
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,sfda_status,indications_types.ephmra_atc_code,clinical_indication')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->select(['decode("row_status", 0 , 1 , 0) "flag","cde"."id","code","company",to_char("join_date",\'yyyy-mm-dd\') "join_date","name","rank","rank_status","row_status","sfda_status","indications_types"."chinese_name","indications_types"."ephmra_atc_code","clinical_indication"'])->limit($pageSize)->offset($start)->asArray()->all();
 
         foreach ($cde as &$one) {
             $datas = Cde::find();
@@ -271,7 +277,7 @@ class Cde extends \yii\db\ActiveRecord {
                 $datas->orderBy($sortName . ' ' . $sortOrder);
             }
 
-            $end_date = $datas->select('cde.join_date, cde_timeline.end_date, datediff(cde_timeline.`end_date`,cde.`join_date`) as total_days ')->innerJoin('cde_timeline', 'cde.id = cde_timeline.cde_id')->andWhere('cde.code = :cde_code and cde.sfda_status = 8 and cde_timeline.status = 5', [':cde_code' => $one['code']])->asArray()->one();
+            $end_date = $datas->select('"cde"."join_date", "cde_timeline"."end_date", ROUND(TO_NUMBER("cde_timeline"."end_date" - "cde"."join_date")) as "total_days" ')->innerJoin('cde_timeline', '"cde"."id" = "cde_timeline"."cde_id"')->andWhere('"cde"."code" = :cde_code and "cde"."sfda_status" = 8 and "cde_timeline"."status" = 5', [':cde_code' => $one['code']])->asArray()->one();
 
             $one['end_date'] = $end_date['end_date'];
             if (!empty($one['end_date'])) {
@@ -280,7 +286,7 @@ class Cde extends \yii\db\ActiveRecord {
                 $one['total_days'] = '';
             }
 
-            $clinical_test_links = Cde::find()->select('count(cde_china_drug_trials.id) as clinical_test_link')->innerJoin('cde_china_drug_trials', 'cde_china_drug_trials.cde_id = cde.id')->andWhere('cde.id = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
+            $clinical_test_links = Cde::find()->select('count(DISTINCT("cde_china_drug_trials"."china_drug_trials_id")) as "clinical_test_link"')->innerJoin('cde_china_drug_trials', '"cde_china_drug_trials"."cde_id" = "cde"."id"')->andWhere('"cde"."id" = :cde_id', [':cde_id' => $one['id']])->asArray()->one();
             $one['clinical_test_link'] = "<a href='/site/page3?code=" . $one['id'] . "'>相关实验链接(" . $clinical_test_links['clinical_test_link'] . ")</a>";
 
             $showRemark = '';
@@ -288,9 +294,9 @@ class Cde extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= "<p id='refresh_remark_" . $premark['uid'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
+                    $showRemark .= "<p id='refresh_remark_" . $premark['user_id'] . "_" . $one['id'] . "' style='margin-top: 0px;margin-bottom: 0px;word-break: break-word;word-wrap: break-word;'>" . $premark['name'] . ':' . $premark['public_remark'] . "</p>";
                 }
-                if ($uid == $premark['uid']) {
+                if ($uid == $premark['user_id']) {
                     $one['remark1'] = empty($premark['public_remark']) ? '' : $premark['public_remark'];
                     $one['custom_remark'] = empty($premark['remark']) ? '' : $premark['remark'];
                 }
@@ -331,7 +337,7 @@ class Cde extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getRankList() {
-        return $this->hasMany(CdeRankList::className(), ['cde_id' => 'id'])->orderBy('rank asc');
+        return $this->hasMany(CdeRankList::className(), ['cde_id' => 'id'])->select(['"id","cde_id","rank",to_char("datetime",\'yyyy-mm-dd\') "datetime"'])->orderBy('rank asc');
     }
 
     /**
@@ -339,7 +345,7 @@ class Cde extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getPublicremark() {
-        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->select("cde_publicremark.*,user.name")->leftJoin("user", 'user.id=cde_publicremark.uid')->orderBy('create_date desc');
+        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->select("cde_publicremark.*,user.name")->leftJoin("user", '"user"."id"="cde_publicremark"."user_id"')->orderBy('create_date desc');
     }
 
 }

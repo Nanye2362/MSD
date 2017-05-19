@@ -46,7 +46,7 @@ class IndicationstypesController extends Controller {
         $ephmra_atc_code = Yii::$app->request->post('ephmra_atc_code');
         $obj = new \stdClass();
         if (!empty($id)) {
-            $cde = Indicationstypes::find()->where("id=:id", [":id" => $id])->one();
+            $cde = Indicationstypes::find()->where('"id"=:id', [":id" => $id])->one();
             $cde->ephmra_atc_code = $ephmra_atc_code;
             $cde->save(false);
             $obj->success = true;

@@ -31,7 +31,7 @@
                             $(this).attr('lang', obj.data[i].id);
 
                             $(this).find('td').eq(1).html("<div style='width:100%;min-height:23px;' class='config_value' contenteditable='true'>" + obj.data[i].value + "</div>");
-
+                            
                             i++;
                         })
                     }
@@ -58,10 +58,10 @@
                         search();
                     }
                 })
-
-                function search() {
+                
+                function search(){
                     $('#searchTable_pt_outTab').remove();
-                    gridObj = $.fn.bsgrid.init('searchTable', {
+                    gridObj = $.fn.bsgrid.init('searchTable',{
                         url: host + 'mailconfig/search',
                         //autoLoad: false,
                         pageSizeSelect: true,
@@ -93,14 +93,14 @@
     </head>
 
     <body>
-        <?php include "menu.php"; ?>
+    <?php include "menu.php";?>
         <div style="padding-top:15px;">
-            <div style="float: right; margin-right: 3%;">
-                搜索:
-                <input id="input" type="text" placeholder="">
-                <button class="btn btn-primary btn-sm" id="search">Search</button>
-            </div>
-        </div>
+			<div style="float: right; margin-right: 3%;">
+				搜索:
+				<input id="input" type="text" placeholder="">
+				<button class="btn btn-primary btn-sm" id="search">Search</button>
+			</div>
+		</div>
         <table id="searchTable" align="center">
             <tr>
                 <th w_index="name" width="33%;" class='rank'>name</th>

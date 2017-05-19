@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "cde_publicremark".
  *
  * @property string $id
- * @property string $uid
+ * @property string $user_id
  * @property integer $cde_id
  * @property string $remark
  * @property string $create_date
@@ -30,7 +30,7 @@ class CdePublicremark extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'cde_id'], 'integer'],
+            [['user_id', 'cde_id'], 'integer'],
             [['create_date'], 'safe'],
             [['remark', 'public_remark'], 'string', 'max' => 500],
         ];
@@ -43,7 +43,7 @@ class CdePublicremark extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'uid' => 'Uid',
+            'user_id' => 'User_id',
             'cde_id' => 'Cde ID',
             'remark' => 'Remark',
             'create_date' => 'Create Date',

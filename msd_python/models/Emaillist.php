@@ -45,23 +45,23 @@ class Emaillist extends \yii\db\ActiveRecord {
     static function getList($curPage, $pageSize, $typeId, $searchText, $uid) {
         $start = ($curPage - 1) * $pageSize;
 
-        $cdeObj = Cde::find()->leftJoin('indications_types', 'indications_types.id=cde.indication_id')->with('rankList')->with('publicremark');
-
+        $cdeObj = Cde::find()->leftJoin('indications_types', '"indications_types"."id"="cde"."indication_id"')->with('rankList')->with('publicremark');
+		
         if (!empty($typeId)) {
-            $cdeObj->andWhere('tid=:tid', [':tid' => $typeId]);
+            $cdeObj->andWhere('"tid"=:tid', [':tid' => $typeId]);
         }
 
         if (!empty($searchText)) {
-            $cdeObj->andWhere("code like :searchText or name like :searchText or company like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $cdeObj->andWhere('"code" like :searchText or "name" like :searchText or "company" like :searchText', [':searchText' => '%' . $searchText . '%']);
         }
 
         //查找user_mail中的cde_id
-        $cdeObj->innerJoin('user_mail', 'user_mail.cde_id=cde.id');
-        $cdeObj->andWhere('user_mail.user_id=:uid', [':uid' => $uid]);
+        $cdeObj->innerJoin('user_mail', '"user_mail"."cde_id"="cde"."id"');
+        $cdeObj->andWhere('"user_mail"."user_id"=:user_id', [':user_id' => $uid]);
 
         $num = $cdeObj->count();
 
-        $cde = $cdeObj->select('cde.id,code,company,join_date,name,rank,rank_status,row_status,indications_types.ephmra_atc_code')->orderBy('`row_status`!=0 DESC, row_status')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->select(['decode("row_status", 0 , 1 , 0) "flag", "cde"."id","code","company","join_date","name","rank","rank_status","row_status","indications_types"."ephmra_atc_code"'])->orderBy('"flag", "row_status"')->limit($pageSize)->offset($start)->asArray()->all();
 
 
         foreach ($cde as &$one) {
@@ -70,9 +70,9 @@ class Emaillist extends \yii\db\ActiveRecord {
             $one['custom_remark'] = '';
             foreach ($one['publicremark'] as $premark) {
                 if (!empty($premark['public_remark'])) {
-                    $showRemark .= $premark['uid'] . ':' . $premark['public_remark'] . "<br/>";
+                    $showRemark .= $premark['user_id'] . ':' . $premark['public_remark'] . "<br/>";
                 }
-                if ($uid == $premark['uid']) {
+                if ($uid == $premark['user_id']) {
                     $one['remark1'] = $premark['public_remark'];
                     $one['custom_remark'] = $premark['remark'];
                 }
@@ -99,7 +99,7 @@ class Emaillist extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getRankList() {
-        return $this->hasMany(CdeRankList::className(), ['cde_id' => 'id'])->orderBy('rank asc');
+        return $this->hasMany(CdeRankList::className(), ['"cde_id"' => 'id'])->orderBy('"rank" asc');
     }
 
     /**
@@ -107,13 +107,13 @@ class Emaillist extends \yii\db\ActiveRecord {
      *  获取cde关联的cdeType数据
      */
     public function getPublicremark() {
-        return $this->hasMany(CdePublicremark::className(), ['cde_id' => 'id'])->orderBy('create_date desc');
+        return $this->hasMany(CdePublicremark::className(), ['"cde_id"' => 'id'])->orderBy('"create_date" desc');
     }
 
     public static function getAlldrugid($names) {
         if(!empty($names)){
             foreach ($names as $k => $name){
-                $cde_ids[$k] = Cde::find()->select('cde.id')->andWhere('cde.name = :name', [':name' => ' '.$name.' '])->asArray()->all();
+                $cde_ids[$k] = Cde::find()->select('"cde"."id"')->andWhere('"cde"."name" = :name', [':name' => $name])->asArray()->all();
             }
             return $cde_ids;
         }

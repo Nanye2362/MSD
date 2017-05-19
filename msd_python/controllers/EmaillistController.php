@@ -124,7 +124,7 @@ class EmaillistController extends Controller {
             foreach($cde_ids as $v){
                 foreach($v as $cde_id){
                     $emaillist = new Emaillist();
-                    $delete_status = $emaillist->deleteAll('user_id = :user_id and cde_id = :cde_id', [':user_id' => $user_id, ':cde_id' => $cde_id]);
+                    $delete_status = $emaillist->deleteAll('"user_id" = :user_id and "cde_id" = :cde_id', [':user_id' => $user_id, ':cde_id' => $cde_id]);
                     if($delete_status == 1){
                         $obj->success = true;
                     }else{

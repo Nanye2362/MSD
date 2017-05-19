@@ -61,11 +61,11 @@ class ChinaDrugTrials extends \yii\db\ActiveRecord {
     static function getChinaDrugByCdeId($curPage = 1, $pageSize = 20, $cdeId) {
         $start = ($curPage - 1) * $pageSize;
         $list = ChinaDrugTrials::find();
-        $list->select("china_drug_trials.*,cde.company")
-                ->rightJoin('cde_china_drug_trials', 'cde_china_drug_trials.china_drug_trials_id=china_drug_trials.id')
-                ->innerJoin('cde', 'cde_china_drug_trials.cde_id=cde.id')
-                ->where('cde_china_drug_trials.cde_id=:id', [':id' => $cdeId])->orderBy('cde_china_drug_trials.inquire_type, china_drug_trials.drug_name');
-
+        $res = $list->select('"china_drug_trials"."id", "china_drug_trials"."code", to_char("first_date",\'yyyy-mm-dd\') "first_date", "china_drug_trials"."status", "china_drug_trials"."drug_name", "china_drug_trials"."indications", "china_drug_trials"."popular_topic", "china_drug_trials"."sponsor", "cde"."company"')
+                ->rightJoin('cde_china_drug_trials', '"cde_china_drug_trials"."china_drug_trials_id"="china_drug_trials"."id"')
+                ->innerJoin('cde', '"cde_china_drug_trials"."cde_id"="cde"."id"')
+                ->where('"cde_china_drug_trials"."cde_id"=:id', [':id' => $cdeId])->orderBy('"cde_china_drug_trials"."uname", "cde_china_drug_trials"."inquire_type", "china_drug_trials"."drug_name"')->asArray()->all();
+		
         $num = $list->count();
         
         $result = $list->limit($pageSize)->offset($start)->asArray()->all();

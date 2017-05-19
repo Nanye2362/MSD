@@ -73,12 +73,12 @@ class ConfigurationSearch extends Configuration {
         $configObj = Configuration::find();
         
         if (!empty($searchText)) {
-            $configObj->andWhere("name like :searchText or value like :searchText or note like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $configObj->andWhere('"name" like :searchText or "value" like :searchText or "note" like :searchText', [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $configObj->count();
         
-        $configValues = $configObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();        
+        $configValues = $configObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();        
 
         $obj = new \stdClass();
         $obj->totalRows = $num;

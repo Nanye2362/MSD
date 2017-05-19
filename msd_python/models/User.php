@@ -53,7 +53,7 @@ class User extends \yii\db\ActiveRecord {
     }
 
     public static function getUserfavorite($mail) {
-        $user_favorite = User::find()->select('count(cde_favorite.id) as user_favorite')->innerJoin('cde_favorite', 'user.id = cde_favorite.user_id')->andWhere('user.email = :email', [':email' => $mail])->asArray()->one();
+        $user_favorite = User::find()->select('count("cde_favorite"."id") as "user_favorite"')->innerJoin('cde_favorite', '"user"."id" = "cde_favorite"."user_id"')->andWhere('"user"."email" = :email', [':email' => $mail])->asArray()->one();
 
         return (int) $user_favorite['user_favorite'];
     }

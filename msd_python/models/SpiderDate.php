@@ -45,7 +45,7 @@ class SpiderDate extends \yii\db\ActiveRecord
     
     public static function getSpiderdate()
     {
-        $return = SpiderDate::find()->select('spider_time, http_status')->orderBy('spider_time desc')->limit(1)->asArray()->one();
+        $return = SpiderDate::find()->select("to_char(\"spider_time\",'yyyy-mm-dd HH24:MI:SS') \"spider_time\", \"http_status\"")->orderBy('spider_time desc')->limit(1)->asArray()->one();
         return $return;
     }
 }

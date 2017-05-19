@@ -38,13 +38,20 @@ class CdeUsednameSearch extends CdeUsedname {
         $configObj = CdeUsedname::find();
 
         if (!empty($searchText)) {
-            $configObj->andWhere("cde_name like :searchText or cde_usedname like :searchText or cde_usedname2 like :searchText or cde_usedname3 like :searchText or cde_usedname4 like :searchText or cde_usedname5 like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $configObj->andWhere('"cde_name" like :searchText or "cde_usedname" like :searchText or "cde_usedname2" like :searchText or "cde_usedname3" like :searchText or "cde_usedname4" like :searchText or "cde_usedname5" like :searchText', [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $configObj->count();
 
-        $configValues = $configObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();
-
+        $configValues = $configObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();
+		
+		foreach($configValues as &$configValue){
+			$configValue['cde_usedname2'] = !empty($configValue['cde_usedname2'])?$configValue['cde_usedname2']:'';
+			$configValue['cde_usedname3'] = !empty($configValue['cde_usedname3'])?$configValue['cde_usedname3']:'';
+			$configValue['cde_usedname4'] = !empty($configValue['cde_usedname4'])?$configValue['cde_usedname4']:'';
+			$configValue['cde_usedname5'] = !empty($configValue['cde_usedname5'])?$configValue['cde_usedname5']:'';
+		}
+		
         $obj = new \stdClass();
         $obj->totalRows = $num;
         $obj->curPage = $curPage;

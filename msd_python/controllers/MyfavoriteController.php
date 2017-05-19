@@ -54,6 +54,7 @@ class MyfavoriteController extends Controller {
                 }
             }
         }
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = $obj;
@@ -67,11 +68,23 @@ class MyfavoriteController extends Controller {
 
         $uid = User::$currUser->id;
 
-        $cde_name = CdeUsedname::getCdename($searchText);
-
-        if (!empty($cde_name)) {
-            $searchText = array($searchText, $cde_name);
+		$cde_name = CdeUsedname::getCdename($searchText);
+        
+		$cde_usedname = CdeUsedname::getCdeusedname($searchText);
+		
+        if(!empty($cde_name)){
+			//别名查询
+            $searchText = array(strtoupper($cde_name['cde_name']), strtoupper($cde_name['cde_usedname']), strtoupper($cde_name['cde_usedname2']), strtoupper($cde_name['cde_usedname3']), strtoupper($cde_name['cde_usedname4']), strtoupper($cde_name['cde_usedname5']), strtoupper($searchText));
         }
+		
+		if(!empty($cde_usedname)){
+			//原名查询
+			$searchText = array(strtoupper($cde_usedname['cde_name']), strtoupper($cde_usedname['cde_usedname']), strtoupper($cde_usedname['cde_usedname2']), strtoupper($cde_usedname['cde_usedname3']), strtoupper($cde_usedname['cde_usedname4']), strtoupper($cde_usedname['cde_usedname5']), strtoupper($searchText));
+		}
+		
+		if(empty($cde_name) && empty($cde_usedname)){
+			$searchText = strtoupper($searchText);
+		}
 
         $obj = new \stdClass();
         if (!empty($curPage) && !empty($pageSize)) {
@@ -95,7 +108,7 @@ class MyfavoriteController extends Controller {
             foreach ($cde_ids as $v) {
                 foreach ($v as $cde_id) {
                     $emaillist = new Myfavoritelist();
-                    $delete_status = $emaillist->deleteAll('user_id = :user_id and cde_id = :cde_id', [':user_id' => $user_id, ':cde_id' => $cde_id]);
+                    $delete_status = $emaillist->deleteAll('"user_id" = :user_id and "cde_id" = :cde_id', [':user_id' => $user_id, ':cde_id' => $cde_id]);
                     if ($delete_status == 1) {
                         $obj->success = true;
                     } else {

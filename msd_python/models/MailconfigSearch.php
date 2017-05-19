@@ -38,12 +38,12 @@ class MailconfigSearch extends Mailconfig{
         $MailconfigObj = Mailconfig::find();
         
         if (!empty($searchText)) {
-            $MailconfigObj->andWhere("name like :searchText or value like :searchText or note like :searchText", [':searchText' => '%' . $searchText . '%']);
+            $MailconfigObj->andWhere('"name" like :searchText or "value" like :searchText or "note" like :searchText', [':searchText' => '%' . $searchText . '%']);
         }
 
         $num = $MailconfigObj->count();
         
-        $MailconfigValues = $MailconfigObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();        
+        $MailconfigValues = $MailconfigObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();        
 
         $obj = new \stdClass();
         $obj->totalRows = $num;

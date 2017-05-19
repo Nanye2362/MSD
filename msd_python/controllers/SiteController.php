@@ -57,7 +57,13 @@ class SiteController extends Controller {
     }
 
     public function actionGetdate() {
-        echo date("Y-m-d H:i:s");
+		$jsoncallback = htmlspecialchars($_REQUEST ['jsoncallback']);
+		$date = array('time' => date("Y-m-d H:i:s"));
+        echo $jsoncallback.'('.json_encode($date).')';
+		//echo date("Y-m-d H:i:s");
+		//$response = Yii::$app->response;
+        //$response->format = \yii\web\Response::FORMAT_JSONP;
+        //$response->data = date("Y-m-d H:i:s");
     }
 
     public function actionLogin() {
@@ -69,14 +75,15 @@ class SiteController extends Controller {
             //exit;
         }
         parse_str($url_str);
-
-        if (time() - strtotime($date) > 300) {
-            $this->redirect('http://teamspace.merck.com');
-            //echo 'token过期';
-            //exit;
-        }
-
-
+		
+		if(isset($date)){
+			if (time() - strtotime($date) > 300) {
+				$this->redirect('http://teamspace.merck.com');
+				//echo 'token过期';
+				//exit;
+			}
+		}
+        
         if (!empty($mail)) {
             $user = user::findOne(['email' => $mail]);
             if (empty($user)) {
@@ -111,10 +118,10 @@ class SiteController extends Controller {
 
     public function actionIndex() {
         //return $this->redirect(['site/index']);
-        $spider_time = SpiderDate::getSpiderdate();
+		$spider_time = SpiderDate::getSpiderdate();
         $data['title'] = 'index';
-        $data['spider_time'] = $spider_time['spider_time'];
-        if($spider_time['http_status'] == 1){
+		$data['spider_time'] = date("Y/m/d H:i:s", strtotime($spider_time['spider_time']));
+		if($spider_time['http_status'] == 1){
             $data['http_status'] = '';
         }else{
             $data['http_status'] = 'CFDA(或CDE)网站数据源位置发生变化，需重新配置，更新完成的时间待定';
@@ -124,22 +131,22 @@ class SiteController extends Controller {
 
     public function actionPage2() {
         $data['title'] = 'page2';
-        return $this->render('page2', $data);
+        return $this->render('page2',$data);
     }
 
     public function actionPage3() {
         $data['title'] = 'page3';
-        return $this->render('page3', $data);
+        return $this->render('page3',$data);
     }
 
     public function actionPage4() {
         $data['title'] = 'page4';
-        return $this->render('page4', $data);
+        return $this->render('page4',$data);
     }
 
     public function actionIndex4() {
         $data['title'] = 'index4';
-        return $this->render('index4', $data);
+        return $this->render('index4',$data);
     }
 
     public function actionConfig() {

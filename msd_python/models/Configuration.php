@@ -55,7 +55,7 @@ class Configuration extends \yii\db\ActiveRecord
 
         $num=$cdeObj->count();
 
-        $cde=$cdeObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde=$cdeObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();
 
         $obj=new \stdClass();
         $obj->totalRows=$num;

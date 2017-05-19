@@ -57,7 +57,15 @@ class CdeUsedname extends \yii\db\ActiveRecord {
 
         $num = $cdeObj->count();
 
-        $cde = $cdeObj->orderBy('`id` desc')->limit($pageSize)->offset($start)->asArray()->all();
+        $cde = $cdeObj->orderBy('"id" desc')->limit($pageSize)->offset($start)->asArray()->all();
+		
+		foreach($cde as &$o){
+			$o['cde_usedname']=empty($o['cde_usedname'])?"":$o['cde_usedname'];
+			$o['cde_usedname2']=empty($o['cde_usedname2'])?"":$o['cde_usedname2'];
+			$o['cde_usedname3']=empty($o['cde_usedname3'])?"":$o['cde_usedname3'];
+			$o['cde_usedname4']=empty($o['cde_usedname4'])?"":$o['cde_usedname4'];
+			$o['cde_usedname5']=empty($o['cde_usedname5'])?"":$o['cde_usedname5'];
+		}
 
         $obj = new \stdClass();
         $obj->totalRows = $num;
@@ -69,12 +77,22 @@ class CdeUsedname extends \yii\db\ActiveRecord {
 
     static function getCdename($searchText = '') {
         if (!empty($searchText)) {
-            $searchText = strtoupper($searchText);
-            $cde_name = CdeUsedname::find()->andWhere('upper(cde_usedname) like :searchText or upper(cde_usedname2) like :searchText or upper(cde_usedname3) like :searchText or upper(cde_usedname4) like :searchText or upper(cde_usedname5) like :searchText', [':searchText' => '%' . $searchText . '%'])->asArray()->one();
-            return $cde_name['cde_name'];
+			$searchText = strtoupper($searchText);
+            $cde_name = CdeUsedname::find()->andWhere('UPPER("cde_usedname") like :searchText or UPPER("cde_usedname2") like :searchText or UPPER("cde_usedname3") like :searchText or UPPER("cde_usedname4") like :searchText or UPPER("cde_usedname5") like :searchText', [':searchText' => '%' . $searchText . '%'])->asArray()->one();
+            return $cde_name;
         } else {
             return '';
         }
     }
 
+	static function getCdeusedname($searchText = '') {
+        if (!empty($searchText)) {
+			$searchText = strtoupper($searchText);
+            $cde_usedname = CdeUsedname::find()->andWhere('UPPER("cde_name") like :searchText', [':searchText' => '%' . $searchText . '%'])->asArray()->one();
+            return $cde_usedname;
+        } else {
+            return '';
+        }
+    }
+	
 }

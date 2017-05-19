@@ -59,7 +59,7 @@ use app\models\user; ?>
                                 </span>
                             </a>
                         </li>
-                        <?php if (user::$currUser->role == 1): ?>
+                        <?php if (!empty(user::$currUser) && user::$currUser->role == 1): ?>
                             <li class="static"><a class="static <?php if ($title == 'config') echo "selected"; ?> menu-item" href="/site/config"><span class="additional-background"><span class="menu-item-text">爬虫配置</span></span></a></li>
                             <li class="static"><a class="static <?php if ($title == 'mailconfig') echo "selected"; ?> menu-item" href="/site/mailconfig"><span class="additional-background"><span class="menu-item-text">邮箱配置</span></span></a></li>
                             <li class="static"><a class="static <?php if ($title == 'usednameconfig') echo "selected"; ?> menu-item" href="/site/usednameconfig"><span class="additional-background"><span class="menu-item-text">别名配置</span></span></a></li>

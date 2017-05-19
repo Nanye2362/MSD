@@ -102,8 +102,8 @@
                         checkboxvalues[i] = checkedbox.eq(i).val();
                     }
 
-                    $.post(host + 'myfavorite/delete', {cde_id: checkboxvalues}, function (data) {
-                        if (data.success == true) {
+                    $.post(host + 'myfavorite/delete', {cde_id: checkboxvalues}, function(data){
+                        if(data.success == true){
                             alert('删除成功');
                             getList();
                         }
@@ -153,7 +153,7 @@
                             }
 
                             //时间借点记录填充
-                            if (typeof (obj.data[i].rankList[0]) != 'undefined') {
+                            if(typeof(obj.data[i].rankList[0]) != 'undefined'){
                                 $(this).find('td').eq(6).html($(this).find('td').eq(6).html() + 'No.' + obj.data[i].rank + "  " + obj.data[i].rankList[0].datetime)
                             }
                             //在序号排名变化时间节点记录页新增div
@@ -204,7 +204,7 @@
                         $.post(host + 'python/updateremark', {'cdeId': $(this).parents('tr').attr('lang'), "remark": $(this).text()})
                     }
                 })
-
+                
                 //公开备注
                 $(document).on('focus', 'remark1', function () {
                     p_remarkText = $(this).text();
@@ -240,26 +240,27 @@
     <body>
         <?php include "menu.php"; ?>
         <div style="padding-top:15px;">
-            <div id="bar" style="float: left; margin-left: 3%;">
-                <select id="select1">
+			<div id="bar" style="float: left; margin-left: 3%;">
+				<select id="select1">
 
-                </select>
-                <select id="select2">
+				</select>
+				<select id="select2">
 
-                </select>
-                <select id="select3">
+				</select>
+				<select id="select3">
 
-                </select>
-            </div>
+				</select>
+			</div>
+			
+			<div id="bar" style="float: right; margin-right: 3%;">
+				<input id="input" type="text" placeholder="">
+				<button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
+				<button class="btn btn-primary btn-sm" id="delete">Delete</button>
+			</div>
 
-            <div id="bar" style="float: right; margin-right: 3%;">
-                <input id="input" type="text" placeholder="">
-                <button class="btn btn-primary btn-sm" id="search">Search</button>&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary btn-sm" id="delete">Delete</button>
-            </div>
-        </div>
-        <br />
-        <br />
+			<br />
+			<br />
+		</div>
         <table id="searchTable" align="center">
             <tr>
                 <th w_check="true" width="3%;" title="全选"></th>
