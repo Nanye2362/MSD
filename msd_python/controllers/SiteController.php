@@ -179,4 +179,7 @@ class SiteController extends Controller {
         return $this->render('Sendemail', $data);
     }
 
+    public function actionTest() {
+        return $this->render('test.tpl', ['test'=>'smarty']);
+    }
 }
